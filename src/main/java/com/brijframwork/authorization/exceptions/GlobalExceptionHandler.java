@@ -26,8 +26,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<Object>(errorResponse, new HttpHeaders(), HttpStatus.CONFLICT);
 	}
 	
-	@ExceptionHandler(value = { UserNotFoundException.class, BadCredentialsException.class  })
+	@ExceptionHandler(value = { UserNotFoundException.class})
 	protected ResponseEntity<Object> notFoundException(RuntimeException ex, WebRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NO_CONTENT.value(),"NOT_FOUND", 1409, ex.getMessage());
+		
+		return new ResponseEntity<Object>(errorResponse, new HttpHeaders(), HttpStatus.FORBIDDEN);
+	}
+	
+	@ExceptionHandler(value = { InvalidTokenException.class, BadCredentialsException.class  })
+	protected ResponseEntity<Object> invalidException(RuntimeException ex, WebRequest request) {
 		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.FORBIDDEN.value(),"NOT_FOUND", 1409, ex.getMessage());
 		
 		return new ResponseEntity<Object>(errorResponse, new HttpHeaders(), HttpStatus.FORBIDDEN);

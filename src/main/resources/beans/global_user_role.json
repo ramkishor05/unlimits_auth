@@ -1,6 +1,6 @@
 {
 	"id": "GlobalUserRole",
-	"order": 1,
+	"orderSequence": 1,
 	"objects": [
 		{
 			"id": "UserRole_DEVELOPER",

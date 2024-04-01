@@ -2,6 +2,7 @@ package com.brijframwork.authorization.filters;
 
 import static com.brijframwork.authorization.constant.Constants.AUTHORIZATION;
 import static com.brijframwork.authorization.constant.Constants.BEARER;
+import static com.brijframwork.authorization.constant.Constants.TOKEN;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -17,6 +18,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.brijframwork.authorization.exceptions.InvalidTokenException;
 import com.brijframwork.authorization.service.TokenService;
 
 import jakarta.servlet.FilterChain;
@@ -35,25 +37,30 @@ public class TokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException { 
     	log.debug("TokenFilter:: doFilterInternal() -started");
+        MutableHttpServletRequest requestWrapper = new MutableHttpServletRequest(request);
+
         String authHeader = request.getHeader(AUTHORIZATION); 
         String token = null; 
         String username = null; 
         String role = null; 
+
         if (authHeader != null && authHeader.startsWith(BEARER)) { 
             token = authHeader.substring(7);
             username = tokenService.extractUsername(token); 
             role =tokenService.extractRole(token);
             log.debug("extracted user role {} ::",role);
+            requestWrapper.putHeader(TOKEN, token);
+        } 
+        if (token!=null && !tokenService.validateToken(token)) { 
+        	throw new InvalidTokenException("Invalid token !!");
         } 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) { 
-            if (tokenService.validateToken(token, username)) { 
-            	log.debug("valid token");
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, null, getGrantedAuthority(role)); 
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)); 
-                SecurityContextHolder.getContext().setAuthentication(authToken); 
-            } 
+            log.debug("valid token");
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, null, getGrantedAuthority(role)); 
+            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)); 
+            SecurityContextHolder.getContext().setAuthentication(authToken); 
         } 
-        filterChain.doFilter(request, response); 
+        filterChain.doFilter(requestWrapper, response); 
         log.debug("TokenFilter:: doFilterInternal() -ended");
     } 
     

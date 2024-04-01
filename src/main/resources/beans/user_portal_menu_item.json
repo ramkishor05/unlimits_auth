@@ -1,6 +1,6 @@
 {
   "id": "User_Portal_MenuItem",
-  "order": 2,
+  "orderSequence": 2,
   "objects": [
     {
       "id": "User_Portal_MenuItem_Dashboard",

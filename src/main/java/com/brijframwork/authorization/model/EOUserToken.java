@@ -29,6 +29,14 @@ public class EOUserToken extends EOEntityObject{
 		
 	}
 
+	public EOUserToken(String source, String target, String type, EOUserAccount userAccount) {
+		super();
+		this.source = source;
+		this.target = target;
+		this.type = type;
+		this.userAccount = userAccount;
+	}
+
 	public String getSource() {
 		return source;
 	}

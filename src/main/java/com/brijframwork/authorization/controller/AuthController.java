@@ -5,6 +5,7 @@ import static com.brijframwork.authorization.constant.Constants.RESET_LINK_MSG2;
 import static com.brijframwork.authorization.constant.Constants.SEND_LINK_MSG1;
 import static com.brijframwork.authorization.constant.Constants.SEND_LINK_MSG2;
 import static com.brijframwork.authorization.constant.Constants.SEND_LINK_VALID_TIME;
+import static com.brijframwork.authorization.constant.Constants.TOKEN;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -20,9 +21,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +42,6 @@ import com.brijframwork.authorization.beans.PasswordReset;
 import com.brijframwork.authorization.beans.TokenRequest;
 import com.brijframwork.authorization.beans.UIUserAccount;
 import com.brijframwork.authorization.constant.Authority;
-import com.brijframwork.authorization.exceptions.UserNotFoundException;
 import com.brijframwork.authorization.service.MailService;
 import com.brijframwork.authorization.service.TemplateService;
 import com.brijframwork.authorization.service.TokenService;
@@ -80,13 +82,18 @@ public class AuthController {
 		log.debug("User Login start.");
 		Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 				authRequest.getUsername(), authRequest.getPassword(), getGrantedAuthority(authority.toString())));
-		System.out.println("authenticate.isAuthenticated()=" + authenticate.isAuthenticated());
 		if (authenticate.isAuthenticated()) {
 			log.debug("AuthController :: generateToken()");
-			return tokenService.generateToken(authRequest.getUsername(), authority.toString());
+			return tokenService.login(authRequest.getUsername(), authority.toString());
 		} else {
 			throw new UsernameNotFoundException("invalid user request !");
 		}
+	}
+	
+	@PostMapping("/logout")
+	public String userLogout(@RequestHeader(TOKEN) String token) {
+		log.debug("User Login start.");
+		return tokenService.logout(token);
 	}
 
 	@PostMapping("/register")
@@ -96,6 +103,13 @@ public class AuthController {
 		log.debug("authority :: {}", authority);
 		return authProvider.register(authRequest, authority.toString());
 	}
+	
+	@GetMapping("/userdetail")
+    public ResponseEntity<?> getUserDetailFromToken(@RequestHeader(TOKEN) String token) throws AuthenticationException {
+    	
+    	return ResponseEntity.ok(tokenService.getUserDetailFromToken(token));
+    }
+	
 
 	@PostMapping("/password/send/link")
 	public Boolean sendLink(@RequestBody PasswordReset passwordReset) {
@@ -150,7 +164,6 @@ public class AuthController {
 		return "";
 	}
 	
-	
 	@PostMapping("/password/send/otp")
 	public Boolean sendOtp(@RequestBody PasswordReset passwordReset) {
 		log.debug("AuthController::sendOtp() start.");
@@ -172,7 +185,6 @@ public class AuthController {
 		authProvider.resetPassword(passwordReset);
 		return true;
 	}
-	 
 
 	private List<GrantedAuthority> getGrantedAuthority(String authority) {
 		return Arrays.asList(new GrantedAuthority() {

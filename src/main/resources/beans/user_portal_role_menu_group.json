@@ -1,6 +1,6 @@
 {
 	"id": "User_Portal_MenuGroup_Role",
-	"order": 3,
+	"orderSequence": 3,
 	"objects": [
 		{
 			"id": "User_Portal_MenuGroup_Role_USER_Dashboard",

@@ -8,6 +8,8 @@ public class Constants {
     public final static String ROLE="ROLE";
 	public static final String AUTHORIZATION = "Authorization";
 	public static final String BEARER = "Bearer ";
+	
+	public static final String TOKEN =  "token";
 
 	public static final String USER_NOT_FOUND = "User not found ";
 	

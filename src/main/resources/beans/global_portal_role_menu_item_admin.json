@@ -1,6 +1,6 @@
 {
 	"id": "Global_Portal_MenuItem_Role",
-	"order": 3,
+	"orderSequence": 3,
 	"objects": [
 		{
 			"id": "Global_Portal_MenuItem_Role_Admin_Dashboard",
