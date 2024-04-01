@@ -1,0 +1,36 @@
+{
+	"id": "Global_Portal_MenuGroup_Role",
+	"order": 3,
+	"objects": [
+		{
+			"id": "Global_Portal_MenuGroup_Role_Admin_Dashboard",
+			"type": "com.brijframwork.authorization.model.menus.EORoleMenuGroup",
+			"name": "Global_Portal_MenuGroup_Role",
+			"properties": {
+				"idenNo": "Global_Portal_MenuGroup_Role_Admin_Dashboard",
+				"userRole": "LK@UserRole_ADMIN",
+				"menuGroup": "LK@Global_Portal_MenuGroup_Dashboard"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuGroup_Role_Admin_Category",
+			"type": "com.brijframwork.authorization.model.menus.EORoleMenuGroup",
+			"name": "Global_Portal_MenuGroup_Role",
+			"properties": {
+				"idenNo": "Global_Portal_MenuGroup_Role_Admin_Category",
+				"userRole": "LK@UserRole_ADMIN",
+				"menuGroup": "LK@Global_Portal_MenuGroup_Category"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuGroup_Role_Admin_UserProfile",
+			"type": "com.brijframwork.authorization.model.menus.EORoleMenuGroup",
+			"name": "Global_Portal_MenuGroup_Role",
+			"properties": {
+				"idenNo": "Global_Portal_MenuGroup_Role_Admin_UserProfile",
+				"userRole": "LK@UserRole_ADMIN",
+				"menuGroup": "LK@Global_Portal_MenuGroup_UserProfile"
+			}
+		}
+	]
+}

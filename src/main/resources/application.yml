@@ -1,0 +1,52 @@
+spring:
+   profiles:
+     active: local
+   application:
+     name: PointOfSaleAuth
+   main:
+     allow-bean-definition-overriding: true
+   sql.init.mode: always
+   datasource:
+     driverClassName: com.mysql.cj.jdbc.Driver
+     url: jdbc:mysql://localhost:3306/unlimits_auth
+     username: root
+     password: root
+     show-sql: true
+   jpa: 
+     hibernate: 
+       dialect: org.hibernate.dialect.MySQLDialect
+       ddl-auto: update
+       format_sql: true
+       show_sql: true
+       naming: 
+         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+   mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+          auth: 'true'
+    host: smtp.gmail.com
+    username: nikhilraj0123467@gmail.com
+    protocol: smtp
+    password: keqx xjod sicl qtzy
+    test-connection: 'false'
+    port: '587'
+   db:
+     datajson:
+       upload: true
+# Discovery Server Access
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:1111/eureka/
+# HTTP Server (Tomcat) Port
+server: 
+  port: 3333
+logging.level.org.hibernate.SQL: DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+# Disable Spring Boot's "Whitelabel" default error page, so we can use our own
+error:
+  whitelabel:
+    enabled: true

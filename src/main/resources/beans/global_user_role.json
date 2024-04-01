@@ -1,0 +1,39 @@
+{
+	"id": "GlobalUserRole",
+	"order": 1,
+	"objects": [
+		{
+			"id": "UserRole_DEVELOPER",
+			"type": "com.brijframwork.authorization.model.EOUserRole",
+			"name": "GlobalUserRole",
+			"properties": {
+				"position": 1,
+				"roleName": "Dev",
+				"roleId": "DEVELOPER",
+				"roleType": "GLOBAL"
+			}
+		},
+		{
+			"id": "UserRole_ADMIN",
+			"type": "com.brijframwork.authorization.model.EOUserRole",
+			"name": "GlobalUserRole",
+			"properties": {
+				"position": 2,
+				"roleName": "Admin",
+				"roleId": "ADMIN",
+				"roleType": "GLOBAL"
+			}
+		},
+		{
+			"id": "UserRole_USER",
+			"type": "com.brijframwork.authorization.model.EOUserRole",
+			"name": "GlobalUserRole",
+			"properties": {
+				"position": 3,
+				"roleName": "User",
+				"roleId": "USER",
+				"roleType": "APP"
+			}
+		}
+	]
+}

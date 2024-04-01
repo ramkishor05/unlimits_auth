@@ -1,0 +1,16 @@
+{
+	"id": "User_Portal_MenuGroup_Role",
+	"order": 3,
+	"objects": [
+		{
+			"id": "User_Portal_MenuGroup_Role_USER_Dashboard",
+			"type": "com.brijframwork.authorization.model.menus.EORoleMenuGroup",
+			"name": "User_Portal_MenuGroup_Role",
+			"properties": {
+				"idenNo": "User_Portal_MenuGroup_Role_USER_Dashboard",
+				"userRole": "LK@UserRole_USER",
+				"menuGroup": "LK@User_Portal_MenuGroup_Dashboard"
+			}
+		}
+	]
+}

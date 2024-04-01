@@ -1,0 +1,118 @@
+{
+	"id": "Global_Portal_MenuItem",
+	"orderSequence": 2,
+	"objects": [
+		{
+			"id": "Global_Portal_MenuItem_Dashboard",
+			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "Dashboard",
+				"idenNo": "Global_Portal_MenuItem_Dashboard",
+				"type": "item",
+				"url": "/global/dashboard/default",
+				"icon": "Dashboard",
+				"orderSequence": 1.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Dashboard"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Menu_Groups",
+			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "Menu Groups",
+				"idenNo": "Global_Portal_MenuItem_Menu_Groups",
+				"type": "item",
+				"url": "/global/menus/groups",
+				"icon": "MenuGroups",
+				"orderSequence": 1.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Menus"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Menu_Items",
+			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "Menu Items",
+				"idenNo": "Global_Portal_MenuItem_Menu_Items",
+				"type": "item",
+				"url": "/global/menus/items",
+				"icon": "MenuItems",
+				"orderSequence": 2.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Menus"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Role_Menu_Groups",
+			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "Role Menu Groups",
+				"idenNo": "Global_Portal_MenuItem_Role_Menu_Groups",
+				"type": "item",
+				"url": "/global/menus/role/groups",
+				"icon": "RoleMenuGroups",
+				"orderSequence": 3.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Menus"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Role_Menu_Items",
+			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "Role Menu Items",
+				"idenNo": "Global_Portal_MenuItem_Role_Menu_Items",
+				"type": "item",
+				"url": "/global/menus/role/items",
+				"icon": "RoleMenuItems",
+				"orderSequence": 4.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Menus"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Category_Group",
+			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "Category Group",
+				"idenNo": "Global_Portal_MenuItem_Category_Group",
+				"type": "item",
+				"url": "/global/setups/category/group",
+				"icon": "CategoryGroup",
+				"orderSequence": 1.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Setups"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Category_List",
+			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "Category List",
+				"idenNo": "Global_Portal_MenuItem_Category_List",
+				"type": "item",
+				"url": "/global/setups/category/list",
+				"icon": "CategoryList",
+				"orderSequence": 2.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Setups"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_UserProfile",
+			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "User profile",
+				"idenNo": "Global_Portal_MenuItem_UserProfile",
+				"type": "item",
+				"url": "/global/portal/userprofile/detial",
+				"icon": "UserProfile",
+				"orderSequence": 1.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_UserProfile"
+			}
+		}
+	]
+}
