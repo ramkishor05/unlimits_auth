@@ -68,7 +68,7 @@ public interface UserDetailMapper extends GenericMapper<EOUserAccount, UserDetai
 	        for(UIMenuGroup uiMenuGroup : uiMenuGroups) {
 	        	List<UIMenuItem> menuItems = uiMenuGroup.getMenuItems();
 	        	checkOnBoardingStatus(onBoardingMenuIdenNoMap, onBoardingLevelStatusMap, menuItems);
-	        	uiMenuGroup.setDisabled(menuItems.stream().filter(menuItem->!menuItem.getDisabled()).count()==0);
+	        	//uiMenuGroup.setDisabled(menuItems.stream().filter(menuItem->!menuItem.getDisabled()).count()==0);
 	        }
 	        List<UIMenuItem> menuItems = userDetailResponse.getUserRole().getRoleMenuItems();
 	        checkOnBoardingStatus(onBoardingMenuIdenNoMap, onBoardingLevelStatusMap, menuItems);
@@ -82,7 +82,7 @@ public interface UserDetailMapper extends GenericMapper<EOUserAccount, UserDetai
 			if(uiMenuItem.getDisabled()) {
 				continue;
 			}
-			uiMenuItem.setDisabled(true);
+			//uiMenuItem.setDisabled(true);
 			if(uiMenuItem.getOnBoarding()) {
 				uiMenuItem.setDisabled(false);
 				UIUserOnBoarding uiUserOnBoarding = onBoardingMenuIdenNoMap.get(uiMenuItem.getIdenNo());
@@ -92,7 +92,7 @@ public interface UserDetailMapper extends GenericMapper<EOUserAccount, UserDetai
 				Boolean preOnBoardingStatus = onBoardingLevelStatusMap.get(uiUserOnBoarding.getOnBoardingLevel()-1);
 				if(preOnBoardingStatus!=null) {
 					if(!preOnBoardingStatus) {
-						uiMenuItem.setDisabled(true);
+						//uiMenuItem.setDisabled(true);
 					} 
 				}
 			} 

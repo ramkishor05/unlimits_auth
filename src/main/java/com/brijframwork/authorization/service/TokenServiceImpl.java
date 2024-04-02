@@ -1,6 +1,6 @@
 package com.brijframwork.authorization.service;
 
-import static com.brijframwork.authorization.constant.Constants.ROLE;
+import static com.brijframwork.authorization.constant.Constants.*;
 
 import java.security.Key;
 import java.util.Date;
@@ -137,6 +137,7 @@ public class TokenServiceImpl implements TokenService{
     @Override
     public Boolean validateToken(String token) { 
     	log.debug("TokenServiceImpl :: validateToken() started");
+    	System.out.println("token="+token);
     	Optional<EOUserToken> findBySource = userTokenRepository.findBySource(token);
     	if(!findBySource.isPresent()) {
     		return false;
@@ -152,10 +153,10 @@ public class TokenServiceImpl implements TokenService{
     
     @Override
     public String login(String username, String role) {
-    	String token = generateToken(username, role);
+    	String token =generateToken(username, role);
     	EOUserToken eoToken=new EOUserToken(token, token, "NORMAL", userAccountRepository.findByUsername(username).orElse(null));
 		userTokenRepository.save(eoToken);
-		return token;
+		return TOKEN_PREFIX+token;
     }
     
     @Override

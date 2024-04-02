@@ -29,6 +29,20 @@
 			}
 		},
 		{
+			"id": "Global_Portal_MenuGroup_Tags",
+			"type": "com.brijframwork.authorization.model.menus.EOMenuGroup",
+			"name": "Global_Portal_MenuGroup",
+			"properties": {
+				"title": "Tags",
+				"idenNo": "Global_Portal_MenuGroup_Tags",
+				"type": "group",
+				"icon": "Tags",
+				"orderSequence": 3.0,
+				"url": "/global/portal/tags"
+			}
+		}
+		,
+		{
 			"id": "Global_Portal_MenuGroup_Menus",
 			"type": "com.brijframwork.authorization.model.menus.EOMenuGroup",
 			"name": "Global_Portal_MenuGroup",

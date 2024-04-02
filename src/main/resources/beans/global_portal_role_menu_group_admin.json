@@ -23,6 +23,16 @@
 			}
 		},
 		{
+			"id": "Global_Portal_MenuGroup_Role_Admin_Tags",
+			"type": "com.brijframwork.authorization.model.menus.EORoleMenuGroup",
+			"name": "Global_Portal_MenuGroup_Role",
+			"properties": {
+				"idenNo": "Global_Portal_MenuGroup_Role_Admin_Tags",
+				"userRole": "LK@UserRole_ADMIN",
+				"menuGroup": "LK@Global_Portal_MenuGroup_Tags"
+			}
+		},
+		{
 			"id": "Global_Portal_MenuGroup_Role_Admin_UserProfile",
 			"type": "com.brijframwork.authorization.model.menus.EORoleMenuGroup",
 			"name": "Global_Portal_MenuGroup_Role",

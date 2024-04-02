@@ -101,6 +101,34 @@
 			}
 		},
 		{
+			"id": "Global_Portal_MenuItem_Tag_Group",
+			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "Tag Group",
+				"idenNo": "Global_Portal_MenuItem_Tag_Group",
+				"type": "item",
+				"url": "/global/setups/tag/group",
+				"icon": "TagGroup",
+				"orderSequence": 1.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Setups"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Tag_List",
+			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "Tag List",
+				"idenNo": "Global_Portal_MenuItem_Tag_List",
+				"type": "item",
+				"url": "/global/setups/tag/list",
+				"icon": "TagList",
+				"orderSequence": 2.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Setups"
+			}
+		},
+		{
 			"id": "Global_Portal_MenuItem_UserProfile",
 			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",

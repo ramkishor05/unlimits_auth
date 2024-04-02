@@ -37,6 +37,28 @@
 			}
 		},
 		{
+			"id": "Global_Portal_MenuItem_Role_Admin_Tag_Group",
+			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"name": "Global_Portal_MenuItem_Role",
+			"properties": {
+				"idenNo": "Global_Portal_MenuItem_Role_Admin_Tag_Group",
+				"userRole": "LK@UserRole_ADMIN",
+				"menuItem": "LK@Global_Portal_MenuItem_Tag_Group",
+				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Admin_Tags" 
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Role_Admin_Tag_List",
+			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"name": "Global_Portal_MenuItem_Role",
+			"properties": {
+				"idenNo": "Global_Portal_MenuItem_Role_Admin_Tag_List",
+				"userRole": "LK@UserRole_ADMIN",
+				"menuItem": "LK@Global_Portal_MenuItem_Tag_List",
+				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Admin_Tags"
+			}
+		},
+		{
 			"id": "Global_Portal_MenuItem_Role_Admin_Role_UserProfile",
 			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
 			"name": "Global_Portal_MenuItem_Role",
