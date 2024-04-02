@@ -97,6 +97,12 @@ public class AuthController {
 		log.debug("User Login start.");
 		return tokenService.logout(token);
 	}
+	
+	@PostMapping("/validate")
+	public Boolean userValidate(@RequestHeader(TOKEN) String token) {
+		log.debug("User Login start.");
+		return tokenService.validateToken(token);
+	}
 
 	@PostMapping("/register")
 	public boolean userRegistor(@RequestBody UIUserAccount authRequest,
@@ -108,7 +114,6 @@ public class AuthController {
 	
 	@GetMapping("/userdetail")
     public ResponseEntity<?> getUserDetailFromToken(@RequestHeader(TOKEN) String token) throws AuthenticationException {
-    	
     	return ResponseEntity.ok(tokenService.getUserDetailFromToken(token));
     }
 	
