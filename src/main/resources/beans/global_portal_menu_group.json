@@ -16,43 +16,42 @@
 			}
 		},
 		{
-			"id": "Global_Portal_MenuGroup_Category",
+			"id": "Global_Portal_MenuGroup_Content",
 			"type": "com.brijframwork.authorization.model.menus.EOMenuGroup",
 			"name": "Global_Portal_MenuGroup",
 			"properties": {
-				"title": "Category",
-				"idenNo": "Global_Portal_MenuGroup_Category",
+				"title": "Content",
+				"idenNo": "Global_Portal_MenuGroup_Content",
 				"type": "group",
-				"icon": "Category",
+				"icon": "Content",
 				"orderSequence": 2.0,
-				"url": "/global/portal/category"
+				"url": "/global/portal/content"
 			}
 		},
 		{
-			"id": "Global_Portal_MenuGroup_Tags",
+			"id": "Global_Portal_MenuGroup_Organizations",
 			"type": "com.brijframwork.authorization.model.menus.EOMenuGroup",
 			"name": "Global_Portal_MenuGroup",
 			"properties": {
-				"title": "Tags",
-				"idenNo": "Global_Portal_MenuGroup_Tags",
+				"title": "Organizations",
+				"idenNo": "Global_Portal_MenuGroup_Organizations",
 				"type": "group",
-				"icon": "Tags",
+				"icon": "Organizations",
 				"orderSequence": 3.0,
-				"url": "/global/portal/tags"
+				"url": "/global/portal/organizations"
 			}
-		}
-		,
+		},
 		{
-			"id": "Global_Portal_MenuGroup_Menus",
+			"id": "Global_Portal_MenuGroup_Application",
 			"type": "com.brijframwork.authorization.model.menus.EOMenuGroup",
 			"name": "Global_Portal_MenuGroup",
 			"properties": {
-				"title": "Menus",
-				"idenNo": "Global_Portal_MenuGroup_Menus",
+				"title": "Application",
+				"idenNo": "Global_Portal_MenuGroup_Application",
 				"type": "group",
-				"icon": "Menus",
-				"orderSequence": 2.0,
-				"url": "/global/portal/menus"
+				"icon": "Application",
+				"orderSequence": 4.0,
+				"url": "/global/portal/application"
 			}
 		},
 		{
@@ -64,7 +63,7 @@
 				"idenNo": "Global_Portal_MenuGroup_UserProfile",
 				"type": "group",
 				"icon": "UserProfile",
-				"orderSequence": 6.0,
+				"orderSequence": 5.0,
 				"url": "/global/portal/userprofile"
 			}
 		}

@@ -32,7 +32,6 @@ public class EORoleMenuGroup extends EOEntityObject {
 	@ManyToOne
 	@JoinColumn(name = "USER_ROLE_ID", nullable = false)
 	private EOUserRole userRole;
-	
 
 	@ManyToOne
 	@JoinColumn(name = "MENU_GROUP_ID", nullable = false)

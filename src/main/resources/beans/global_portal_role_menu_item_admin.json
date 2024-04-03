@@ -22,7 +22,7 @@
 				"idenNo": "Global_Portal_MenuItem_Role_Admin_Category_Group",
 				"userRole": "LK@UserRole_ADMIN",
 				"menuItem": "LK@Global_Portal_MenuItem_Category_Group",
-				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Admin_Category" 
+				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Admin_Content" 
 			}
 		},
 		{
@@ -33,7 +33,7 @@
 				"idenNo": "Global_Portal_MenuItem_Role_Admin_Category_List",
 				"userRole": "LK@UserRole_ADMIN",
 				"menuItem": "LK@Global_Portal_MenuItem_Category_List",
-				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Admin_Category"
+				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Admin_Content"
 			}
 		},
 		{
@@ -44,7 +44,7 @@
 				"idenNo": "Global_Portal_MenuItem_Role_Admin_Tag_Group",
 				"userRole": "LK@UserRole_ADMIN",
 				"menuItem": "LK@Global_Portal_MenuItem_Tag_Group",
-				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Admin_Tags" 
+				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Admin_Content" 
 			}
 		},
 		{
@@ -55,7 +55,51 @@
 				"idenNo": "Global_Portal_MenuItem_Role_Admin_Tag_List",
 				"userRole": "LK@UserRole_ADMIN",
 				"menuItem": "LK@Global_Portal_MenuItem_Tag_List",
-				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Admin_Tags"
+				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Admin_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Role_Admin_My_Mindset_Videos",
+			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"name": "Global_Portal_MenuItem_Role",
+			"properties": {
+				"idenNo": "Global_Portal_MenuItem_Role_Admin_My_Mindset_Videos",
+				"userRole": "LK@UserRole_ADMIN",
+				"menuItem": "LK@Global_Portal_MenuItem_My_Mindset_Videos",
+				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Admin_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Role_Admin_Image_List",
+			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"name": "Global_Portal_MenuItem_Role",
+			"properties": {
+				"idenNo": "Global_Portal_MenuItem_Role_Admin_Image_List",
+				"userRole": "LK@UserRole_ADMIN",
+				"menuItem": "LK@Global_Portal_MenuItem_Image_List",
+				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Admin_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Role_Admin_Prompt_Tag",
+			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"name": "Global_Portal_MenuItem_Role",
+			"properties": {
+				"idenNo": "Global_Portal_MenuItem_Role_Admin_Prompt_Tag",
+				"userRole": "LK@UserRole_ADMIN",
+				"menuItem": "LK@Global_Portal_MenuItem_Prompt_Tag",
+				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Admin_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Role_Admin_User_List",
+			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"name": "Global_Portal_MenuItem_Role",
+			"properties": {
+				"idenNo": "Global_Portal_MenuItem_Role_Admin_User_List",
+				"userRole": "LK@UserRole_ADMIN",
+				"menuItem": "LK@Global_Portal_MenuItem_User_List",
+				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Admin_Organizations"
 			}
 		},
 		{

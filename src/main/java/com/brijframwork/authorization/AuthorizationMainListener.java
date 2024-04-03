@@ -93,9 +93,9 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
     	    		eoUserAccount.setAccountName(eoUserRole.getRoleName());
     	    		eoUserAccount.setUsername(eoUserRole.getRoleName());
     	    		eoUserAccount.setType(eoUserRole.getRoleName());
-    	    		if(eoUserAccount.getPassword()==null) {
+    	    		//if(eoUserAccount.getPassword()==null) {
     	    			eoUserAccount.setPassword(passwordEncoder.encode(eoUserRole.getRoleName()));
-    	    		}
+    	    		//}
     	    		eoUserAccount.setUserRole(eoUserRole);
     	    		eoUserAccount=userAccountRepository.save(eoUserAccount);
     	    		if(eoUserAccount.getUserProfile()==null) {

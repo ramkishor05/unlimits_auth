@@ -131,7 +131,7 @@ public interface UserDetailMapper extends GenericMapper<EOUserAccount, UserDetai
 		for(EORoleMenuGroup eoRoleMenuGroup: eoRoleMenuGroupList) {
 			uiMenuGroups.add(mapRoleMenuGroupToMenuGroupDTO(eoRoleMenuGroup));
 		}
-		uiMenuGroups.sort((m1,m2)->m1.getOrderSequnce().compareTo(m2.getOrderSequnce()));
+		uiMenuGroups.sort((m1,m2)->m1.getOrderSequence().compareTo(m2.getOrderSequence()));
 		return uiMenuGroups;
 	}
 	
@@ -150,7 +150,7 @@ public interface UserDetailMapper extends GenericMapper<EOUserAccount, UserDetai
 		for(EORoleMenuItem eoRoleMenuItem: eoRoleMenuItemList) {
 			uiMenuItems.add(mapRoleMenuItemToMenuItemDTO(eoRoleMenuItem));
 		}
-		uiMenuItems.sort((m1,m2)->m1.getOrderSequnce().compareTo(m2.getOrderSequnce()));
+		uiMenuItems.sort((m1,m2)->m1.getOrderSequence().compareTo(m2.getOrderSequence()));
 		return uiMenuItems;
 	}
 	
@@ -170,7 +170,7 @@ public interface UserDetailMapper extends GenericMapper<EOUserAccount, UserDetai
 		for(EORoleHeaderItem eoRoleHeaderItem: eoRoleHeaderItemList) {
 			uiHeaderItems.add(mapRoleHeaderItemToHeaderItemDTO(eoRoleHeaderItem));
 		}
-		uiHeaderItems.sort((m1,m2)->m1.getOrderSequnce().compareTo(m2.getOrderSequnce()));
+		uiHeaderItems.sort((m1,m2)->m1.getOrderSequence().compareTo(m2.getOrderSequence()));
 		return uiHeaderItems;
 	}
 	

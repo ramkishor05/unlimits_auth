@@ -24,10 +24,10 @@
 				"title": "Menu Groups",
 				"idenNo": "Global_Portal_MenuItem_Menu_Groups",
 				"type": "item",
-				"url": "/global/menus/groups",
+				"url": "/global/portal/menus/groups",
 				"icon": "MenuGroups",
 				"orderSequence": 1.0,
-				"menuGroup": "LK@Global_Portal_MenuGroup_Menus"
+				"menuGroup": "LK@Global_Portal_MenuGroup_Application"
 			}
 		},
 		{
@@ -38,10 +38,10 @@
 				"title": "Menu Items",
 				"idenNo": "Global_Portal_MenuItem_Menu_Items",
 				"type": "item",
-				"url": "/global/menus/items",
+				"url": "/global/portal/menus/items",
 				"icon": "MenuItems",
 				"orderSequence": 2.0,
-				"menuGroup": "LK@Global_Portal_MenuGroup_Menus"
+				"menuGroup": "LK@Global_Portal_MenuGroup_Application"
 			}
 		},
 		{
@@ -52,10 +52,10 @@
 				"title": "Role Menu Groups",
 				"idenNo": "Global_Portal_MenuItem_Role_Menu_Groups",
 				"type": "item",
-				"url": "/global/menus/role/groups",
+				"url": "/global/portal/menus/role/groups",
 				"icon": "RoleMenuGroups",
 				"orderSequence": 3.0,
-				"menuGroup": "LK@Global_Portal_MenuGroup_Menus"
+				"menuGroup": "LK@Global_Portal_MenuGroup_Application"
 			}
 		},
 		{
@@ -66,10 +66,10 @@
 				"title": "Role Menu Items",
 				"idenNo": "Global_Portal_MenuItem_Role_Menu_Items",
 				"type": "item",
-				"url": "/global/menus/role/items",
+				"url": "/global/portal/menus/role/items",
 				"icon": "RoleMenuItems",
 				"orderSequence": 4.0,
-				"menuGroup": "LK@Global_Portal_MenuGroup_Menus"
+				"menuGroup": "LK@Global_Portal_MenuGroup_Application"
 			}
 		},
 		{
@@ -77,13 +77,13 @@
 			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
-				"title": "Category Group",
+				"title": "Main Categories",
 				"idenNo": "Global_Portal_MenuItem_Category_Group",
 				"type": "item",
-				"url": "/global/setups/category/group",
-				"icon": "CategoryGroup",
+				"url": "/global/portal/content/main/categories",
+				"icon": "MainCategories",
 				"orderSequence": 1.0,
-				"menuGroup": "LK@Global_Portal_MenuGroup_Setups"
+				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
 			}
 		},
 		{
@@ -91,13 +91,13 @@
 			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
-				"title": "Category List",
+				"title": "Sub Categories",
 				"idenNo": "Global_Portal_MenuItem_Category_List",
 				"type": "item",
-				"url": "/global/setups/category/list",
-				"icon": "CategoryList",
+				"url": "/global/portal/content/sub/categories",
+				"icon": "SubCategories",
 				"orderSequence": 2.0,
-				"menuGroup": "LK@Global_Portal_MenuGroup_Setups"
+				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
 			}
 		},
 		{
@@ -105,13 +105,13 @@
 			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
-				"title": "Tag Group",
+				"title": "Main Tags",
 				"idenNo": "Global_Portal_MenuItem_Tag_Group",
 				"type": "item",
-				"url": "/global/setups/tag/group",
-				"icon": "TagGroup",
-				"orderSequence": 1.0,
-				"menuGroup": "LK@Global_Portal_MenuGroup_Setups"
+				"url": "/global/portal/content/main/tags",
+				"icon": "MainTag",
+				"orderSequence": 3.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
 			}
 		},
 		{
@@ -119,13 +119,69 @@
 			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
-				"title": "Tag List",
+				"title": "Sub Tags",
 				"idenNo": "Global_Portal_MenuItem_Tag_List",
 				"type": "item",
-				"url": "/global/setups/tag/list",
-				"icon": "TagList",
-				"orderSequence": 2.0,
-				"menuGroup": "LK@Global_Portal_MenuGroup_Setups"
+				"url": "/global/portal/content/sub/tags",
+				"icon": "SubTags",
+				"orderSequence": 4.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Prompt_Tag",
+			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "Prompt & Tag",
+				"idenNo": "Global_Portal_MenuItem_Prompt_Tag",
+				"type": "item",
+				"url": "/global/portal/content/prompt/list",
+				"icon": "PromptTag",
+				"orderSequence": 5.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Image_List",
+			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "Images",
+				"idenNo": "Global_Portal_MenuItem_Image_List",
+				"type": "item",
+				"url": "/global/portal/content/image/list",
+				"icon": "Images",
+				"orderSequence": 6.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_My_Mindset_Videos",
+			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "My Mindset Videos",
+				"idenNo": "Global_Portal_MenuItem_My_Mindset_Videos",
+				"type": "item",
+				"url": "/global/portal/content/image/list",
+				"icon": "My Mindset Videos",
+				"orderSequence": 6.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_User_List",
+			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "User List",
+				"idenNo": "Global_Portal_MenuItem_User_List",
+				"type": "item",
+				"url": "/global/portal/organizations/users",
+				"icon": "User List",
+				"orderSequence": 1.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Organizations"
 			}
 		},
 		{
@@ -136,7 +192,7 @@
 				"title": "User profile",
 				"idenNo": "Global_Portal_MenuItem_UserProfile",
 				"type": "item",
-				"url": "/global/portal/userprofile/detial",
+				"url": "/global/portal/user/profile",
 				"icon": "UserProfile",
 				"orderSequence": 1.0,
 				"menuGroup": "LK@Global_Portal_MenuGroup_UserProfile"

@@ -8,7 +8,7 @@ public class UIMenuItem {
 	private String url;
 	private String icon;
 	private String type;
-	private Double orderSequnce;
+	private Double orderSequence;
 	private boolean homePage;
 	private Boolean onBoarding;
 	private Boolean disabled;
@@ -73,15 +73,15 @@ public class UIMenuItem {
 	}
 	
 
-	public Double getOrderSequnce() {
-		if(orderSequnce==null) {
-			orderSequnce=0d;
+	public Double getOrderSequence() {
+		if(orderSequence==null) {
+			orderSequence=0d;
 		}
-		return orderSequnce;
+		return orderSequence;
 	}
 
-	public void setOrderSequnce(Double orderSequnce) {
-		this.orderSequnce = orderSequnce;
+	public void setOrderSequence(Double orderSequence) {
+		this.orderSequence = orderSequence;
 	}
 
 	public boolean isHomePage() {
@@ -106,7 +106,7 @@ public class UIMenuItem {
 	@Override
 	public String toString() {
 		return "UIMenuItem [id=" + id + ", idenNo=" + idenNo + ", title=" + title + ", url=" + url + ", icon=" + icon
-				+ ", type=" + type + ", orderSequnce=" + orderSequnce + ", homePage=" + homePage + ", onBoarding=" + onBoarding
+				+ ", type=" + type + ", orderSequence=" + orderSequence + ", homePage=" + homePage + ", onBoarding=" + onBoarding
 				+ ", disabled=" + disabled + "]";
 	}
 	

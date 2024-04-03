@@ -8,7 +8,7 @@ public class UIHeaderItem {
 	private String url;
 	private String icon;
 	private String type;
-	private Double orderSequnce;
+	private Double orderSequence;
 
 	public long getId() {
 		return id;
@@ -58,15 +58,15 @@ public class UIHeaderItem {
 		this.url = url;
 	}
 
-	public Double getOrderSequnce() {
-		if(orderSequnce==null) {
-			orderSequnce=0d;
+	public Double getOrderSequence() {
+		if(orderSequence==null) {
+			orderSequence=0d;
 		}
-		return orderSequnce;
+		return orderSequence;
 	}
 
-	public void setOrderSequnce(Double orderSequnce) {
-		this.orderSequnce = orderSequnce;
+	public void setOrderSequence(Double orderSequence) {
+		this.orderSequence = orderSequence;
 	}
 
 }

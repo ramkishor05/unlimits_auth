@@ -13,7 +13,7 @@ public class UIMenuGroup {
 	private String type;
 	
 	private List<UIMenuItem> menuItems;
-	private Double orderSequnce;
+	private Double orderSequence;
 	private Boolean disabled;
 
 	public long getId() {
@@ -65,15 +65,15 @@ public class UIMenuGroup {
 		this.icon = icon;
 	}
 
-	public Double getOrderSequnce() {
-		if(orderSequnce==null) {
-			orderSequnce=0d;
+	public Double getOrderSequence() {
+		if(orderSequence==null) {
+			orderSequence=0d;
 		}
-		return orderSequnce;
+		return orderSequence;
 	}
 
-	public void setOrderSequnce(Double orderSequnce) {
-		this.orderSequnce = orderSequnce;
+	public void setOrderSequence(Double orderSequence) {
+		this.orderSequence = orderSequence;
 	}
 	
 	public List<UIMenuItem> getMenuItems() {

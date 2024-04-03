@@ -10,7 +10,7 @@
 				"idenNo": "Global_Portal_MenuItem_Role_Dev_Menu_Groups",
 				"userRole": "LK@UserRole_DEVELOPER",
 				"menuItem": "LK@Global_Portal_MenuItem_Menu_Groups",
-				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Dev_Menus"
+				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Dev_Application"
 			}
 		},
 		{
@@ -21,7 +21,7 @@
 				"idenNo": "Global_Portal_MenuItem_Role_Dev_Menu_Items",
 				"userRole": "LK@UserRole_DEVELOPER",
 				"menuItem": "LK@Global_Portal_MenuItem_Menu_Items",
-				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Dev_Menus"
+				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Dev_Application"
 			}
 		},
 		{
@@ -32,7 +32,7 @@
 				"idenNo": "Global_Portal_MenuItem_Role_Dev_Role_Menu_Groups",
 				"userRole": "LK@UserRole_DEVELOPER",
 				"menuItem": "LK@Global_Portal_MenuItem_Role_Menu_Groups",
-				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Dev_Menus"
+				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Dev_Application"
 			}
 		},
 		{
@@ -43,7 +43,7 @@
 				"idenNo": "Global_Portal_MenuItem_Role_Dev_Role_Menu_Items",
 				"userRole": "LK@UserRole_DEVELOPER",
 				"menuItem": "LK@Global_Portal_MenuItem_Role_Menu_Items",
-				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Dev_Menus"
+				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Dev_Application"
 			}
 		},
 		{

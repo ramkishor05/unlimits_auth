@@ -13,23 +13,23 @@
 			}
 		},
 		{
-			"id": "Global_Portal_MenuGroup_Role_Admin_Category",
+			"id": "Global_Portal_MenuGroup_Role_Admin_Content",
 			"type": "com.brijframwork.authorization.model.menus.EORoleMenuGroup",
 			"name": "Global_Portal_MenuGroup_Role",
 			"properties": {
-				"idenNo": "Global_Portal_MenuGroup_Role_Admin_Category",
+				"idenNo": "Global_Portal_MenuGroup_Role_Admin_Content",
 				"userRole": "LK@UserRole_ADMIN",
-				"menuGroup": "LK@Global_Portal_MenuGroup_Category"
+				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
 			}
 		},
 		{
-			"id": "Global_Portal_MenuGroup_Role_Admin_Tags",
+			"id": "Global_Portal_MenuGroup_Role_Admin_Organizations",
 			"type": "com.brijframwork.authorization.model.menus.EORoleMenuGroup",
 			"name": "Global_Portal_MenuGroup_Role",
 			"properties": {
-				"idenNo": "Global_Portal_MenuGroup_Role_Admin_Tags",
+				"idenNo": "Global_Portal_MenuGroup_Role_Admin_Organizations",
 				"userRole": "LK@UserRole_ADMIN",
-				"menuGroup": "LK@Global_Portal_MenuGroup_Tags"
+				"menuGroup": "LK@Global_Portal_MenuGroup_Organizations"
 			}
 		},
 		{
