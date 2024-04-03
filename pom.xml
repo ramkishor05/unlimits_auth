@@ -4,16 +4,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.4</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<groupId>com.brijframework</groupId>
+		<artifactId>unlimits-api</artifactId>
+		<version>1.1</version>
+		<relativePath />
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.unlimits</groupId>
 	<artifactId>unlimits-auth</artifactId>
-	<version>1.1</version>
 	<name>unlimits-auth</name>
 	<description>unlimits-auth</description>
 	<packaging>jar</packaging>
