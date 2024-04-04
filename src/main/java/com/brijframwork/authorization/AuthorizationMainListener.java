@@ -109,21 +109,31 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 	    	List<EOMenuGroup> globalMenuGroupList = instance.getAll(EOMenuGroup.class);
 	    	Map<String, EOMenuGroup> globalMenuGroupMap = globalMenuGroupRepository.findAll().stream().collect(Collectors.toMap(EOMenuGroup::getIdenNo, Function.identity()));
 	    	for (EOMenuGroup globalMenuGroup : globalMenuGroupList) {
-	    		EOMenuGroup eoUserEndpoint = globalMenuGroupMap.getOrDefault(globalMenuGroup.getIdenNo(),globalMenuGroup);
-	    		BeanUtils.copyProperties(globalMenuGroup, eoUserEndpoint, "id");
-	    		EOMenuGroup saveGlobalMenuGroup = globalMenuGroupRepository.save(eoUserEndpoint);
-	    		globalMenuGroup.setId(saveGlobalMenuGroup.getId());
-	    		globalMenuGroupMap.remove(globalMenuGroup.getIdenNo());
+	    		try {	
+		    		EOMenuGroup eoUserEndpoint = globalMenuGroupMap.getOrDefault(globalMenuGroup.getIdenNo(),globalMenuGroup);
+		    		BeanUtils.copyProperties(globalMenuGroup, eoUserEndpoint, "id");
+		    		EOMenuGroup saveGlobalMenuGroup = globalMenuGroupRepository.save(eoUserEndpoint);
+		    		globalMenuGroup.setId(saveGlobalMenuGroup.getId());
+		    		globalMenuGroupMap.remove(globalMenuGroup.getIdenNo());
+	    		}catch (Exception e) {
+					System.out.println("globalMenuGroup="+globalMenuGroup);
+					e.printStackTrace();
+				}
 			}
 	    	List<EOMenuItem> globalMenuItemList = instance.getAll(EOMenuItem.class);
 	    	Map<String, EOMenuItem> globalMenuItemMap = globalMenuItemRepository.findAll()
 	    			.stream().collect(Collectors.toMap(EOMenuItem::getIdenNo, Function.identity()));
 	    	for (EOMenuItem globalMenuItem : globalMenuItemList) {
-	    		EOMenuItem eoGlobalMenuItem = globalMenuItemMap.getOrDefault(globalMenuItem.getIdenNo(),globalMenuItem);
-	    		BeanUtils.copyProperties(globalMenuItem, eoGlobalMenuItem, "id");
-	    		EOMenuItem saveGlobalMenuItem = globalMenuItemRepository.save(eoGlobalMenuItem);
-	    		globalMenuItem.setId(saveGlobalMenuItem.getId());
-	    		globalMenuItemMap.remove(globalMenuItem.getIdenNo());
+	    		try {	
+	    			EOMenuItem eoGlobalMenuItem = globalMenuItemMap.getOrDefault(globalMenuItem.getIdenNo(),globalMenuItem);
+		    		BeanUtils.copyProperties(globalMenuItem, eoGlobalMenuItem, "id");
+		    		EOMenuItem saveGlobalMenuItem = globalMenuItemRepository.save(eoGlobalMenuItem);
+		    		globalMenuItem.setId(saveGlobalMenuItem.getId());
+		    		globalMenuItemMap.remove(globalMenuItem.getIdenNo());
+		    	}catch (Exception e) {
+					System.out.println("globalMenuItem="+globalMenuItem);
+					e.printStackTrace();
+				}
 			}
 	    	Map<String, EORoleMenuGroup> roleMenuGroupMap = roleMenuGroupRepository.findAll().parallelStream().collect(Collectors.toMap((userRoleMenuGroup)->getRoleMenuGroupKey(userRoleMenuGroup), Function.identity()));
 	    	List<EORoleMenuGroup> roleMenuGroups = instance.getAll(EORoleMenuGroup.class);
