@@ -165,7 +165,7 @@
 				"idenNo": "Global_Portal_MenuItem_My_Mindset_Videos",
 				"type": "item",
 				"url": "/global/portal/content/image/list",
-				"icon": "My Mindset Videos",
+				"icon": "MyMindsetVideos",
 				"orderSequence": 6.0,
 				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
 			}
@@ -179,7 +179,7 @@
 				"idenNo": "Global_Portal_MenuItem_User_List",
 				"type": "item",
 				"url": "/global/portal/organizations/users",
-				"icon": "User List",
+				"icon": "UserList",
 				"orderSequence": 1.0,
 				"menuGroup": "LK@Global_Portal_MenuGroup_Organizations"
 			}
