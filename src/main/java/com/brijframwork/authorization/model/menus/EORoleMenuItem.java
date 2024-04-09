@@ -17,8 +17,7 @@ import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "ROLE_MENU_ITEM", uniqueConstraints= {
-		@UniqueConstraint(columnNames = { "USER_ROLE_ID","MENU_ITEM_ID" }),
-		@UniqueConstraint(columnNames = { "IDEN_NO" }) })
+		@UniqueConstraint(columnNames = { "USER_ROLE_ID","MENU_ITEM_ID" , "IDEN_NO"})})
 public class EORoleMenuItem extends EOEntityObject {
 
 	/**
@@ -134,9 +133,12 @@ public class EORoleMenuItem extends EOEntityObject {
 
 	@Override
 	public String toString() {
-		return "EOUserRoleMenuItem [id=" + getId() + ", ownerId=" + ownerId + ", userRole=" + userRole + ", menuItem="
-				+ menuItem + ", roleMenuGroup=" + roleMenuGroup + "]";
+		return "EORoleMenuItem [idenNo=" + idenNo + ", ownerId=" + ownerId + ", userRole=" + userRole + ", menuItem="
+				+ menuItem + ", roleMenuGroup=" + roleMenuGroup + ", homePage=" + homePage + ", onBoarding="
+				+ onBoarding + ", onBoardingLevel=" + onBoardingLevel + ", userOnBoardingList=" + userOnBoardingList
+				+ "]";
 	}
+
 	
 	
 }

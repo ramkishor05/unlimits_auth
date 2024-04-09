@@ -17,8 +17,7 @@ import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "ROLE_MENU_GROUP", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "USER_ROLE_ID", "MENU_GROUP_ID" }) ,
-		@UniqueConstraint(columnNames = { "IDEN_NO" }) })
+		@UniqueConstraint(columnNames = { "USER_ROLE_ID", "MENU_GROUP_ID", "IDEN_NO" }) })
 public class EORoleMenuGroup extends EOEntityObject {
 
 	/**

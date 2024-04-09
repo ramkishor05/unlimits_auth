@@ -67,4 +67,11 @@ public class EOHeaderItem extends EOEntityObject{
 		this.icon = icon;
 	}
 
+	@Override
+	public String toString() {
+		return "EOHeaderItem [idenNo=" + idenNo + ", title=" + title + ", url=" + url + ", type=" + type + ", icon="
+				+ icon + "]";
+	}
+
+	
 }

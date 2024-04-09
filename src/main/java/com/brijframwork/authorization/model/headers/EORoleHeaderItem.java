@@ -11,7 +11,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "ROLE_HEADER_ITEM", uniqueConstraints= {@UniqueConstraint(columnNames = { "USER_ROLE_ID","HEADER_ITEM_ID" })})
+@Table(name = "ROLE_HEADER_ITEM", uniqueConstraints= {
+		@UniqueConstraint(columnNames = { "USER_ROLE_ID","HEADER_ITEM_ID","IDEN_NO" })})
 public class EORoleHeaderItem extends EOEntityObject {
 
 	/**
@@ -64,4 +65,12 @@ public class EORoleHeaderItem extends EOEntityObject {
 	public void setHeaderItem(EOHeaderItem headerItem) {
 		this.headerItem = headerItem;
 	}
+
+	@Override
+	public String toString() {
+		return "EORoleHeaderItem [idenNo=" + idenNo + ", ownerId=" + ownerId + ", userRole=" + userRole
+				+ ", headerItem=" + headerItem + "]";
+	}
+	
+	
 }
