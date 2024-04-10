@@ -147,7 +147,7 @@
 			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
-				"title": "Images",
+				"title": "Image Library",
 				"idenNo": "Global_Portal_MenuItem_Image_List",
 				"type": "item",
 				"url": "/global/portal/content/image/list",
@@ -164,7 +164,7 @@
 				"title": "My Mindset Videos",
 				"idenNo": "Global_Portal_MenuItem_My_Mindset_Videos",
 				"type": "item",
-				"url": "/global/portal/content/image/list",
+				"url": "/global/portal/content/midset/videos",
 				"icon": "MyMindsetVideos",
 				"orderSequence": 6.0,
 				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
