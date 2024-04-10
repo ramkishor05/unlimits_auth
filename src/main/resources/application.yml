@@ -36,6 +36,9 @@ spring:
    db:
      datajson:
        upload: true
+springdoc:
+   swagger-ui:
+      path: /api/swagger-ui.html
 # Discovery Server Access
 #eureka:
 #  client:

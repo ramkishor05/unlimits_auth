@@ -17,7 +17,7 @@ import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "ROLE_MENU_GROUP", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "USER_ROLE_ID", "MENU_GROUP_ID", "IDEN_NO" }) })
+		@UniqueConstraint(name="ROLE_MENU_GROUP_UNIQUE" , columnNames = { "USER_ROLE_ID", "MENU_GROUP_ID"}) })
 public class EORoleMenuGroup extends EOEntityObject {
 
 	/**
@@ -29,11 +29,11 @@ public class EORoleMenuGroup extends EOEntityObject {
 	private String idenNo;
 
 	@ManyToOne
-	@JoinColumn(name = "USER_ROLE_ID", nullable = false)
+	@JoinColumn(name = "USER_ROLE_ID", nullable = false, unique = false )
 	private EOUserRole userRole;
 
 	@ManyToOne
-	@JoinColumn(name = "MENU_GROUP_ID", nullable = false)
+	@JoinColumn(name = "MENU_GROUP_ID", nullable = false, unique = false)
 	private EOMenuGroup menuGroup;
 
 	@OneToMany(mappedBy = "roleMenuGroup", cascade = CascadeType.ALL)

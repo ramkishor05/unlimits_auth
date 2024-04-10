@@ -6,13 +6,13 @@ import com.brijframwork.authorization.model.EOUserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "ROLE_HEADER_ITEM", uniqueConstraints= {
-		@UniqueConstraint(columnNames = { "USER_ROLE_ID","HEADER_ITEM_ID","IDEN_NO" })})
+		@UniqueConstraint(name="ROLE_HEADER_ITEM_UNIQUE", columnNames = { "USER_ROLE_ID","HEADER_ITEM_ID"})})
 public class EORoleHeaderItem extends EOEntityObject {
 
 	/**
@@ -26,12 +26,12 @@ public class EORoleHeaderItem extends EOEntityObject {
 	@Column(name = "OWNER_ID", nullable = true)
 	private Long ownerId;
 
-	@OneToOne
-	@JoinColumn(name = "USER_ROLE_ID", nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "USER_ROLE_ID", nullable = false, unique = false)
 	private EOUserRole userRole;
 	
-	@OneToOne
-	@JoinColumn(name = "HEADER_ITEM_ID", nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "HEADER_ITEM_ID", nullable = false, unique = false)
 	private EOHeaderItem headerItem;
 
 	public String getIdenNo() {

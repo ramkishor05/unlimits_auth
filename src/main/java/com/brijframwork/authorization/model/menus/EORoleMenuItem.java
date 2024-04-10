@@ -10,14 +10,14 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "ROLE_MENU_ITEM", uniqueConstraints= {
-		@UniqueConstraint(columnNames = { "USER_ROLE_ID","MENU_ITEM_ID" , "IDEN_NO"})})
+		@UniqueConstraint(name="ROLE_MENU_ITEM_UNIQUE" , columnNames = { "USER_ROLE_ID","MENU_ITEM_ID"})})
 public class EORoleMenuItem extends EOEntityObject {
 
 	/**
@@ -32,16 +32,16 @@ public class EORoleMenuItem extends EOEntityObject {
 	@Column(name = "OWNER_ID", nullable = true)
 	private Long ownerId;
 
-	@OneToOne
-	@JoinColumn(name = "USER_ROLE_ID", nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "USER_ROLE_ID", nullable = false, unique = false)
 	private EOUserRole userRole;
 
-	@OneToOne
-	@JoinColumn(name = "MENU_ITEM_ID", nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "MENU_ITEM_ID", nullable = false, unique = false)
 	private EOMenuItem menuItem;
 	
-	@OneToOne
-	@JoinColumn(name = "MENU_GROUP_ID", nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "MENU_GROUP_ID", nullable = false, unique = false)
 	private EORoleMenuGroup  roleMenuGroup;
 	
 	@Column(name = "IS_HOME_PAGE")

@@ -21,7 +21,18 @@ import com.brijframwork.authorization.filters.TokenFilter;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig { 
-	
+	String[] patterns = { 
+			"/api/auth/**", 
+			"/api/user/role/**", 
+			"/api/user/detail/**", 
+			"/api/menu/group/**", 
+			"/api/menu/item/**", 
+			"/api/role/menu/group/**", 
+			"/api/role/menu/item/**", 
+			"/api/swagger-ui/**", 
+			"/v3/api-docs/**" 
+			};
+
 	private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
   
     @Autowired
@@ -34,11 +45,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { 
     	log.debug("SecurityConfig :: securityFilterChain() started");
         return http.csrf((csrf)->csrf.disable()).cors(cors->cors.disable()) 
-                .authorizeHttpRequests(authorize->authorize.requestMatchers(
-                		"/api/auth/**","/api/user/role/**",
-                		"/api/user/detail/**","/api/menu/group/**",
-                		"/api/menu/item/**","/api/role/menu/group/**",
-                		"/api/role/menu/item/**").permitAll().anyRequest()
+                .authorizeHttpRequests(authorize->authorize.requestMatchers(patterns).permitAll().anyRequest()
                         .authenticated()) 
                 .sessionManagement(Customizer.withDefaults()) 
                 .authenticationProvider(authenticationProvider) 

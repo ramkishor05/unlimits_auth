@@ -20,7 +20,6 @@ public abstract class EOEntityObject implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@org.springframework.data.annotation.Id
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
