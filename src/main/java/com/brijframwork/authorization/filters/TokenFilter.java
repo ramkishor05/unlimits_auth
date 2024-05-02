@@ -43,6 +43,9 @@ public class TokenFilter extends OncePerRequestFilter {
         String token = null; 
         String username = null; 
         String role = null; 
+        requestWrapper.putHeader("Access-Control-Allow-Origin", "*");
+        requestWrapper.putHeader("Access-Control-Allow-Headers", "Content-Type");
+        requestWrapper.putHeader("Accept", "*");
 
         if (authHeader != null && authHeader.startsWith(BEARER)) { 
             token = authHeader.substring(7);

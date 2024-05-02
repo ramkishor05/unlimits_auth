@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.brijframwork.authorization.beans.UIMenuGroup;
 import com.brijframwork.authorization.service.MenuGroupService;
 
+import io.swagger.v3.oas.annotations.Hidden;
+
 @RestController
 @RequestMapping("/api/menu/group")
 @CrossOrigin("*")
+@Hidden
 public class MenuGroupController {
 	
 	@Autowired

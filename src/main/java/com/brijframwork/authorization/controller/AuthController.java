@@ -105,11 +105,9 @@ public class AuthController {
 	}
 
 	@PostMapping("/register")
-	public boolean userRegistor(@RequestBody UIUserAccount authRequest,
-			@RequestHeader("authority") Authority authority) {
+	public boolean userRegistor(@RequestBody UIUserAccount authRequest) {
 		log.debug("User registor start.");
-		log.debug("authority :: {}", authority);
-		return authProvider.register(authRequest, authority.toString());
+		return authProvider.register(authRequest, Authority.USER);
 	}
 	
 	@GetMapping("/userdetail")

@@ -9,11 +9,12 @@ import com.brijframwork.authorization.beans.PasswordReset;
 import com.brijframwork.authorization.beans.UIUserAccount;
 import com.brijframwork.authorization.beans.UIUserProfile;
 import com.brijframwork.authorization.beans.UserDetailResponse;
+import com.brijframwork.authorization.constant.Authority;
 
 public interface UserAccountService extends UserDetailsService {
 
-	boolean register(UIUserAccount userDetailRequest);
-
+	boolean register(UIUserAccount userDetailRequest, Authority authority);
+	
 	boolean isAlreadyExists(String username);
 
 	UIUserProfile updateUserProfile(UIUserProfile uiUserProfile);
@@ -32,4 +33,6 @@ public interface UserAccountService extends UserDetailsService {
 	UIUserAccount resetPassword(PasswordReset passwordReset);
 
 	UIUserAccount saveOtp(PasswordReset passwordReset);
+
+	
 }

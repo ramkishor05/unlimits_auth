@@ -9,6 +9,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
@@ -16,7 +17,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "USER_ACCOUNT", uniqueConstraints= {@UniqueConstraint(columnNames = { "USERNAME" })})
+@Table(name = "USER_ACCOUNT", uniqueConstraints= {@UniqueConstraint(columnNames = { "USERNAME","ROLE_ID"})})
 public class EOUserAccount extends EOEntityObject {
 
 	/**
@@ -45,12 +46,12 @@ public class EOUserAccount extends EOEntityObject {
 	@Column(name = "OWNER_ID", nullable = true)
 	private Long ownerId;
 
-	@OneToOne
-	@JoinColumn(name = "ROLE_ID")
+	@ManyToOne
+	@JoinColumn(name = "ROLE_ID", unique = false)
 	private EOUserRole userRole;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "PROFILE_ID")
+	@JoinColumn(name = "PROFILE_ID", unique = false)
 	private EOUserProfile userProfile;
 	
 	@Column(name = "ON_BOARDING", nullable = true)

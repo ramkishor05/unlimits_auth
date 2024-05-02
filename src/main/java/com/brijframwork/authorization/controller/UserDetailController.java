@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.brijframwork.authorization.beans.UIUserAccount;
 import com.brijframwork.authorization.beans.UIUserProfile;
+import com.brijframwork.authorization.constant.Authority;
 import com.brijframwork.authorization.service.UserAccountService;
+
+import io.swagger.v3.oas.annotations.Hidden;
 
 @RestController
 @RequestMapping("/api/user/detail")
+@Hidden
 public class UserDetailController {
 	
 	@Autowired
@@ -23,7 +27,7 @@ public class UserDetailController {
 	
 	@PostMapping
 	public ResponseEntity<?> register(@RequestBody UIUserAccount uiUserAccount){
-    	return ResponseEntity.ok(userDetailService.register(uiUserAccount));
+    	return ResponseEntity.ok(userDetailService.register(uiUserAccount ,Authority.USER));
 	}
 
 	@PutMapping("/{id}")

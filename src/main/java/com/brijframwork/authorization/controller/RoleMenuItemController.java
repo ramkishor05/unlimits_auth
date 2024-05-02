@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.brijframwork.authorization.beans.UIRoleMenuItem;
 import com.brijframwork.authorization.service.RoleMenuItemService;
 
+import io.swagger.v3.oas.annotations.Hidden;
+
 @RestController
 @RequestMapping("/api/role/menu/item")
+@Hidden
 public class RoleMenuItemController {
 	
 	@Autowired

@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.brijframwork.authorization.beans.UIMenuItem;
 import com.brijframwork.authorization.service.MenuItemService;
 
+import io.swagger.v3.oas.annotations.Hidden;
+
 @RestController
 @RequestMapping("/api/menu/item")
 @CrossOrigin("*")
+@Hidden
 public class MenuItemController {
 	
 	@Autowired

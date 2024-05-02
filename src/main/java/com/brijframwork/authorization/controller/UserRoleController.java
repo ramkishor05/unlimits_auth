@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.brijframwork.authorization.beans.UIUserRole;
 import com.brijframwork.authorization.service.UserRoleService;
 
+import io.swagger.v3.oas.annotations.Hidden;
+
 @RestController
 @RequestMapping("/api/user/role")
+@Hidden
 public class UserRoleController {
 	
 	@Autowired

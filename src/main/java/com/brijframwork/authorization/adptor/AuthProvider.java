@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -44,7 +45,8 @@ public class AuthProvider extends DaoAuthenticationProvider {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		log.debug("AuthProvider :: authenticate() started");
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-		List<String> authorityList=authorities==null ? new ArrayList<>(): authorities.stream().map(authoritie -> authoritie.getAuthority()).collect(Collectors.toList());
+		List<String> authorityList=authorities==null ? new ArrayList<>(): 
+			authorities.stream().map(authoritie -> authoritie.getAuthority()).collect(Collectors.toList());
 		UserAccountService userDetailsService=null; 
 		if(authorityList.contains(Authority.ADMIN.toString())) {
 			userDetailsService=userAccountService;
@@ -58,7 +60,15 @@ public class AuthProvider extends DaoAuthenticationProvider {
 		this.setPasswordEncoder(passwordEncoder);
 		this.setUserDetailsService(userDetailsService);
 		log.debug("AuthProvider :: authenticate() end");
-		return super.authenticate(authentication);
+		Authentication authenticate = super.authenticate(authentication);
+		List<String> list = authenticate.getAuthorities().stream().map(authoritie->authoritie.getAuthority()).toList();
+		for(GrantedAuthority authority : authentication.getAuthorities()) {
+			if(!list.contains(authority.getAuthority())) {
+				throw new BadCredentialsException(this.messages
+						.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
+			}
+		}
+		return authenticate;
 	}
 	
 	@Override
@@ -109,17 +119,17 @@ public class AuthProvider extends DaoAuthenticationProvider {
 		return null;
 	}
 
-	public boolean register(UIUserAccount userAccount , String authority) {
+	public boolean register(UIUserAccount userAccount , Authority authority) {
 		UserAccountService userDetailsService=null; 
-		if(authority.equalsIgnoreCase(Authority.ADMIN.toString())) {
+		if(authority.equals(Authority.ADMIN)) {
 			userDetailsService=userAccountService;
 		}
-		if(authority.equalsIgnoreCase(Authority.DEVELOPER.toString())) {
+		if(authority.equals(Authority.DEVELOPER)) {
 			userDetailsService=userAccountService;
 		}
-		if(authority.equalsIgnoreCase(Authority.USER.toString())) {
+		if(authority.equals(Authority.USER)) {
 			userDetailsService=userAccountService;
 		}
-		return userDetailsService.register(userAccount);
+		return userDetailsService.register(userAccount, authority);
 	}
 }

@@ -1,14 +1,13 @@
 package com.brijframwork.authorization.service;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -60,23 +59,28 @@ public class UserAccountServiceImpl implements UserAccountService {
 		}
 		EOUserAccount eoUserAccount = findUserLogin.get();
 		UIUserAccount userDetails = userDetailMapper.mapToUI(eoUserAccount);
-		userDetails.setAuthorities(getAuthority(eoUserAccount));
+		userDetails.setAuthorities(getGrantedAuthority(eoUserAccount.getUserRole().getRoleId()));
 		return userDetails;
 	}
-
-	private Set<SimpleGrantedAuthority> getAuthority(EOUserAccount eoUserAccount) {
-		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-		authorities.add(new SimpleGrantedAuthority(eoUserAccount.getUserRole().getRoleId()));
-		return authorities;
-	}
 	
+	private List<GrantedAuthority> getGrantedAuthority(String authority) {
+		return Arrays.asList(new GrantedAuthority() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public String getAuthority() {
+				return authority;
+			}
+		});
+	}
+
 	@Override
-	public boolean register(UIUserAccount userDetailRequest) {
+	public boolean register(UIUserAccount userDetailRequest, Authority authority) {
 		if(isAlreadyExists(userDetailRequest.getUsername())) {
 			throw new UserAlreadyExistsException();
 		}
-		Authority owner = Authority.USER;
-		EOUserRole eoUserRole = userRoleRepository.findByPosition(owner.getPosition()).orElse(null);
+		EOUserRole eoUserRole = userRoleRepository.findByPosition(authority.getPosition()).orElse(null);
 		
 		EOUserProfile eoUserProfile=new EOUserProfile();
 		eoUserProfile.setFullName(eoUserRole.getRoleName());
@@ -84,7 +88,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 		
 		EOUserAccount eoUserAccount=new EOUserAccount();
 		eoUserAccount.setUsername(userDetailRequest.getUsername());
-		eoUserAccount.setPassword(userDetailRequest.getPassword());
+		eoUserAccount.setPassword(passwordEncoder.encode(userDetailRequest.getPassword()));
 		eoUserAccount.setType(eoUserRole.getRoleId());
 		eoUserAccount.setRegisteredMobile(userDetailRequest.getRegisteredPhone());
 		eoUserAccount.setRegisteredEmail(userDetailRequest.getRegisteredEmail());
@@ -94,6 +98,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 		eoUserAccount.setOnBoarding(true);		
 		eoUserAccount=userAccountRepository.save(eoUserAccount);
 		userOnBoardingService.initOnBoarding(eoUserAccount);
+		
 		return true;
 	}
 
