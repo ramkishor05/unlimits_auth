@@ -4,7 +4,7 @@
 	"objects": [
 		{
 			"id": "Global_Portal_MenuGroup_Dashboard",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuGroup",
+			"type": "com.brijframework.authorization.model.menus.EOMenuGroup",
 			"name": "Global_Portal_MenuGroup",
 			"properties": {
 				"title": "Dashboard",
@@ -17,7 +17,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuGroup_Content",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuGroup",
+			"type": "com.brijframework.authorization.model.menus.EOMenuGroup",
 			"name": "Global_Portal_MenuGroup",
 			"properties": {
 				"title": "Content",
@@ -30,7 +30,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuGroup_Organizations",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuGroup",
+			"type": "com.brijframework.authorization.model.menus.EOMenuGroup",
 			"name": "Global_Portal_MenuGroup",
 			"properties": {
 				"title": "Organizations",
@@ -43,7 +43,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuGroup_Application",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuGroup",
+			"type": "com.brijframework.authorization.model.menus.EOMenuGroup",
 			"name": "Global_Portal_MenuGroup",
 			"properties": {
 				"title": "Application",
@@ -56,7 +56,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuGroup_UserProfile",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuGroup",
+			"type": "com.brijframework.authorization.model.menus.EOMenuGroup",
 			"name": "Global_Portal_MenuGroup",
 			"properties": {
 				"title": "User profile",

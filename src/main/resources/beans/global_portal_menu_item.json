@@ -4,7 +4,7 @@
 	"objects": [
 		{
 			"id": "Global_Portal_MenuItem_Dashboard",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "Dashboard",
@@ -18,7 +18,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Menu_Groups",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "Menu Groups",
@@ -32,7 +32,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Menu_Items",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "Menu Items",
@@ -46,7 +46,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Role_Menu_Groups",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "Role Menu Groups",
@@ -60,7 +60,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Role_Menu_Items",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "Role Menu Items",
@@ -74,7 +74,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Category_Group",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "Main Categories",
@@ -88,7 +88,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Category_List",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "Sub Categories",
@@ -102,7 +102,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Tag_Group",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "Main Tags",
@@ -116,7 +116,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Tag_List",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "Sub Tags",
@@ -130,7 +130,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Prompt_Tag",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "Prompt & Tag",
@@ -144,7 +144,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Image_List",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "Image Library",
@@ -158,7 +158,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_My_Mindset_Videos",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "My Mindset Videos",
@@ -172,7 +172,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_User_List",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "User List",
@@ -186,7 +186,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_UserProfile",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "User profile",

@@ -2,10 +2,7 @@ package org.brijframework.json.schema.factories;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,15 +10,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JsonSchemaMetaFactory {
+public class JsonSchemaMetaFactory implements SingletonFactory{
 
 	private static final String LK = "LK@";
-
-	private static final String CLASSES = "classes";
-
-	private static final String REPLACEMENT = "/";
-
-	private static final String REGEX = "\\\\";
 
 	final ConcurrentHashMap<String, JsonSchemaObject> cache = new ConcurrentHashMap<String, JsonSchemaObject>();
 
@@ -44,31 +35,18 @@ public class JsonSchemaMetaFactory {
 	}
 
 	private JsonSchemaMetaFactory() {
-		this.init();
-	}
-
-	private void init() {
-		URL resource = JsonSchemaMetaFactory.class.getResource(beans);
-		try {
-			Files.list(Paths.get(resource.toURI())).forEach(file -> {
-				String resourcepath = file.toAbsolutePath().toString().split(CLASSES)[1];
-				load(resourcepath);
-			});
-
-			for (JsonSchemaObject segmentMetaData : this.getCache().values()) {
-				buildRelationship(segmentMetaData);
-			}
-		} catch (IOException | URISyntaxException e) {
-			e.printStackTrace();
+		this.init(beans);
+		for (JsonSchemaObject segmentMetaData : this.getCache().values()) {
+			buildRelationship(segmentMetaData);
 		}
 	}
 
-	private void load(String resourcepath) {
+	
+	@Override
+	public void load(Path file, InputStream inputStream) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			resourcepath = resourcepath.replaceAll(REGEX, REPLACEMENT);
-			InputStream inJson = JsonSchemaMetaFactory.class.getResourceAsStream(resourcepath);
-			JsonSchemaFile jsonSchemaFile = objectMapper.readValue(inJson, JsonSchemaFile.class);
+			JsonSchemaFile jsonSchemaFile = objectMapper.readValue(inputStream, JsonSchemaFile.class);
 			List<JsonSchemaObject> schemaObjects = jsonSchemaFile.getObjects();
 			for (JsonSchemaObject segmentMetaData : schemaObjects) {
 				getCache().put(segmentMetaData.getId(), segmentMetaData);

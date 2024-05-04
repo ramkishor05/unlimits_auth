@@ -4,7 +4,7 @@
 	"objects": [
 		{
 			"id": "User_Portal_HeaderItem_Role_USER_SearchBox",
-			"type": "com.brijframwork.authorization.model.headers.EORoleHeaderItem",
+			"type": "com.brijframework.authorization.model.headers.EORoleHeaderItem",
 			"name": "User_Portal_HeaderItem_Role",
 			"properties": {
 				"idenNo":"User_Portal_HeaderItem_Role_USER_SearchBox",
@@ -14,7 +14,7 @@
 		},
 		{
 			"id": "User_Portal_HeaderItem_Role_USER_UserOptions",
-			"type": "com.brijframwork.authorization.model.headers.EORoleHeaderItem",
+			"type": "com.brijframework.authorization.model.headers.EORoleHeaderItem",
 			"name": "User_Portal_HeaderItem_Role",
 			"properties": {
 				"idenNo":"User_Portal_HeaderItem_Role_USER_UserOptions",
@@ -24,7 +24,7 @@
 		},
 		{
 			"id": "User_Portal_HeaderItem_Role_USER_ProfileSection",
-			"type": "com.brijframwork.authorization.model.headers.EORoleHeaderItem",
+			"type": "com.brijframework.authorization.model.headers.EORoleHeaderItem",
 			"name": "User_Portal_HeaderItem_Role",
 			"properties": {
 				"idenNo":"User_Portal_HeaderItem_Role_USER_ProfileSection",
@@ -34,7 +34,7 @@
 		},
 		{
 			"id": "User_Portal_HeaderItem_Role_USER_NotificationSection",
-			"type": "com.brijframwork.authorization.model.headers.EORoleHeaderItem",
+			"type": "com.brijframework.authorization.model.headers.EORoleHeaderItem",
 			"name": "User_Portal_HeaderItem_Role",
 			"properties": {
 				"idenNo":"User_Portal_HeaderItem_Role_USER_NotificationSection",

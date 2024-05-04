@@ -4,7 +4,7 @@
 	"objects": [
 		{
 			"id": "Global_Portal_HeaderItem_SearchBox",
-			"type": "com.brijframwork.authorization.model.headers.EOHeaderItem",
+			"type": "com.brijframework.authorization.model.headers.EOHeaderItem",
 			"name": "Global_Portal_HeaderItem",
 			"properties": {
 				"title": "SearchBox",
@@ -17,7 +17,7 @@
 		},
 		{
 			"id": "Global_Portal_HeaderItem_BusinessOptions",
-			"type": "com.brijframwork.authorization.model.headers.EOHeaderItem",
+			"type": "com.brijframework.authorization.model.headers.EOHeaderItem",
 			"name": "Global_Portal_HeaderItem",
 			"properties": {
 				"title": "BusinessOptions",
@@ -30,7 +30,7 @@
 		},
 		{
 			"id": "Global_Portal_HeaderItem_ProfileSection",
-			"type": "com.brijframwork.authorization.model.headers.EOHeaderItem",
+			"type": "com.brijframework.authorization.model.headers.EOHeaderItem",
 			"name": "Global_Portal_HeaderItem",
 			"properties": {
 				"title": "ProfileSection",
@@ -43,7 +43,7 @@
 		},
 		{
 			"id": "Global_Portal_HeaderItem_NotificationSection",
-			"type": "com.brijframwork.authorization.model.headers.EOHeaderItem",
+			"type": "com.brijframework.authorization.model.headers.EOHeaderItem",
 			"name": "Global_Portal_HeaderItem",
 			"properties": {
 				"title": "NotificationSection",

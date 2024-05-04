@@ -4,7 +4,7 @@
 	"objects": [
 		{
 			"id": "User_Portal_MenuGroup_Role_USER_Dashboard",
-			"type": "com.brijframwork.authorization.model.menus.EORoleMenuGroup",
+			"type": "com.brijframework.authorization.model.menus.EORoleMenuGroup",
 			"name": "User_Portal_MenuGroup_Role",
 			"properties": {
 				"idenNo": "User_Portal_MenuGroup_Role_USER_Dashboard",

@@ -5,7 +5,7 @@
 		
 		{
 			"id": "Global_Portal_MenuGroup_Role_Dev_Application",
-			"type": "com.brijframwork.authorization.model.menus.EORoleMenuGroup",
+			"type": "com.brijframework.authorization.model.menus.EORoleMenuGroup",
 			"name": "Global_Portal_MenuGroup_Role",
 			"properties": {
 				"idenNo": "Global_Portal_MenuGroup_Role_Dev_Application",
@@ -15,7 +15,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuGroup_Role_Dev_UserProfile",
-			"type": "com.brijframwork.authorization.model.menus.EORoleMenuGroup",
+			"type": "com.brijframework.authorization.model.menus.EORoleMenuGroup",
 			"name": "Global_Portal_MenuGroup_Role",
 			"properties": {
 				"idenNo": "Global_Portal_MenuGroup_Role_Dev_UserProfile",

@@ -4,7 +4,7 @@
 	"objects": [
 		{
 			"id": "User_Portal_MenuGroup_Dashboard",
-			"type": "com.brijframwork.authorization.model.menus.EOMenuGroup",
+			"type": "com.brijframework.authorization.model.menus.EOMenuGroup",
 			"name": "User_Portal_MenuGroup",
 			"properties": {
 				"title": "Dashboard",

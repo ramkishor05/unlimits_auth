@@ -4,7 +4,7 @@
 	"objects": [
 		{
 			"id": "Global_Portal_MenuItem_Role_Admin_Dashboard",
-			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EORoleMenuItem",
 			"name": "Global_Portal_MenuItem_Role",
 			"properties": {
 				"idenNo": "Global_Portal_MenuItem_Role_Admin_Dashboard",
@@ -16,7 +16,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Role_Admin_Category_Group",
-			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EORoleMenuItem",
 			"name": "Global_Portal_MenuItem_Role",
 			"properties": {
 				"idenNo": "Global_Portal_MenuItem_Role_Admin_Category_Group",
@@ -27,7 +27,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Role_Admin_Category_List",
-			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EORoleMenuItem",
 			"name": "Global_Portal_MenuItem_Role",
 			"properties": {
 				"idenNo": "Global_Portal_MenuItem_Role_Admin_Category_List",
@@ -38,7 +38,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Role_Admin_Tag_Group",
-			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EORoleMenuItem",
 			"name": "Global_Portal_MenuItem_Role",
 			"properties": {
 				"idenNo": "Global_Portal_MenuItem_Role_Admin_Tag_Group",
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Role_Admin_Tag_List",
-			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EORoleMenuItem",
 			"name": "Global_Portal_MenuItem_Role",
 			"properties": {
 				"idenNo": "Global_Portal_MenuItem_Role_Admin_Tag_List",
@@ -60,7 +60,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Role_Admin_My_Mindset_Videos",
-			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EORoleMenuItem",
 			"name": "Global_Portal_MenuItem_Role",
 			"properties": {
 				"idenNo": "Global_Portal_MenuItem_Role_Admin_My_Mindset_Videos",
@@ -71,7 +71,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Role_Admin_Image_List",
-			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EORoleMenuItem",
 			"name": "Global_Portal_MenuItem_Role",
 			"properties": {
 				"idenNo": "Global_Portal_MenuItem_Role_Admin_Image_List",
@@ -82,7 +82,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Role_Admin_Prompt_Tag",
-			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EORoleMenuItem",
 			"name": "Global_Portal_MenuItem_Role",
 			"properties": {
 				"idenNo": "Global_Portal_MenuItem_Role_Admin_Prompt_Tag",
@@ -93,7 +93,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Role_Admin_User_List",
-			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EORoleMenuItem",
 			"name": "Global_Portal_MenuItem_Role",
 			"properties": {
 				"idenNo": "Global_Portal_MenuItem_Role_Admin_User_List",
@@ -104,7 +104,7 @@
 		},
 		{
 			"id": "Global_Portal_MenuItem_Role_Admin_Role_UserProfile",
-			"type": "com.brijframwork.authorization.model.menus.EORoleMenuItem",
+			"type": "com.brijframework.authorization.model.menus.EORoleMenuItem",
 			"name": "Global_Portal_MenuItem_Role",
 			"properties": {
 				"idenNo": "Global_Portal_MenuItem_Role_Admin_Role_UserProfile",
