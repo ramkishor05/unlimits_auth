@@ -2,7 +2,9 @@ package com.brijframework.authorization.beans;
 
 import java.io.Serializable;
 
-public class TokenRequest implements Serializable{
+import com.brijframework.authorization.constant.Authority;
+
+public class LoginRequest implements Serializable{
 
 	/**
 	 * 
@@ -12,6 +14,8 @@ public class TokenRequest implements Serializable{
 	private String username;
 
 	private String password;
+	
+	private Authority authority;
 
 	public String getUsername() {
 		return username;
@@ -27,6 +31,14 @@ public class TokenRequest implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Authority getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(Authority authority) {
+		this.authority = authority;
 	}
 
 }

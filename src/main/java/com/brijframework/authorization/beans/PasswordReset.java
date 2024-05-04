@@ -3,7 +3,7 @@ package com.brijframework.authorization.beans;
 import com.brijframework.authorization.constant.Authority;
 import com.brijframework.authorization.constant.ResetBy;
 
-public class PasswordReset extends TokenRequest {
+public class PasswordReset extends LoginRequest {
 
 	/**
 	 * 

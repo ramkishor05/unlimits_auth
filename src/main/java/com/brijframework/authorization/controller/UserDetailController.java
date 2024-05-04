@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.brijframework.authorization.beans.RegisterRequest;
 import com.brijframework.authorization.beans.UIUserAccount;
 import com.brijframework.authorization.beans.UIUserProfile;
-import com.brijframework.authorization.constant.Authority;
 import com.brijframework.authorization.service.UserAccountService;
 
 import io.swagger.v3.oas.annotations.Hidden;
@@ -26,8 +26,8 @@ public class UserDetailController {
     private UserAccountService userDetailService;
 	
 	@PostMapping
-	public ResponseEntity<?> register(@RequestBody UIUserAccount uiUserAccount){
-    	return ResponseEntity.ok(userDetailService.register(uiUserAccount ,Authority.USER));
+	public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest){
+    	return ResponseEntity.ok(userDetailService.register(registerRequest));
 	}
 
 	@PutMapping("/{id}")

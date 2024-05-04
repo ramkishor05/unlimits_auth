@@ -1,15 +1,15 @@
-package com.brijframwork.authorization.beans;
+package com.brijframework.authorization.beans;
 
 public class AuthDataDTO {
 
-	private UIUserAccount user;
+	private UserDetailResponse user;
 	private String token;
 
-	public UIUserAccount getUser() {
+	public UserDetailResponse getUser() {
 		return user;
 	}
 
-	public void setUser(UIUserAccount user) {
+	public void setUser(UserDetailResponse user) {
 		this.user = user;
 	}
 

@@ -20,6 +20,8 @@ import org.springframework.stereotype.Component;
 
 import com.brijframework.authorization.beans.AuthDTO;
 import com.brijframework.authorization.beans.PasswordReset;
+import com.brijframework.authorization.beans.RegisterRequest;
+import com.brijframework.authorization.beans.LoginRequest;
 import com.brijframework.authorization.beans.UIUserAccount;
 import com.brijframework.authorization.constant.Authority;
 import com.brijframework.authorization.service.UserAccountService;
@@ -120,7 +122,11 @@ public class AuthProvider extends DaoAuthenticationProvider {
 		return null;
 	}
 
-	public AuthDTO register(UIUserAccount userAccount , Authority authority) {
+	public AuthDTO register(RegisterRequest registerRequest) {
+		if(registerRequest.getAuthority()==null) {
+			registerRequest.setAuthority(Authority.USER);
+		}
+		Authority authority= registerRequest.getAuthority();
 		UserAccountService userDetailsService=null; 
 		if(authority.equals(Authority.ADMIN)) {
 			userDetailsService=userAccountService;
@@ -131,6 +137,24 @@ public class AuthProvider extends DaoAuthenticationProvider {
 		if(authority.equals(Authority.USER)) {
 			userDetailsService=userAccountService;
 		}
-		return userDetailsService.register(userAccount, authority);
+		return userDetailsService.register(registerRequest);
+	}
+
+	public AuthDTO userLogin(LoginRequest authRequest) {
+		if(authRequest.getAuthority()==null) {
+			authRequest.setAuthority(Authority.USER);
+		}
+		Authority authority= authRequest.getAuthority();
+		UserAccountService userDetailsService=null; 
+		if(authority.equals(Authority.ADMIN)) {
+			userDetailsService=userAccountService;
+		}
+		if(authority.equals(Authority.DEVELOPER)) {
+			userDetailsService=userAccountService;
+		}
+		if(authority.equals(Authority.USER)) {
+			userDetailsService=userAccountService;
+		}
+		return userDetailsService.login(authRequest);
 	}
 }

@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,8 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.brijframework.authorization.beans.AuthDTO;
 import com.brijframework.authorization.beans.AuthDataDTO;
+import com.brijframework.authorization.beans.LoginRequest;
 import com.brijframework.authorization.beans.PasswordReset;
-import com.brijframework.authorization.beans.TokenRequest;
+import com.brijframework.authorization.beans.RegisterRequest;
 import com.brijframework.authorization.beans.UIUserAccount;
 import com.brijframework.authorization.beans.UIUserProfile;
 import com.brijframework.authorization.beans.UserDetailResponse;
@@ -58,9 +56,6 @@ public class UserAccountServiceImpl implements UserAccountService {
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	private AuthenticationManager authenticationManager;
-	
-	@Autowired
 	private TokenService tokenService;
 	
 	@Override
@@ -87,34 +82,27 @@ public class UserAccountServiceImpl implements UserAccountService {
 		});
 	}
 	
-	public String userLogin(TokenRequest authRequest, Authority authority) {
-		Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-				authRequest.getUsername(), authRequest.getPassword(), getGrantedAuthority(authority.toString())));
-		if (authenticate.isAuthenticated()) {
-			return tokenService.login(authRequest.getUsername(), authority.toString());
-		} else {
-			throw new UsernameNotFoundException("invalid user request !");
-		}
-	}
-
 	@Override
-	public AuthDTO register(UIUserAccount userDetailRequest, Authority authority) {
-		if(isAlreadyExists(userDetailRequest.getUsername())) {
+	public AuthDTO register(RegisterRequest registerRequest) {
+		if(isAlreadyExists(registerRequest.getUsername())) {
 			throw new UserAlreadyExistsException();
 		}
-		EOUserRole eoUserRole = userRoleRepository.findByPosition(authority.getPosition()).orElse(null);
+		if(registerRequest.getAuthority()==null) {
+			registerRequest.setAuthority(Authority.USER);
+		}
+		EOUserRole eoUserRole = userRoleRepository.findByPosition(registerRequest.getAuthority().getPosition()).orElse(null);
 		
 		EOUserProfile eoUserProfile=new EOUserProfile();
 		eoUserProfile.setFullName(eoUserRole.getRoleName());
 		eoUserProfile = userProfileRepository.save(eoUserProfile);
 		
 		EOUserAccount eoUserAccount=new EOUserAccount();
-		eoUserAccount.setUsername(userDetailRequest.getUsername());
-		eoUserAccount.setPassword(passwordEncoder.encode(userDetailRequest.getPassword()));
+		eoUserAccount.setUsername(registerRequest.getUsername());
+		eoUserAccount.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 		eoUserAccount.setType(eoUserRole.getRoleId());
-		eoUserAccount.setRegisteredMobile(userDetailRequest.getRegisteredPhone());
-		eoUserAccount.setRegisteredEmail(userDetailRequest.getRegisteredEmail());
-		eoUserAccount.setAccountName(userDetailRequest.getAccountName());
+		eoUserAccount.setRegisteredMobile(registerRequest.getRegisteredPhone());
+		eoUserAccount.setRegisteredEmail(registerRequest.getRegisteredEmail());
+		eoUserAccount.setAccountName(registerRequest.getAccountName());
 		eoUserAccount.setUserRole(eoUserRole);
 		eoUserAccount.setUserProfile(eoUserProfile);
 		eoUserAccount.setOnBoarding(true);		
@@ -124,8 +112,24 @@ public class UserAccountServiceImpl implements UserAccountService {
 		auth.setSuccess("1");
 		auth.setMessage("Registration succuss.");
 		auth.setData(new AuthDataDTO());
-		auth.getData().setUser(userDetailMapper.mapToUI(eoUserAccount));
-		auth.getData().setToken(tokenService.login(userDetailRequest.getUsername(), authority.toString()));
+		auth.getData().setUser(userDetailMapper.mapToDTO(eoUserAccount));
+		auth.getData().setToken(tokenService.login(registerRequest.getUsername(), registerRequest.getAuthority().toString()));
+		return auth;
+	}
+	
+	@Override
+	public AuthDTO login(LoginRequest loginRequest) {
+		Optional<EOUserAccount> findUserLogin = userLoginRepository.findByUsername(loginRequest.getUsername());
+		if (!findUserLogin.isPresent()) {
+			throw new UserNotFoundException();
+		}
+		EOUserAccount eoUserAccount = findUserLogin.get();
+		AuthDTO auth=new AuthDTO();
+		auth.setSuccess("1");
+		auth.setMessage("Registration succuss.");
+		auth.setData(new AuthDataDTO());
+		auth.getData().setUser(userDetailMapper.mapToDTO(eoUserAccount));
+		auth.getData().setToken(tokenService.login(loginRequest.getUsername(), loginRequest.getAuthority().toString()));
 		return auth;
 	}
 

@@ -1,4 +1,4 @@
-package com.brijframwork.authorization.beans;
+package com.brijframework.authorization.beans;
 
 public class AuthDTO {
 	private String success;

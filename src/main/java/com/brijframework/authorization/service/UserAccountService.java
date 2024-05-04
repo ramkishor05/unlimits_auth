@@ -7,14 +7,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.brijframework.authorization.beans.AuthDTO;
 import com.brijframework.authorization.beans.PasswordReset;
+import com.brijframework.authorization.beans.RegisterRequest;
+import com.brijframework.authorization.beans.LoginRequest;
 import com.brijframework.authorization.beans.UIUserAccount;
 import com.brijframework.authorization.beans.UIUserProfile;
 import com.brijframework.authorization.beans.UserDetailResponse;
-import com.brijframework.authorization.constant.Authority;
 
 public interface UserAccountService extends UserDetailsService {
 
-	AuthDTO register(UIUserAccount userDetailRequest, Authority authority);
+	AuthDTO register(RegisterRequest registerRequest);
+	
+	AuthDTO login(LoginRequest loginRequest);
 	
 	boolean isAlreadyExists(String username);
 
@@ -34,6 +37,4 @@ public interface UserAccountService extends UserDetailsService {
 	UIUserAccount resetPassword(PasswordReset passwordReset);
 
 	UIUserAccount saveOtp(PasswordReset passwordReset);
-
-	
 }

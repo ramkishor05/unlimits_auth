@@ -27,7 +27,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,8 +39,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.brijframework.authorization.adptor.AuthProvider;
 import com.brijframework.authorization.adptor.EnvironmentUtil;
 import com.brijframework.authorization.beans.AuthDTO;
+import com.brijframework.authorization.beans.LoginRequest;
 import com.brijframework.authorization.beans.PasswordReset;
-import com.brijframework.authorization.beans.TokenRequest;
+import com.brijframework.authorization.beans.RegisterRequest;
 import com.brijframework.authorization.beans.UIUserAccount;
 import com.brijframework.authorization.constant.Authority;
 import com.brijframework.authorization.service.MailService;
@@ -81,17 +81,29 @@ public class AuthController {
 	private TemplateService templateService;
 
 	@PostMapping("/login")
-	public String userLogin(@RequestBody TokenRequest authRequest, @RequestHeader("authority") Authority authority) {
+	public AuthDTO userLogin(@RequestBody LoginRequest loginRequest) {
 		log.debug("User Login start.");
+		if(loginRequest.getAuthority()==null) {
+			loginRequest.setAuthority(Authority.USER);
+		}
 		Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-				authRequest.getUsername(), authRequest.getPassword(), getGrantedAuthority(authority.toString())));
+				loginRequest.getUsername(), loginRequest.getPassword(), getGrantedAuthority(loginRequest.getAuthority().getRoleId())));
 		if (authenticate.isAuthenticated()) {
-			log.debug("AuthController :: generateToken()");
-			return tokenService.login(authRequest.getUsername(), authority.toString());
+			AuthDTO authDTO =authProvider.userLogin(loginRequest);
+			return authDTO;
 		} else {
-			throw new UsernameNotFoundException("invalid user request !");
+			AuthDTO authDTO =new AuthDTO();
+			authDTO.setSuccess("0");
+			authDTO.setMessage("Login faild, due to invalid creditional.");
+			return authDTO;
 		}
 	}
+
+	@PostMapping("/register")
+	public AuthDTO userRegistor(@RequestBody RegisterRequest registerRequest) {
+		return authProvider.register(registerRequest);
+	}
+	
 	
 	@PostMapping("/logout")
 	public String userLogout(@RequestHeader(TOKEN) String token) {
@@ -105,12 +117,6 @@ public class AuthController {
 		return tokenService.validateToken(token);
 	}
 
-	@PostMapping("/register")
-	public AuthDTO userRegistor(@RequestBody UIUserAccount authRequest) {
-		log.debug("User registor start.");
-		return authProvider.register(authRequest, Authority.USER);
-	}
-	
 	@GetMapping("/userdetail")
     public ResponseEntity<?> getUserDetailFromToken(@RequestHeader(TOKEN) String token) throws AuthenticationException {
     	return ResponseEntity.ok(tokenService.getUserDetailFromToken(token));
