@@ -112,7 +112,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 		auth.setSuccess("1");
 		auth.setMessage("Registration succuss.");
 		auth.setData(new AuthDataDTO());
-		auth.getData().setUser(userDetailMapper.mapToDTO(eoUserAccount));
+		auth.getData().setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
 		auth.getData().setToken(tokenService.login(registerRequest.getUsername(), registerRequest.getAuthority().toString()));
 		return auth;
 	}
@@ -128,7 +128,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 		auth.setSuccess("1");
 		auth.setMessage("Registration succuss.");
 		auth.setData(new AuthDataDTO());
-		auth.getData().setUser(userDetailMapper.mapToDTO(eoUserAccount));
+		auth.getData().setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
 		auth.getData().setToken(tokenService.login(loginRequest.getUsername(), loginRequest.getAuthority().toString()));
 		return auth;
 	}

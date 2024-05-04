@@ -1,5 +1,7 @@
 package com.brijframework.authorization.beans;
 
+import java.util.List;
+
 public class UIUserOnBoarding {
 
 	private long id;
@@ -11,6 +13,8 @@ public class UIUserOnBoarding {
 	private Integer onBoardingLevel;
 	
 	private Boolean onBoardingActive;
+	
+	private List<UIUserOnBoardingQuestion> questions;
 
 	public long getId() {
 		return id;
@@ -59,6 +63,14 @@ public class UIUserOnBoarding {
 
 	public void setOnBoardingActive(Boolean onBoardingActive) {
 		this.onBoardingActive = onBoardingActive;
+	}
+
+	public List<UIUserOnBoardingQuestion> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<UIUserOnBoardingQuestion> questions) {
+		this.questions = questions;
 	}
 	
 }

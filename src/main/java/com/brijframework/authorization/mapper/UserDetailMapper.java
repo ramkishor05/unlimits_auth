@@ -9,15 +9,19 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import com.brijframework.authorization.beans.UIHeaderItem;
 import com.brijframework.authorization.beans.UIMenuGroup;
 import com.brijframework.authorization.beans.UIMenuItem;
 import com.brijframework.authorization.beans.UIUserAccount;
+import com.brijframework.authorization.beans.UIUserDetail;
 import com.brijframework.authorization.beans.UIUserOnBoarding;
+import com.brijframework.authorization.beans.UIUserOnBoardingQuestion;
 import com.brijframework.authorization.beans.UIUserProfile;
 import com.brijframework.authorization.beans.UserDetailResponse;
 import com.brijframework.authorization.beans.UserRoleResponse;
+import com.brijframework.authorization.constant.Authority;
 import com.brijframework.authorization.model.EOUserAccount;
 import com.brijframework.authorization.model.EOUserProfile;
 import com.brijframework.authorization.model.EOUserRole;
@@ -28,6 +32,7 @@ import com.brijframework.authorization.model.menus.EOMenuItem;
 import com.brijframework.authorization.model.menus.EORoleMenuGroup;
 import com.brijframework.authorization.model.menus.EORoleMenuItem;
 import com.brijframework.authorization.model.onboarding.EOUserOnBoarding;
+import com.brijframework.authorization.model.onboarding.EOUserOnBoardingQuestion;
 
 @Mapper(componentModel = SPRING, implementationPackage = COM_BRIJFRAMEWORK_AUTHORIZATION_MAPPER_IMPL)
 public interface UserDetailMapper extends GenericMapper<EOUserAccount, UserDetailResponse> {
@@ -180,4 +185,15 @@ public interface UserDetailMapper extends GenericMapper<EOUserAccount, UserDetai
 	}
 
 	UIHeaderItem mapRoleHeaderItemToHeaderItemDTO(EOHeaderItem eoHeaderItem);
+
+	@Mapping(target = "authority", source = "userRole")
+	UIUserDetail mapToDetailDTO(EOUserAccount eoUserAccount);
+	
+	default Authority authority(EOUserRole eoUserRole) {
+		return Authority.valueOf(eoUserRole.getRoleId());
+	}
+	
+	EOUserOnBoardingQuestion mapToUserOnBoardingQuestionDAO(UIUserOnBoardingQuestion uiUserOnBoardingQuestion);
+
+	UIUserOnBoardingQuestion mapToUserOnBoardingQuestionDTO(EOUserOnBoardingQuestion eoUserOnBoardingQuestion);
 }

@@ -52,6 +52,7 @@ public class TokenFilter extends OncePerRequestFilter {
             username = tokenService.extractUsername(token); 
             role =tokenService.extractRole(token);
             log.debug("extracted user role {} ::",role);
+            requestWrapper.putHeader("username", username);
             requestWrapper.putHeader(TOKEN, token);
         } 
         if (token!=null && !tokenService.validateToken(token)) { 
