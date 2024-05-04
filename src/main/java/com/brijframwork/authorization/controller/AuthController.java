@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.brijframwork.authorization.adptor.AuthProvider;
 import com.brijframwork.authorization.adptor.EnvironmentUtil;
+import com.brijframwork.authorization.beans.AuthDTO;
 import com.brijframwork.authorization.beans.PasswordReset;
 import com.brijframwork.authorization.beans.TokenRequest;
 import com.brijframwork.authorization.beans.UIUserAccount;
@@ -105,7 +106,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/register")
-	public boolean userRegistor(@RequestBody UIUserAccount authRequest) {
+	public AuthDTO userRegistor(@RequestBody UIUserAccount authRequest) {
 		log.debug("User registor start.");
 		return authProvider.register(authRequest, Authority.USER);
 	}

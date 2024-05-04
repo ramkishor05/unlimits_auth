@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.brijframwork.authorization.beans.AuthDTO;
 import com.brijframwork.authorization.beans.PasswordReset;
 import com.brijframwork.authorization.beans.UIUserAccount;
 import com.brijframwork.authorization.constant.Authority;
@@ -119,7 +120,7 @@ public class AuthProvider extends DaoAuthenticationProvider {
 		return null;
 	}
 
-	public boolean register(UIUserAccount userAccount , Authority authority) {
+	public AuthDTO register(UIUserAccount userAccount , Authority authority) {
 		UserAccountService userDetailsService=null; 
 		if(authority.equals(Authority.ADMIN)) {
 			userDetailsService=userAccountService;

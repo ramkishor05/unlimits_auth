@@ -7,12 +7,18 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.brijframwork.authorization.beans.AuthDTO;
+import com.brijframwork.authorization.beans.AuthDataDTO;
 import com.brijframwork.authorization.beans.PasswordReset;
+import com.brijframwork.authorization.beans.TokenRequest;
 import com.brijframwork.authorization.beans.UIUserAccount;
 import com.brijframwork.authorization.beans.UIUserProfile;
 import com.brijframwork.authorization.beans.UserDetailResponse;
@@ -51,6 +57,12 @@ public class UserAccountServiceImpl implements UserAccountService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private TokenService tokenService;
+	
 	@Override
 	public UIUserAccount loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<EOUserAccount> findUserLogin = userLoginRepository.findByUsername(username);
@@ -74,9 +86,19 @@ public class UserAccountServiceImpl implements UserAccountService {
 			}
 		});
 	}
+	
+	public String userLogin(TokenRequest authRequest, Authority authority) {
+		Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+				authRequest.getUsername(), authRequest.getPassword(), getGrantedAuthority(authority.toString())));
+		if (authenticate.isAuthenticated()) {
+			return tokenService.login(authRequest.getUsername(), authority.toString());
+		} else {
+			throw new UsernameNotFoundException("invalid user request !");
+		}
+	}
 
 	@Override
-	public boolean register(UIUserAccount userDetailRequest, Authority authority) {
+	public AuthDTO register(UIUserAccount userDetailRequest, Authority authority) {
 		if(isAlreadyExists(userDetailRequest.getUsername())) {
 			throw new UserAlreadyExistsException();
 		}
@@ -98,8 +120,13 @@ public class UserAccountServiceImpl implements UserAccountService {
 		eoUserAccount.setOnBoarding(true);		
 		eoUserAccount=userAccountRepository.save(eoUserAccount);
 		userOnBoardingService.initOnBoarding(eoUserAccount);
-		
-		return true;
+		AuthDTO auth=new AuthDTO();
+		auth.setSuccess("1");
+		auth.setMessage("Registration succuss.");
+		auth.setData(new AuthDataDTO());
+		auth.getData().setUser(userDetailMapper.mapToUI(eoUserAccount));
+		auth.getData().setToken(tokenService.login(userDetailRequest.getUsername(), authority.toString()));
+		return auth;
 	}
 
 	@Override
