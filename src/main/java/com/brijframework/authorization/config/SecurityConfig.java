@@ -30,7 +30,8 @@ public class SecurityConfig {
 			"/api/role/menu/group/**", 
 			"/api/role/menu/item/**", 
 			"/api/swagger-ui/**", 
-			"/v3/api-docs/**" 
+			"/v3/api-docs/**" ,
+			"/api/user/onboarding/**"
 			};
 
 	private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);

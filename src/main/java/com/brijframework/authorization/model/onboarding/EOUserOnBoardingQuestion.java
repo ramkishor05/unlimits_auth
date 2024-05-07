@@ -2,7 +2,6 @@ package com.brijframework.authorization.model.onboarding;
 
 import java.util.List;
 
-import com.brijframework.authorization.beans.UIUserOnBoardingAnswer;
 import com.brijframework.authorization.model.EOEntityObject;
 import com.brijframework.authorization.model.EOUserAccount;
 
@@ -33,7 +32,7 @@ public class EOUserOnBoardingQuestion extends EOEntityObject {
 	private EOOnBoardingQuestion question;
 
 	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-	private List<UIUserOnBoardingAnswer> answers;
+	private List<EOUserOnBoardingAnswer> answers;
 
 	public EOUserAccount getUserAccount() {
 		return userAccount;
@@ -51,11 +50,11 @@ public class EOUserOnBoardingQuestion extends EOEntityObject {
 		this.question = question;
 	}
 
-	public List<UIUserOnBoardingAnswer> getAnswers() {
+	public List<EOUserOnBoardingAnswer> getAnswers() {
 		return answers;
 	}
 
-	public void setAnswers(List<UIUserOnBoardingAnswer> answers) {
+	public void setAnswers(List<EOUserOnBoardingAnswer> answers) {
 		this.answers = answers;
 	}
 
