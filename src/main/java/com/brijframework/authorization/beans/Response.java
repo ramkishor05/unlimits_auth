@@ -1,9 +1,9 @@
 package com.brijframework.authorization.beans;
 
-public class AuthDTO {
+public class Response {
 	private String success;
 	private String message;
-	private AuthDataDTO data;
+	private Object data;
 
 	public String getSuccess() {
 		return success;
@@ -21,11 +21,11 @@ public class AuthDTO {
 		this.message = message;
 	}
 
-	public AuthDataDTO getData() {
+	public Object getData() {
 		return data;
 	}
 
-	public void setData(AuthDataDTO data) {
+	public void setData(Object data) {
 		this.data = data;
 	}
 

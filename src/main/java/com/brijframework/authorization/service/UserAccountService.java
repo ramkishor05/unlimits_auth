@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.brijframework.authorization.beans.AuthDTO;
+import com.brijframework.authorization.beans.Response;
 import com.brijframework.authorization.beans.PasswordReset;
 import com.brijframework.authorization.beans.RegisterRequest;
 import com.brijframework.authorization.beans.LoginRequest;
@@ -15,9 +15,9 @@ import com.brijframework.authorization.beans.UserDetailResponse;
 
 public interface UserAccountService extends UserDetailsService {
 
-	AuthDTO register(RegisterRequest registerRequest);
+	Response register(RegisterRequest registerRequest);
 	
-	AuthDTO login(LoginRequest loginRequest);
+	Response login(LoginRequest loginRequest);
 	
 	boolean isAlreadyExists(String username);
 

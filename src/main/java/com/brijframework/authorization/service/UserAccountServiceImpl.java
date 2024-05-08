@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.brijframework.authorization.beans.AuthDTO;
+import com.brijframework.authorization.beans.Response;
 import com.brijframework.authorization.beans.AuthDataDTO;
 import com.brijframework.authorization.beans.LoginRequest;
 import com.brijframework.authorization.beans.PasswordReset;
@@ -83,7 +83,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 	}
 	
 	@Override
-	public AuthDTO register(RegisterRequest registerRequest) {
+	public Response register(RegisterRequest registerRequest) {
 		if(isAlreadyExists(registerRequest.getUsername())) {
 			throw new UserAlreadyExistsException();
 		}
@@ -108,28 +108,31 @@ public class UserAccountServiceImpl implements UserAccountService {
 		eoUserAccount.setOnBoarding(true);		
 		eoUserAccount=userAccountRepository.save(eoUserAccount);
 		userOnBoardingService.initOnBoarding(eoUserAccount);
-		AuthDTO auth=new AuthDTO();
+		Response auth=new Response();
 		auth.setSuccess("1");
 		auth.setMessage("Registration succuss.");
-		auth.setData(new AuthDataDTO());
-		auth.getData().setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
-		auth.getData().setToken(tokenService.login(registerRequest.getUsername(), registerRequest.getAuthority().toString()));
+		AuthDataDTO authDataDTO = new AuthDataDTO();
+		authDataDTO.setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
+		authDataDTO.setToken(tokenService.login(registerRequest.getUsername(), registerRequest.getAuthority().toString()));
+		auth.setData(authDataDTO);
 		return auth;
 	}
 	
 	@Override
-	public AuthDTO login(LoginRequest loginRequest) {
+	public Response login(LoginRequest loginRequest) {
 		Optional<EOUserAccount> findUserLogin = userLoginRepository.findByUsername(loginRequest.getUsername());
 		if (!findUserLogin.isPresent()) {
 			throw new UserNotFoundException();
 		}
 		EOUserAccount eoUserAccount = findUserLogin.get();
-		AuthDTO auth=new AuthDTO();
+		Response auth=new Response();
 		auth.setSuccess("1");
 		auth.setMessage("Registration succuss.");
-		auth.setData(new AuthDataDTO());
-		auth.getData().setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
-		auth.getData().setToken(tokenService.login(loginRequest.getUsername(), loginRequest.getAuthority().toString()));
+		
+		AuthDataDTO authDataDTO = new AuthDataDTO();
+		authDataDTO.setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
+		authDataDTO.setToken(tokenService.login(loginRequest.getUsername(), loginRequest.getAuthority().toString()));
+		auth.setData(authDataDTO);
 		return auth;
 	}
 

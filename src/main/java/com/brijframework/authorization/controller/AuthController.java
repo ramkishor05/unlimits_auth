@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.brijframework.authorization.adptor.AuthProvider;
 import com.brijframework.authorization.adptor.EnvironmentUtil;
-import com.brijframework.authorization.beans.AuthDTO;
+import com.brijframework.authorization.beans.Response;
 import com.brijframework.authorization.beans.LoginRequest;
 import com.brijframework.authorization.beans.PasswordReset;
 import com.brijframework.authorization.beans.RegisterRequest;
@@ -81,7 +81,7 @@ public class AuthController {
 	private TemplateService templateService;
 
 	@PostMapping("/login")
-	public AuthDTO userLogin(@RequestBody LoginRequest loginRequest) {
+	public Response userLogin(@RequestBody LoginRequest loginRequest) {
 		log.debug("User Login start.");
 		if(loginRequest.getAuthority()==null) {
 			loginRequest.setAuthority(Authority.USER);
@@ -89,10 +89,10 @@ public class AuthController {
 		Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 				loginRequest.getUsername(), loginRequest.getPassword(), getGrantedAuthority(loginRequest.getAuthority().getRoleId())));
 		if (authenticate.isAuthenticated()) {
-			AuthDTO authDTO =authProvider.userLogin(loginRequest);
+			Response authDTO =authProvider.userLogin(loginRequest);
 			return authDTO;
 		} else {
-			AuthDTO authDTO =new AuthDTO();
+			Response authDTO =new Response();
 			authDTO.setSuccess("0");
 			authDTO.setMessage("Login faild, due to invalid creditional.");
 			return authDTO;
@@ -100,7 +100,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/register")
-	public AuthDTO userRegistor(@RequestBody RegisterRequest registerRequest) {
+	public Response userRegistor(@RequestBody RegisterRequest registerRequest) {
 		return authProvider.register(registerRequest);
 	}
 	

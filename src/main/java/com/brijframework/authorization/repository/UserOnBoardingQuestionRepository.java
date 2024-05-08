@@ -13,6 +13,12 @@ import com.brijframework.authorization.model.onboarding.EOUserOnBoardingQuestion
 @Transactional
 public interface UserOnBoardingQuestionRepository  extends JpaRepository<EOUserOnBoardingQuestion, Long>{
 
-	List<EOUserOnBoardingQuestion> findByUserAccount(EOUserAccount eoUserAccount);
+	List<EOUserOnBoardingQuestion> findAllByUserAccount(EOUserAccount eoUserAccount);
+
+	/**
+	 * @param userAccountId
+	 * @return
+	 */
+	List<EOUserOnBoardingQuestion> findAllByUserAccountId(Long userAccountId);
 
 }

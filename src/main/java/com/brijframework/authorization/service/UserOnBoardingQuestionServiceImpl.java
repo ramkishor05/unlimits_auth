@@ -55,7 +55,7 @@ public class UserOnBoardingQuestionServiceImpl extends CrudServiceImpl<UIUserOnB
 			return;
 		}
 		List<EOUserOnBoardingQuestion> eoUserOnBoardingQuestions = userOnBoardingQuestionRepository
-				.findByUserAccount(eoUserAccount);
+				.findAllByUserAccount(eoUserAccount);
 		Map<Long, EOUserOnBoardingQuestion> userOnBoardingQuestionMap = eoUserOnBoardingQuestions.stream()
 				.collect(Collectors.toMap(userOnBoardingQuestion -> userOnBoardingQuestion.getQuestion().getId(),
 						Function.identity()));
@@ -80,6 +80,11 @@ public class UserOnBoardingQuestionServiceImpl extends CrudServiceImpl<UIUserOnB
 		eoUserOnBoardingQuestion.setUserAccount(eoUserAccount);
 		eoUserOnBoardingQuestion = userOnBoardingQuestionRepository.saveAndFlush(eoUserOnBoardingQuestion);
 		return userDetailMapper.mapToUserOnBoardingQuestionDTO(eoUserOnBoardingQuestion);
+	}
+
+	@Override
+	public List<UIUserOnBoardingQuestion> findAllByUserAccountId(Long userAccountId) {
+		return userOnBoardingQuestionMapper.mapToDTO(userOnBoardingQuestionRepository.findAllByUserAccountId(userAccountId));
 	}
 
 

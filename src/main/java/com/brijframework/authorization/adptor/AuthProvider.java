@@ -18,7 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.brijframework.authorization.beans.AuthDTO;
+import com.brijframework.authorization.beans.Response;
 import com.brijframework.authorization.beans.PasswordReset;
 import com.brijframework.authorization.beans.RegisterRequest;
 import com.brijframework.authorization.beans.LoginRequest;
@@ -122,7 +122,7 @@ public class AuthProvider extends DaoAuthenticationProvider {
 		return null;
 	}
 
-	public AuthDTO register(RegisterRequest registerRequest) {
+	public Response register(RegisterRequest registerRequest) {
 		if(registerRequest.getAuthority()==null) {
 			registerRequest.setAuthority(Authority.USER);
 		}
@@ -140,7 +140,7 @@ public class AuthProvider extends DaoAuthenticationProvider {
 		return userDetailsService.register(registerRequest);
 	}
 
-	public AuthDTO userLogin(LoginRequest authRequest) {
+	public Response userLogin(LoginRequest authRequest) {
 		if(authRequest.getAuthority()==null) {
 			authRequest.setAuthority(Authority.USER);
 		}

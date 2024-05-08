@@ -196,4 +196,5 @@ public interface UserDetailMapper extends GenericMapper<EOUserAccount, UserDetai
 	EOUserOnBoardingQuestion mapToUserOnBoardingQuestionDAO(UIUserOnBoardingQuestion uiUserOnBoardingQuestion);
 
 	UIUserOnBoardingQuestion mapToUserOnBoardingQuestionDTO(EOUserOnBoardingQuestion eoUserOnBoardingQuestion);
+	
 }
