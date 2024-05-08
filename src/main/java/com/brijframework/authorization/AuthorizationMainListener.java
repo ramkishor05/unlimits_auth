@@ -200,7 +200,6 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 			}
 	    	
 	    	Map<String, EORoleHeaderItem> roleHeaderItemMap = roleHeaderItemRepository.findAll().parallelStream().collect(Collectors.toMap((roleHeaderItem)->getRoleHeaderItemKey(roleHeaderItem), Function.identity()));
-	    	System.out.println("roleHeaderItemMap="+roleHeaderItemMap);
 	    	List<EORoleHeaderItem> userRoleHeaderItemList = instance.getAll(EORoleHeaderItem.class);
 	    	for(EORoleHeaderItem roleHeaderItem: userRoleHeaderItemList) {
 	    		try {
