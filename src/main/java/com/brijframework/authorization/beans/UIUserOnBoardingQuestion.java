@@ -9,6 +9,8 @@ public class UIUserOnBoardingQuestion {
 	private UIOnBoardingQuestion question;
 
 	private List<UIUserOnBoardingAnswer> answers;
+	
+	private Long userAccountId;
 
 	public Long getId() {
 		return id;
@@ -32,6 +34,14 @@ public class UIUserOnBoardingQuestion {
 
 	public void setAnswers(List<UIUserOnBoardingAnswer> answers) {
 		this.answers = answers;
+	}
+
+	public Long getUserAccountId() {
+		return userAccountId;
+	}
+
+	public void setUserAccountId(Long userAccountId) {
+		this.userAccountId = userAccountId;
 	}
 
 }

@@ -40,9 +40,7 @@ public interface SingletonFactory {
 		return null;
 	}
 	
-	public default void load(Path file, InputStream inputStream) {
-		
-	}
+	public void load(Path file, InputStream inputStream);
 	
 	public default void write(Path file, List<?> list) {
 		try {
@@ -60,6 +58,7 @@ public interface SingletonFactory {
 				if("/".equals(resourcePath)) {
 					resourcePath="";
 				}
+				System.err.println(resourcePath+ folder);
 				return Thread.currentThread().getContextClassLoader().getResource(resourcePath+ folder);
 			} else {
 				return new File(path +folder).toURI().toURL();
@@ -78,6 +77,7 @@ public interface SingletonFactory {
 		LOGGER.info(this.getClass().getName()+" loading  start");
 		try {
 			URL resource = getConfigDirURLForChild(root);
+			System.out.println("resource="+resource);
 			if(resource==null) {
 				return;
 			}
@@ -98,6 +98,7 @@ public interface SingletonFactory {
 				callForLoadFromFileSystem(path);
 			}
 		} catch (IOException | URISyntaxException e) {
+			e.printStackTrace();
 			LOGGER.error(EXCEPTION, e);
 		}
 		LOGGER.info(this.getClass().getName()+" loading  done");

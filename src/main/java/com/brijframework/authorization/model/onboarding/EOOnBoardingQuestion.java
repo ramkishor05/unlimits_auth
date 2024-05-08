@@ -19,6 +19,9 @@ public class EOOnBoardingQuestion extends EOEntityObject {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Column(name = "IDEN_NO")
+	private String idenNo;
 
 	@Column(name = "QUESTION")
 	private String question;
@@ -31,6 +34,22 @@ public class EOOnBoardingQuestion extends EOEntityObject {
 
 	@OneToMany(mappedBy = "question")
 	private List<EOOnBoardingOptions> options;
+
+	public String getIdenNo() {
+		return idenNo;
+	}
+
+	public void setIdenNo(String idenNo) {
+		this.idenNo = idenNo;
+	}
+
+	public boolean isRequired() {
+		return required;
+	}
+
+	public void setRequired(boolean required) {
+		this.required = required;
+	}
 
 	public String getQuestion() {
 		return question;
@@ -56,4 +75,11 @@ public class EOOnBoardingQuestion extends EOEntityObject {
 		this.options = options;
 	}
 
+	@Override
+	public String toString() {
+		return "EOOnBoardingQuestion [idenNo=" + idenNo + ", question=" + question + ", type=" + type + ", required="
+				+ required + "]";
+	}
+
+	
 }

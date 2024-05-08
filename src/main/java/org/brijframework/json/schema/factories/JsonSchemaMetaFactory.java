@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.brijframework.authorization.model.onboarding.EOOnBoardingQuestion;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonSchemaMetaFactory implements SingletonFactory{
@@ -16,7 +17,7 @@ public class JsonSchemaMetaFactory implements SingletonFactory{
 
 	final ConcurrentHashMap<String, JsonSchemaObject> cache = new ConcurrentHashMap<String, JsonSchemaObject>();
 
-	final String beans = "/beans";
+	final String beans = "beans";
 
 	// singleton pattern
 	private static JsonSchemaMetaFactory instance = null;
@@ -44,6 +45,7 @@ public class JsonSchemaMetaFactory implements SingletonFactory{
 	
 	@Override
 	public void load(Path file, InputStream inputStream) {
+		System.out.println("jsonSchemaFile="+file);
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			JsonSchemaFile jsonSchemaFile = objectMapper.readValue(inputStream, JsonSchemaFile.class);
@@ -93,4 +95,7 @@ public class JsonSchemaMetaFactory implements SingletonFactory{
 		return typeObjectList;
 	}
 
+	public static void main(String[] args) {
+		System.out.println(JsonSchemaMetaFactory.getInstance().getAll(EOOnBoardingQuestion.class));
+	}
 }

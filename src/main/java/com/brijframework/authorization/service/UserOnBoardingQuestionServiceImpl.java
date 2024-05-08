@@ -7,18 +7,22 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.brijframework.authorization.beans.UIUserOnBoardingQuestion;
+import com.brijframework.authorization.mapper.GenericMapper;
 import com.brijframework.authorization.mapper.UserDetailMapper;
+import com.brijframework.authorization.mapper.UserOnBoardingQuestionMapper;
 import com.brijframework.authorization.model.EOUserAccount;
 import com.brijframework.authorization.model.onboarding.EOUserOnBoardingQuestion;
 import com.brijframework.authorization.repository.OnBoardingQuestionRepository;
 import com.brijframework.authorization.repository.UserAccountRepository;
 import com.brijframework.authorization.repository.UserOnBoardingQuestionRepository;
+import com.brijframework.rest.crud.service.impl.CrudServiceImpl;
 
 @Service
-public class UserOnBoardingQuestionServiceImpl implements UserOnBoardingQuestionService {
+public class UserOnBoardingQuestionServiceImpl extends CrudServiceImpl<UIUserOnBoardingQuestion, EOUserOnBoardingQuestion, Long> implements UserOnBoardingQuestionService {
 
 	@Autowired
 	private UserOnBoardingQuestionRepository userOnBoardingQuestionRepository;
@@ -31,6 +35,19 @@ public class UserOnBoardingQuestionServiceImpl implements UserOnBoardingQuestion
 	
 	@Autowired
 	private UserDetailMapper userDetailMapper;
+	
+	@Autowired
+	private UserOnBoardingQuestionMapper userOnBoardingQuestionMapper; 
+
+	@Override
+	public JpaRepository<EOUserOnBoardingQuestion, Long> getRepository() {
+		return userOnBoardingQuestionRepository;
+	}
+
+	@Override
+	public GenericMapper<EOUserOnBoardingQuestion, UIUserOnBoardingQuestion> getMapper() {
+		return userOnBoardingQuestionMapper;
+	}
 
 	@Override
 	public void initOnBoarding(EOUserAccount eoUserAccount) {
@@ -64,5 +81,6 @@ public class UserOnBoardingQuestionServiceImpl implements UserOnBoardingQuestion
 		eoUserOnBoardingQuestion = userOnBoardingQuestionRepository.saveAndFlush(eoUserOnBoardingQuestion);
 		return userDetailMapper.mapToUserOnBoardingQuestionDTO(eoUserOnBoardingQuestion);
 	}
+
 
 }

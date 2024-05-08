@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.brijframework.authorization.model.onboarding.EOOnBoardingQuestion;
+
 public class JsonSchemaDataFactory {
 
 	final ConcurrentHashMap<String, Object> cache = new ConcurrentHashMap<String, Object>();
 
-	final String beans = "/beans";
+	final String beans = "beans";
 
 	// singleton pattern
 	private static JsonSchemaDataFactory instance = null;
@@ -74,6 +76,10 @@ public class JsonSchemaDataFactory {
 		});
 		getCache().put(segmentMetaData.getId(), instance);
 		return instance;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(JsonSchemaDataFactory.getInstance().getAll(EOOnBoardingQuestion.class));
 	}
 
 }

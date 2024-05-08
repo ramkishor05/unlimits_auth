@@ -1,0 +1,87 @@
+{
+	"id": "User_Portal_OnBoarding_Question_Options",
+	"orderSequence": 6,
+	"objects": [
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_AGE_Under18",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question_Options",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
+				"value": "Under 18"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_AGE_18_25",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question_Options",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
+				"value": "18-25"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_AGE_26_35",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question_Options",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
+				"value": "26-35"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_AGE_36_45",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question_Options",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
+				"value": "36-45"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_AGE_46_60",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question_Options",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
+				"value": "46-60"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_AGE_60_+",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question_Options",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
+				"value": "60+"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Gender_Male",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Gender",
+				"value": "Male"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Gender_Female",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Gender",
+				"value": "Female"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Gender_Other",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Gender",
+				"value": "Prefer not to say"
+			}
+		}
+	]
+}

@@ -25,9 +25,13 @@ import com.brijframework.authorization.model.menus.EOMenuGroup;
 import com.brijframework.authorization.model.menus.EOMenuItem;
 import com.brijframework.authorization.model.menus.EORoleMenuGroup;
 import com.brijframework.authorization.model.menus.EORoleMenuItem;
+import com.brijframework.authorization.model.onboarding.EOOnBoardingOptions;
+import com.brijframework.authorization.model.onboarding.EOOnBoardingQuestion;
 import com.brijframework.authorization.repository.HeaderItemRepository;
 import com.brijframework.authorization.repository.MenuGroupRepository;
 import com.brijframework.authorization.repository.MenuItemRepository;
+import com.brijframework.authorization.repository.OnBoardingOptionsRepository;
+import com.brijframework.authorization.repository.OnBoardingQuestionRepository;
 import com.brijframework.authorization.repository.RoleHeaderItemRepository;
 import com.brijframework.authorization.repository.RoleMenuGroupRepository;
 import com.brijframework.authorization.repository.RoleMenuItemRepository;
@@ -35,6 +39,7 @@ import com.brijframework.authorization.repository.UserAccountRepository;
 import com.brijframework.authorization.repository.UserOnBoardingRepository;
 import com.brijframework.authorization.repository.UserProfileRepository;
 import com.brijframework.authorization.repository.UserRoleRepository;
+import com.brijframework.authorization.service.UserOnBoardingQuestionService;
 
 @Component
 public class AuthorizationMainListener implements ApplicationListener<ContextRefreshedEvent> {
@@ -70,7 +75,16 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 	private UserOnBoardingRepository userOnBoardingRepository;
 	
 	@Autowired
+	private OnBoardingQuestionRepository onBoardingQuestionRepository;
+	
+	@Autowired
+	private OnBoardingOptionsRepository onBoardingOptionsRepository;
+	
+	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private UserOnBoardingQuestionService userOnBoardingQuestionService;
 	
 	@Value("${spring.db.datajson.upload}")
 	boolean upload;
@@ -201,7 +215,41 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 					e.printStackTrace();
 				}
 			}
+	    	Map<String, EOOnBoardingQuestion> onBoardingQuestionMap = onBoardingQuestionRepository.findAll().parallelStream().collect(Collectors.toMap((onBoardingQuestion)->onBoardingQuestion.getQuestion(), Function.identity()));
+	    	List<EOOnBoardingQuestion> onBoardingQuestionList = instance.getAll(EOOnBoardingQuestion.class);
 	    	
+	    	for(EOOnBoardingQuestion onBoardingQuestion: onBoardingQuestionList) {
+	    		try {
+	    			EOOnBoardingQuestion eoOnBoardingQuestion = onBoardingQuestionMap.getOrDefault(onBoardingQuestion.getQuestion(),onBoardingQuestion);
+					BeanUtils.copyProperties(onBoardingQuestion, eoOnBoardingQuestion, "id");
+					EOOnBoardingQuestion saveOnBoardingQuestion = onBoardingQuestionRepository.saveAndFlush(eoOnBoardingQuestion);
+					onBoardingQuestion.setId(saveOnBoardingQuestion.getId());
+		    		onBoardingQuestionMap.remove(onBoardingQuestion.getQuestion());
+	    		}catch (Exception e) {
+					System.out.println("onBoardingQuestion="+onBoardingQuestion);
+					e.printStackTrace();
+				}
+			}
+	    	
+	    	Map<String, EOOnBoardingOptions> onBoardingOptionsMap = onBoardingOptionsRepository.findAll().parallelStream().collect(Collectors.toMap((onBoardingOptions)->onBoardingOptions.getValue(), Function.identity()));
+	    	List<EOOnBoardingOptions> onBoardingOptionsList = instance.getAll(EOOnBoardingOptions.class);
+	    	
+	    	for(EOOnBoardingOptions onBoardingOptions: onBoardingOptionsList) {
+	    		try {
+	    			EOOnBoardingOptions eoOnBoardingOptions = onBoardingOptionsMap.getOrDefault(onBoardingOptions.getValue(),onBoardingOptions);
+					BeanUtils.copyProperties(onBoardingOptions, eoOnBoardingOptions, "id");
+					EOOnBoardingOptions saveOnBoardingOptions = onBoardingOptionsRepository.saveAndFlush(eoOnBoardingOptions);
+					onBoardingOptions.setId(saveOnBoardingOptions.getId());
+		    		onBoardingOptionsMap.remove(onBoardingOptions.getValue());
+	    		}catch (Exception e) {
+					System.out.println("onBoardingQuestion="+onBoardingOptions);
+					e.printStackTrace();
+				}
+			}
+	    	
+	    	if(!onBoardingQuestionMap.isEmpty()) {
+	    		onBoardingQuestionRepository.deleteAll(onBoardingQuestionMap.values());
+	    	}
 	    	if(!roleHeaderItemMap.isEmpty()) {
 	    		roleHeaderItemRepository.deleteAll(roleHeaderItemMap.values());
 	    	}
@@ -225,6 +273,10 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 	    	if(!globalMenuGroupMap.isEmpty()) {
 	    		globalMenuGroupRepository.deleteAll(globalMenuGroupMap.values());
 	    	}
+	    	
+	    	userAccountRepository.findAll().forEach(userAccount->{
+	    		userOnBoardingQuestionService.initOnBoarding(userAccount);
+	    	});
     	}
     }
 
