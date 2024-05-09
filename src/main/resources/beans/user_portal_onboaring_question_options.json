@@ -82,6 +82,115 @@
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Gender",
 				"value": "Prefer not to say"
 			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Student",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I am student"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Owner",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I run my own business"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Self",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I am self employed"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Carrier",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I just started my carrier"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Leadership",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I am in senior leadership"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Homemaker",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I am a homemaker"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Artist",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I am an artist"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Unemployed",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I am an unemployed"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Other",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "Other"
+			}
+		}
+		,
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Life_Moonshot",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Life",
+				"value": "I want a crezy moonshot"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Life_vision",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Life",
+				"value": "I want bold vision"
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Life_zone",
+			"type": "com.brijframework.authorization.model.onboarding.EOOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Life",
+				"value": "I want break my confirm zone"
+			}
 		}
 	]
 }

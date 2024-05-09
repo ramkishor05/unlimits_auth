@@ -32,11 +32,11 @@ public class UserOnboardingQuestionController extends CrudController<UIUserOnBoa
 		Response response=new Response();
 		try {
 			response.setData(userOnBoardingQuestionService.findAllByUserAccountId(userAccountId));
-			response.setSuccess("0");
-			response.setMessage("Successfully procceed");
+			response.setSuccess(SUCCESS);
+			response.setMessage(SUCCESSFULLY_PROCCEED);
 			return response;
 		}catch (Exception e) {
-			response.setSuccess("0");
+			response.setSuccess(FAILED);
 			response.setMessage(e.getMessage());
 			return response;
 		}

@@ -19,6 +19,19 @@ import com.brijframework.rest.crud.service.CrudService;
  */
 public abstract class CrudController<DT, EN, ID> {
 	
+	/**
+	 * 
+	 */
+	public static final String SUCCESSFULLY_PROCCEED = "Successfully procceed";
+	/**
+	 * 
+	 */
+	public static final String FAILED = "0";
+	/**
+	 * 
+	 */
+	public static final String SUCCESS = "1";
+
 	public abstract CrudService<DT, EN, ID> getService();
 
 	@PostMapping
@@ -26,11 +39,11 @@ public abstract class CrudController<DT, EN, ID> {
 		Response response=new Response();
 		try {
 			response.setData(getService().add(dto));
-			response.setSuccess("0");
-			response.setMessage("Successfully procceed");
+			response.setSuccess(SUCCESS);
+			response.setMessage(SUCCESSFULLY_PROCCEED);
 			return response;
 		}catch (Exception e) {
-			response.setSuccess("0");
+			response.setSuccess(FAILED);
 			response.setMessage(e.getMessage());
 			return response;
 		}
@@ -42,11 +55,11 @@ public abstract class CrudController<DT, EN, ID> {
 		Response response=new Response();
 		try {
 			response.setData(getService().update(dto));
-			response.setSuccess("0");
-			response.setMessage("Successfully procceed");
+			response.setSuccess(SUCCESS);
+			response.setMessage(SUCCESSFULLY_PROCCEED);
 			return response;
 		}catch (Exception e) {
-			response.setSuccess("0");
+			response.setSuccess(FAILED);
 			response.setMessage(e.getMessage());
 			return response;
 		}
@@ -57,11 +70,11 @@ public abstract class CrudController<DT, EN, ID> {
 		Response response=new Response();
 		try {
 			response.setData(getService().delete(id));
-			response.setSuccess("0");
-			response.setMessage("Successfully procceed");
+			response.setSuccess(SUCCESS);
+			response.setMessage(SUCCESSFULLY_PROCCEED);
 			return response;
 		}catch (Exception e) {
-			response.setSuccess("0");
+			response.setSuccess(FAILED);
 			response.setMessage(e.getMessage());
 			return response;
 		}
@@ -72,11 +85,11 @@ public abstract class CrudController<DT, EN, ID> {
 		Response response=new Response();
 		try {
 			response.setData(getService().findById(id));
-			response.setSuccess("0");
-			response.setMessage("Successfully procceed");
+			response.setSuccess(SUCCESS);
+			response.setMessage(SUCCESSFULLY_PROCCEED);
 			return response;
 		}catch (Exception e) {
-			response.setSuccess("0");
+			response.setSuccess(FAILED);
 			response.setMessage(e.getMessage());
 			return response;
 		}
@@ -87,11 +100,11 @@ public abstract class CrudController<DT, EN, ID> {
 		Response response=new Response();
 		try {
 			response.setData(getService().findAll());
-			response.setSuccess("0");
-			response.setMessage("Successfully procceed");
+			response.setSuccess(SUCCESS);
+			response.setMessage(SUCCESSFULLY_PROCCEED);
 			return response;
 		}catch (Exception e) {
-			response.setSuccess("0");
+			response.setSuccess(FAILED);
 			response.setMessage(e.getMessage());
 			return response;
 		}
@@ -102,11 +115,11 @@ public abstract class CrudController<DT, EN, ID> {
 		Response response=new Response();
 		try {
 			response.setData(getService().fetchPageObject(pageNumber, count));
-			response.setSuccess("0");
-			response.setMessage("Successfully procceed");
+			response.setSuccess(SUCCESS);
+			response.setMessage(SUCCESSFULLY_PROCCEED);
 			return response;
 		}catch (Exception e) {
-			response.setSuccess("0");
+			response.setSuccess(FAILED);
 			response.setMessage(e.getMessage());
 			return response;
 		}
@@ -117,11 +130,11 @@ public abstract class CrudController<DT, EN, ID> {
 		Response response=new Response();
 		try {
 			response.setData(getService().fetchPageList(pageNumber, count));
-			response.setSuccess("0");
-			response.setMessage("Successfully procceed");
+			response.setSuccess(SUCCESS);
+			response.setMessage(SUCCESSFULLY_PROCCEED);
 			return response;
 		}catch (Exception e) {
-			response.setSuccess("0");
+			response.setSuccess(FAILED);
 			response.setMessage(e.getMessage());
 			return response;
 		}
@@ -132,11 +145,11 @@ public abstract class CrudController<DT, EN, ID> {
 		Response response=new Response();
 		try {
 			response.setData(getService().fetchPageObject(pageNumber, count, Sort.by(sort)));
-			response.setSuccess("0");
-			response.setMessage("Successfully procceed");
+			response.setSuccess(SUCCESS);
+			response.setMessage(SUCCESSFULLY_PROCCEED);
 			return response;
 		}catch (Exception e) {
-			response.setSuccess("0");
+			response.setSuccess(FAILED);
 			response.setMessage(e.getMessage());
 			return response;
 		}
@@ -147,11 +160,11 @@ public abstract class CrudController<DT, EN, ID> {
 		Response response=new Response();
 		try {
 			response.setData(getService().fetchPageList(pageNumber, count, Sort.by(sort)));
-			response.setSuccess("0");
-			response.setMessage("Successfully procceed");
+			response.setSuccess(SUCCESS);
+			response.setMessage(SUCCESSFULLY_PROCCEED);
 			return response;
 		}catch (Exception e) {
-			response.setSuccess("0");
+			response.setSuccess(FAILED);
 			response.setMessage(e.getMessage());
 			return response;
 		}
