@@ -5,6 +5,7 @@ import static com.brijframework.authorization.contants.Constants.SPRING;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.unlimits.rest.crud.mapper.GenericMapper;
 
 import com.brijframework.authorization.beans.UIUserOnBoardingQuestion;
 import com.brijframework.authorization.model.onboarding.EOUserOnBoardingQuestion;

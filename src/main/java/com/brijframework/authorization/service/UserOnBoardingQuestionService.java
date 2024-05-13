@@ -2,10 +2,11 @@ package com.brijframework.authorization.service;
 
 import java.util.List;
 
+import org.unlimits.rest.crud.service.CrudService;
+
 import com.brijframework.authorization.beans.UIUserOnBoardingQuestion;
 import com.brijframework.authorization.model.EOUserAccount;
 import com.brijframework.authorization.model.onboarding.EOUserOnBoardingQuestion;
-import com.brijframework.rest.crud.service.CrudService;
 
 public interface UserOnBoardingQuestionService extends CrudService<UIUserOnBoardingQuestion, EOUserOnBoardingQuestion, Long>{
 

@@ -2,21 +2,12 @@ package com.brijframework.authorization.service;
 
 import java.util.List;
 
+import org.unlimits.rest.crud.service.CrudService;
+
 import com.brijframework.authorization.beans.UIMenuGroup;
+import com.brijframework.authorization.model.menus.EOMenuGroup;
 
-public interface MenuGroupService {
-
-	UIMenuGroup addMenuGroup(UIMenuGroup uiMenuGroup);
-
-	UIMenuGroup updateMenuGroup(UIMenuGroup uiMenuGroup);
-
-	boolean deleteMenuGroup(Long id);
-
-	UIMenuGroup getMenuGroup(Long id);
-
-	List<UIMenuGroup> getMenuGroupList();
-
-	List<UIMenuGroup> getMenuGroupList(String type);
+public interface MenuGroupService extends CrudService<UIMenuGroup, EOMenuGroup, Long>{
 
 	List<UIMenuGroup> getMenuGroupListByRole(Long roleId);
 }

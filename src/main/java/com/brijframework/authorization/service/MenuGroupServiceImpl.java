@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.unlimits.rest.crud.mapper.GenericMapper;
+import org.unlimits.rest.crud.service.CrudServiceImpl;
 
 import com.brijframework.authorization.beans.UIMenuGroup;
 import com.brijframework.authorization.beans.UIMenuItem;
@@ -17,7 +20,7 @@ import com.brijframework.authorization.repository.MenuGroupRepository;
 import com.brijframework.authorization.repository.RoleMenuGroupRepository;
 
 @Service
-public class MenuGroupServiceImpl implements MenuGroupService {
+public class MenuGroupServiceImpl extends CrudServiceImpl<UIMenuGroup, EOMenuGroup, Long> implements MenuGroupService {
 	
 	@Autowired
 	private RoleMenuGroupRepository roleMenuGroupRepository;
@@ -30,43 +33,17 @@ public class MenuGroupServiceImpl implements MenuGroupService {
 	
 	@Autowired
 	private MenuItemMapper menuItemMapper;
-
-	@Override
-	public UIMenuGroup addMenuGroup(UIMenuGroup uiMenuGroup) {
-		EOMenuGroup eoMenuGroup = menuGroupMapper.mapToDAO(uiMenuGroup);
-		eoMenuGroup=menuGroupRepository.save(eoMenuGroup);
-		
-		return menuGroupMapper.mapToDTO(eoMenuGroup);
-	}
-
-	@Override
-	public UIMenuGroup updateMenuGroup(UIMenuGroup uiMenuGroup) {
-		EOMenuGroup eoMenuGroup = menuGroupMapper.mapToDAO(uiMenuGroup);
-		eoMenuGroup=menuGroupRepository.save(eoMenuGroup);
-		return menuGroupMapper.mapToDTO(eoMenuGroup);
-	}
-
-	@Override
-	public boolean deleteMenuGroup(Long id) {
-		menuGroupRepository.deleteById(id);
-		return true;
-	}
-
-	@Override
-	public UIMenuGroup getMenuGroup(Long id) {
-		return menuGroupMapper.mapToDTO(menuGroupRepository.findById(id).orElse(null));
-	}
-
-	@Override
-	public List<UIMenuGroup> getMenuGroupList() {
-		return menuGroupMapper.mapToDTO(menuGroupRepository.findAll());
-	}
-
-	@Override
-	public List<UIMenuGroup> getMenuGroupList(String type) {
-		return menuGroupMapper.mapToDTO(menuGroupRepository.findAllByType(type));
-	}
 	
+	@Override
+	public JpaRepository<EOMenuGroup, Long> getRepository() {
+		return menuGroupRepository;
+	}
+
+	@Override
+	public GenericMapper<EOMenuGroup, UIMenuGroup> getMapper() {
+		return menuGroupMapper;
+	}
+
 	@Override
 	public List<UIMenuGroup> getMenuGroupListByRole(Long roleId) {
 		List<EORoleMenuGroup> eoRoleMenuGroups = roleMenuGroupRepository.findAllByRoleId(roleId);
@@ -85,4 +62,6 @@ public class MenuGroupServiceImpl implements MenuGroupService {
 
 		return uiMenuGroups;
 	}
+
+	
 }

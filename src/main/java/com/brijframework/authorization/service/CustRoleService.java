@@ -2,20 +2,13 @@ package com.brijframework.authorization.service;
 
 import java.util.List;
 
+import org.unlimits.rest.crud.service.CrudService;
+
 import com.brijframework.authorization.beans.UIUserRole;
+import com.brijframework.authorization.model.EOUserRole;
 
-public interface CustRoleService {
+public interface CustRoleService extends CrudService<UIUserRole, EOUserRole, Long>{
 
-	UIUserRole addUserRole(UIUserRole uiUserRole);
-
-	UIUserRole updateUserRole(UIUserRole uiUserRole);
-
-	Boolean deleteUserRole(Long id);
-
-	UIUserRole getUserRole(Long id);
-
-	List<UIUserRole> getUserRoleList();
-	
 	List<UIUserRole> getUserRoleList(String type);
 
 

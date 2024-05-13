@@ -4,6 +4,7 @@ import static com.brijframework.authorization.contants.Constants.COM_BRIJFRAMEWO
 import static com.brijframework.authorization.contants.Constants.SPRING;
 
 import org.mapstruct.Mapper;
+import org.unlimits.rest.crud.mapper.GenericMapper;
 
 import com.brijframework.authorization.beans.UIUserRole;
 import com.brijframework.authorization.model.EOUserRole;
