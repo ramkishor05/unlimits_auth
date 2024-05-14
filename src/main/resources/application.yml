@@ -20,6 +20,7 @@ spring:
        show_sql: true
        naming: 
          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+         
    mail:
     properties:
       mail:
@@ -27,10 +28,10 @@ spring:
           starttls:
             enable: 'true'
           auth: 'true'
-    host: smtp.gmail.com
-    username: nikhilraj0123467@gmail.com
+    host: mail.smtp2go.com #smtp.gmail.com
+    username: clavisdigital #nikhilraj0123467@gmail.com
     protocol: smtp
-    password: keqx xjod sicl qtzy
+    password: PoqAKFiNmCSIm5Xy #keqx xjod sicl qtzy
     test-connection: 'false'
     port: '587'
    db:
@@ -42,6 +43,9 @@ springdoc:
       disable-swagger-default-url: true
       api-docs.path: /v3/api-docs
       paths-to-match: /v3/api-docs
+openapi:
+  service:
+      url: http://localhost:8080/auth
 # Discovery Server Access
 #eureka:
 #  client:

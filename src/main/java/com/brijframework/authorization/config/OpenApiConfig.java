@@ -1,6 +1,7 @@
 package com.brijframework.authorization.config;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,18 +18,21 @@ public class OpenApiConfig {
 
 	private final String moduleName = "Auth";
 	private final String apiVersion = "1.1";
+	
+	@Value("${openapi.service.url}")
+	private String serverUrl;
 
-	/*
-	 * @Bean public OpenAPI customOpenAPI() { final String securitySchemeName =
-	 * Constants.AUTHORIZATION; final String apiTitle = String.format("%s API",
-	 * StringUtils.capitalize(moduleName));
-	 * 
-	 * return new OpenAPI().addServersItem(new
-	 * Server().url("https://sawfish-perfect-neatly.ngrok-free.app")) .components(
-	 * new Components().addSecuritySchemes(securitySchemeName, new
-	 * SecurityScheme().name(securitySchemeName).type(SecurityScheme.Type.HTTP)
-	 * .scheme("bearer").bearerFormat("JWT")))
-	 * 
-	 * .info(new Info().title(apiTitle).version(apiVersion)); }
-	 */
+	@Bean
+	public OpenAPI customOpenAPI() {
+		final String securitySchemeName = Constants.AUTHORIZATION;
+		final String apiTitle = String.format("%s API", StringUtils.capitalize(moduleName));
+
+		return new OpenAPI().addServersItem(new Server().url(serverUrl))
+				.components(new Components().addSecuritySchemes(securitySchemeName,
+						new SecurityScheme().name(securitySchemeName).type(SecurityScheme.Type.HTTP).scheme("bearer")
+								.bearerFormat("JWT")))
+
+				.info(new Info().title(apiTitle).version(apiVersion));
+	}
+
 }
