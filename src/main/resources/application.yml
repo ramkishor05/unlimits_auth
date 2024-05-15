@@ -45,7 +45,7 @@ springdoc:
       paths-to-match: /v3/api-docs
 openapi:
   service:
-      url: http://localhost:8080/auth
+      url: http://51.79.159.7:8080/auth
 # Discovery Server Access
 #eureka:
 #  client:
