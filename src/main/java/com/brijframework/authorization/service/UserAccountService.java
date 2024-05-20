@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.unlimits.rest.crud.service.QueryService;
 
 import com.brijframework.authorization.beans.Response;
 import com.brijframework.authorization.beans.PasswordReset;
@@ -12,8 +13,9 @@ import com.brijframework.authorization.beans.LoginRequest;
 import com.brijframework.authorization.beans.UIUserAccount;
 import com.brijframework.authorization.beans.UIUserProfile;
 import com.brijframework.authorization.beans.UserDetailResponse;
+import com.brijframework.authorization.model.EOUserAccount;
 
-public interface UserAccountService extends UserDetailsService {
+public interface UserAccountService extends UserDetailsService, QueryService<UserDetailResponse, EOUserAccount, Long> {
 
 	Response register(RegisterRequest registerRequest);
 	

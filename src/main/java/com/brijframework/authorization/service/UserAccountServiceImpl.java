@@ -7,10 +7,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.unlimits.rest.crud.mapper.GenericMapper;
+import org.unlimits.rest.crud.service.QueryServiceImpl;
 
 import com.brijframework.authorization.beans.Response;
 import com.brijframework.authorization.beans.AuthDataDTO;
@@ -32,7 +35,7 @@ import com.brijframework.authorization.repository.UserProfileRepository;
 import com.brijframework.authorization.repository.UserRoleRepository;
 
 @Service
-public class UserAccountServiceImpl implements UserAccountService {
+public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse, EOUserAccount, Long> implements UserAccountService {
 	
 	@Autowired
 	private UserRoleRepository userRoleRepository;
@@ -50,17 +53,25 @@ public class UserAccountServiceImpl implements UserAccountService {
 	private UserOnBoardingService userOnBoardingService;
 
 	@Autowired
-	private UserAccountRepository userLoginRepository;
-
-	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private TokenService tokenService;
 	
+
+	@Override
+	public JpaRepository<EOUserAccount, Long> getRepository() {
+		return userAccountRepository;
+	}
+
+	@Override
+	public GenericMapper<EOUserAccount, UserDetailResponse> getMapper() {
+		return userDetailMapper;
+	}
+	
 	@Override
 	public UIUserAccount loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<EOUserAccount> findUserLogin = userLoginRepository.findByUsername(username);
+		Optional<EOUserAccount> findUserLogin = userAccountRepository.findByUsername(username);
 		if (!findUserLogin.isPresent()) {
 			throw new UserNotFoundException();
 		}
@@ -120,7 +131,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 	
 	@Override
 	public Response login(LoginRequest loginRequest) {
-		Optional<EOUserAccount> findUserLogin = userLoginRepository.findByUsername(loginRequest.getUsername());
+		Optional<EOUserAccount> findUserLogin = userAccountRepository.findByUsername(loginRequest.getUsername());
 		if (!findUserLogin.isPresent()) {
 			throw new UserNotFoundException();
 		}
@@ -230,5 +241,6 @@ public class UserAccountServiceImpl implements UserAccountService {
 		UIUserAccount userDetails = userDetailMapper.mapToUI(userAccount);
 		return userDetails;
 	}
+
 
 }
