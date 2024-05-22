@@ -10,13 +10,13 @@ public interface TokenService {
 
 	Boolean validateToken(String token);
 
-	String generateToken(String username, String string);
+	String generateToken(String username, Long userId,  String role);
 
 	String changeExpiration(String token, Date expiration);
 
 	Date buildExprireationDate();
 
-	String login(String username, String string);
+	String login(String username,Long userId , String string);
 
 	String logout(String token);
 

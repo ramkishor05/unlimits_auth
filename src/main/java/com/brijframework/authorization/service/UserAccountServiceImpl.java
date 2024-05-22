@@ -124,7 +124,7 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 		auth.setMessage("Registration succuss.");
 		AuthDataDTO authDataDTO = new AuthDataDTO();
 		authDataDTO.setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
-		authDataDTO.setToken(tokenService.login(registerRequest.getUsername(), registerRequest.getAuthority().toString()));
+		authDataDTO.setToken(tokenService.login(registerRequest.getUsername(), eoUserAccount.getId(), registerRequest.getAuthority().toString()));
 		auth.setData(authDataDTO);
 		return auth;
 	}
@@ -142,7 +142,7 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 		
 		AuthDataDTO authDataDTO = new AuthDataDTO();
 		authDataDTO.setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
-		authDataDTO.setToken(tokenService.login(loginRequest.getUsername(), loginRequest.getAuthority().toString()));
+		authDataDTO.setToken(tokenService.login(loginRequest.getUsername(), eoUserAccount.getId(), loginRequest.getAuthority().toString()));
 		auth.setData(authDataDTO);
 		return auth;
 	}
