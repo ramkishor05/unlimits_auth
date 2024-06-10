@@ -37,6 +37,16 @@ import com.brijframework.authorization.repository.UserRoleRepository;
 @Service
 public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse, EOUserAccount, Long> implements UserAccountService {
 	
+	/**
+	 * 
+	 */
+	private static final String _1 = "1";
+
+	/**
+	 * 
+	 */
+	private static final String SUCCUSSFULLY_PROCESSED = "Succussfully processed.";
+
 	@Autowired
 	private UserRoleRepository userRoleRepository;
 
@@ -120,8 +130,8 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 		eoUserAccount=userAccountRepository.save(eoUserAccount);
 		userOnBoardingService.initOnBoarding(eoUserAccount);
 		Response auth=new Response();
-		auth.setSuccess("1");
-		auth.setMessage("Registration succuss.");
+		auth.setSuccess(_1);
+		auth.setMessage(SUCCUSSFULLY_PROCESSED);
 		AuthDataDTO authDataDTO = new AuthDataDTO();
 		authDataDTO.setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
 		authDataDTO.setToken(tokenService.login(registerRequest.getUsername(), eoUserAccount.getId(), registerRequest.getAuthority().toString()));
@@ -137,8 +147,8 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 		}
 		EOUserAccount eoUserAccount = findUserLogin.get();
 		Response auth=new Response();
-		auth.setSuccess("1");
-		auth.setMessage("Registration succuss.");
+		auth.setSuccess(_1);
+		auth.setMessage(SUCCUSSFULLY_PROCESSED);
 		
 		AuthDataDTO authDataDTO = new AuthDataDTO();
 		authDataDTO.setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
