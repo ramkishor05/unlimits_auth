@@ -73,12 +73,12 @@
 			}
 		},
 		{
-			"id": "Global_Portal_MenuItem_Category_Group",
+			"id": "Global_Portal_MenuItem_Main_Category",
 			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "Main Categories",
-				"idenNo": "Global_Portal_MenuItem_Category_Group",
+				"idenNo": "Global_Portal_MenuItem_Main_Category",
 				"type": "item",
 				"url": "/global/portal/content/main/categories",
 				"icon": "MainCategories",
@@ -87,12 +87,12 @@
 			}
 		},
 		{
-			"id": "Global_Portal_MenuItem_Category_List",
+			"id": "Global_Portal_MenuItem_Sub_Category",
 			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
 				"title": "Sub Categories",
-				"idenNo": "Global_Portal_MenuItem_Category_List",
+				"idenNo": "Global_Portal_MenuItem_Sub_Category",
 				"type": "item",
 				"url": "/global/portal/content/sub/categories",
 				"icon": "SubCategories",
@@ -101,82 +101,68 @@
 			}
 		},
 		{
-			"id": "Global_Portal_MenuItem_Tag_Group",
+			"id": "Global_Portal_MenuItem_Sub_Category_Tags",
 			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
-				"title": "Main Tags",
-				"idenNo": "Global_Portal_MenuItem_Tag_Group",
+				"title": "Tag Library",
+				"idenNo": "Global_Portal_MenuItem_Sub_Category_Tags",
 				"type": "item",
-				"url": "/global/portal/content/main/tags",
-				"icon": "MainTag",
+				"url": "/global/portal/content/tag/library",
+				"icon": "Category_Tag",
 				"orderSequence": 3.0,
 				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
 			}
 		},
 		{
-			"id": "Global_Portal_MenuItem_Tag_List",
+			"id": "Global_Portal_MenuItem_Sub_Category_Images",
 			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
-				"title": "Sub Tags",
-				"idenNo": "Global_Portal_MenuItem_Tag_List",
+				"title": "Image Library",
+				"idenNo": "Global_Portal_MenuItem_Sub_Category_Images",
 				"type": "item",
-				"url": "/global/portal/content/sub/tags",
-				"icon": "SubTags",
+				"url": "/global/portal/content/image/library",
+				"icon": "Category_Image",
 				"orderSequence": 4.0,
 				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
 			}
 		},
 		{
-			"id": "Global_Portal_MenuItem_Prompt_Tag",
+			"id": "Global_Portal_MenuItem_Prompts",
 			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
-				"title": "Prompt & Tag",
-				"idenNo": "Global_Portal_MenuItem_Prompt_Tag",
+				"title": "Prompts",
+				"idenNo": "Global_Portal_MenuItem_Prompts",
 				"type": "item",
-				"url": "/global/portal/content/prompt/list",
-				"icon": "PromptTag",
+				"url": "/global/portal/content/prompts",
+				"icon": "Prompts",
+				"orderSequence": 6.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Mindsets",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "My Mindset Videos",
+				"idenNo": "Global_Portal_MenuItem_Mindsets",
+				"type": "item",
+				"url": "/global/portal/content/midsets",
+				"icon": "Mindsets",
 				"orderSequence": 5.0,
 				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
 			}
 		},
 		{
-			"id": "Global_Portal_MenuItem_Image_List",
+			"id": "Global_Portal_MenuItem_Users",
 			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
-				"title": "Image Library",
-				"idenNo": "Global_Portal_MenuItem_Image_List",
-				"type": "item",
-				"url": "/global/portal/content/image/list",
-				"icon": "Images",
-				"orderSequence": 6.0,
-				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
-			}
-		},
-		{
-			"id": "Global_Portal_MenuItem_My_Mindset_Videos",
-			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
-			"name": "Global_Portal_MenuItem",
-			"properties": {
-				"title": "My Mindset Videos",
-				"idenNo": "Global_Portal_MenuItem_My_Mindset_Videos",
-				"type": "item",
-				"url": "/global/portal/content/midset/videos",
-				"icon": "MyMindsetVideos",
-				"orderSequence": 6.0,
-				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
-			}
-		},
-		{
-			"id": "Global_Portal_MenuItem_User_List",
-			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
-			"name": "Global_Portal_MenuItem",
-			"properties": {
-				"title": "User List",
-				"idenNo": "Global_Portal_MenuItem_User_List",
+				"title": "Users",
+				"idenNo": "Global_Portal_MenuItem_Users",
 				"type": "item",
 				"url": "/global/portal/organizations/users",
 				"icon": "UserList",
