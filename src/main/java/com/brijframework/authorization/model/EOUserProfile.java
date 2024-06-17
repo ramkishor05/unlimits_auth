@@ -27,6 +27,12 @@ public class EOUserProfile extends EOEntityObject {
 	@Column(name = "PIC_URL")
 	@Lob
 	private String pictureURL;
+	
+	@Column(name = "ADDRESS")
+	private String address;
+	
+	@Column(name = "ZIP_CODE")
+	private String zipCode;
 
 	@OneToOne(mappedBy = "userProfile")
 	private EOUserAccount userAccount;
@@ -61,6 +67,22 @@ public class EOUserProfile extends EOEntityObject {
 
 	public void setPictureURL(String pictureURL) {
 		this.pictureURL = pictureURL;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
 
 	public EOUserAccount getUserAccount() {

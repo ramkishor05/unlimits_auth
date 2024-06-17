@@ -81,6 +81,17 @@
 			}
 		},
 		{
+			"id": "Global_Portal_MenuItem_Role_Admin_Journals",
+			"type": "com.brijframework.authorization.model.menus.EORoleMenuItem",
+			"name": "Global_Portal_MenuItem_Role",
+			"properties": {
+				"idenNo": "Global_Portal_MenuItem_Role_Admin_Journals",
+				"userRole": "LK@UserRole_ADMIN",
+				"menuItem": "LK@Global_Portal_MenuItem_Journals",
+				"roleMenuGroup": "LK@Global_Portal_MenuGroup_Role_Admin_Content"
+			}
+		},
+		{
 			"id": "Global_Portal_MenuItem_Role_Admin_Users",
 			"type": "com.brijframework.authorization.model.menus.EORoleMenuItem",
 			"name": "Global_Portal_MenuItem_Role",

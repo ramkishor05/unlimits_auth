@@ -129,6 +129,20 @@
 			}
 		},
 		{
+			"id": "Global_Portal_MenuItem_Mindsets",
+			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "My Mindset Videos",
+				"idenNo": "Global_Portal_MenuItem_Mindsets",
+				"type": "item",
+				"url": "/global/portal/content/midsets",
+				"icon": "Mindsets",
+				"orderSequence": 5.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
+			}
+		},
+		{
 			"id": "Global_Portal_MenuItem_Prompts",
 			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
@@ -143,16 +157,16 @@
 			}
 		},
 		{
-			"id": "Global_Portal_MenuItem_Mindsets",
+			"id": "Global_Portal_MenuItem_Journals",
 			"type": "com.brijframework.authorization.model.menus.EOMenuItem",
 			"name": "Global_Portal_MenuItem",
 			"properties": {
-				"title": "My Mindset Videos",
-				"idenNo": "Global_Portal_MenuItem_Mindsets",
+				"title": "Journals",
+				"idenNo": "Global_Portal_MenuItem_Journals",
 				"type": "item",
-				"url": "/global/portal/content/midsets",
-				"icon": "Mindsets",
-				"orderSequence": 5.0,
+				"url": "/global/portal/content/journals",
+				"icon": "Journals",
+				"orderSequence": 7.0,
 				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
 			}
 		},
