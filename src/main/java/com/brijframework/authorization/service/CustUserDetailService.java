@@ -2,8 +2,8 @@ package com.brijframework.authorization.service;
 
 import java.util.List;
 
-import com.brijframework.authorization.beans.UserDetailRequest;
-import com.brijframework.authorization.beans.UserDetailResponse;
+import com.brijframework.authorization.global.beans.UserDetailRequest;
+import com.brijframework.authorization.global.beans.UserDetailResponse;
 
 public interface CustUserDetailService {
 

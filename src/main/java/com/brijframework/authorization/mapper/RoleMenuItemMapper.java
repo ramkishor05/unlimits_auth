@@ -6,7 +6,7 @@ import static com.brijframework.authorization.contants.Constants.SPRING;
 import org.mapstruct.Mapper;
 import org.unlimits.rest.crud.mapper.GenericMapper;
 
-import com.brijframework.authorization.beans.UIRoleMenuItem;
+import com.brijframework.authorization.global.beans.UIRoleMenuItem;
 import com.brijframework.authorization.model.menus.EORoleMenuItem;
 
 @Mapper(componentModel = SPRING, implementationPackage = COM_BRIJFRAMEWORK_AUTHORIZATION_MAPPER_IMPL)

@@ -15,17 +15,17 @@ import org.springframework.stereotype.Service;
 import org.unlimits.rest.crud.mapper.GenericMapper;
 import org.unlimits.rest.crud.service.QueryServiceImpl;
 
-import com.brijframework.authorization.beans.Response;
-import com.brijframework.authorization.beans.AuthDataDTO;
-import com.brijframework.authorization.beans.LoginRequest;
-import com.brijframework.authorization.beans.PasswordReset;
-import com.brijframework.authorization.beans.RegisterRequest;
-import com.brijframework.authorization.beans.UIUserAccount;
-import com.brijframework.authorization.beans.UIUserProfile;
-import com.brijframework.authorization.beans.UserDetailResponse;
 import com.brijframework.authorization.constant.Authority;
 import com.brijframework.authorization.exceptions.UserAlreadyExistsException;
 import com.brijframework.authorization.exceptions.UserNotFoundException;
+import com.brijframework.authorization.global.beans.GlobalAuthDataDTO;
+import com.brijframework.authorization.global.beans.GlobalLoginRequest;
+import com.brijframework.authorization.global.beans.GlobalPasswordReset;
+import com.brijframework.authorization.global.beans.GlobalRegisterRequest;
+import com.brijframework.authorization.global.beans.Response;
+import com.brijframework.authorization.global.beans.UIUserAccount;
+import com.brijframework.authorization.global.beans.UIUserProfile;
+import com.brijframework.authorization.global.beans.UserDetailResponse;
 import com.brijframework.authorization.mapper.UserDetailMapper;
 import com.brijframework.authorization.model.EOUserAccount;
 import com.brijframework.authorization.model.EOUserProfile;
@@ -104,7 +104,7 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 	}
 	
 	@Override
-	public Response register(RegisterRequest registerRequest) {
+	public Response register(GlobalRegisterRequest registerRequest) {
 		if(isAlreadyExists(registerRequest.getUsername())) {
 			throw new UserAlreadyExistsException();
 		}
@@ -132,7 +132,7 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 		Response auth=new Response();
 		auth.setSuccess(_1);
 		auth.setMessage(SUCCUSSFULLY_PROCESSED);
-		AuthDataDTO authDataDTO = new AuthDataDTO();
+		GlobalAuthDataDTO authDataDTO = new GlobalAuthDataDTO();
 		authDataDTO.setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
 		authDataDTO.setToken(tokenService.login(registerRequest.getUsername(), eoUserAccount.getId(), registerRequest.getAuthority().toString()));
 		auth.setData(authDataDTO);
@@ -140,7 +140,7 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 	}
 	
 	@Override
-	public Response login(LoginRequest loginRequest) {
+	public Response login(GlobalLoginRequest loginRequest) {
 		Optional<EOUserAccount> findUserLogin = userAccountRepository.findByUsername(loginRequest.getUsername());
 		if (!findUserLogin.isPresent()) {
 			throw new UserNotFoundException();
@@ -150,7 +150,7 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 		auth.setSuccess(_1);
 		auth.setMessage(SUCCUSSFULLY_PROCESSED);
 		
-		AuthDataDTO authDataDTO = new AuthDataDTO();
+		GlobalAuthDataDTO authDataDTO = new GlobalAuthDataDTO();
 		authDataDTO.setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
 		authDataDTO.setToken(tokenService.login(loginRequest.getUsername(), eoUserAccount.getId(), loginRequest.getAuthority().toString()));
 		auth.setData(authDataDTO);
@@ -214,7 +214,7 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 	}
 
 	@Override
-	public UIUserAccount resetPassword(PasswordReset passwordReset) {
+	public UIUserAccount resetPassword(GlobalPasswordReset passwordReset) {
 		String username = passwordReset.getUsername();
 		Optional<EOUserAccount> findUserAccount = userAccountRepository.findByUsername(username);
 		if(!findUserAccount.isPresent()) {
@@ -239,7 +239,7 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 	}
 
 	@Override
-	public UIUserAccount saveOtp(PasswordReset passwordReset) {
+	public UIUserAccount saveOtp(GlobalPasswordReset passwordReset) {
 		Optional<EOUserAccount> findUserAccount = userAccountRepository.findByUsername(passwordReset.getUsername());
 		if(!findUserAccount.isPresent()) {
 			throw new UserNotFoundException(UserNotFoundException.USER_NOT_EXISTS_IN_SYSTEM +" for username :" + passwordReset.getUsername());

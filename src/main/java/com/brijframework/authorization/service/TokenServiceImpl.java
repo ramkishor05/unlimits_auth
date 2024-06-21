@@ -14,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.unlimits.rest.token.TokenUtil;
 
-import com.brijframework.authorization.beans.UserDetailResponse;
 import com.brijframework.authorization.exceptions.InvalidTokenException;
+import com.brijframework.authorization.global.beans.UserDetailResponse;
 import com.brijframework.authorization.mapper.UserDetailMapper;
 import com.brijframework.authorization.model.EOUserAccount;
 import com.brijframework.authorization.model.EOUserToken;

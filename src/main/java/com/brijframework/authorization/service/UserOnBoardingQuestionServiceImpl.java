@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.unlimits.rest.crud.mapper.GenericMapper;
 import org.unlimits.rest.crud.service.CrudServiceImpl;
 
-import com.brijframework.authorization.beans.UIUserOnBoardingQuestion;
+import com.brijframework.authorization.global.beans.UIUserOnBoardingQuestion;
 import com.brijframework.authorization.mapper.UserDetailMapper;
 import com.brijframework.authorization.mapper.UserOnBoardingQuestionMapper;
 import com.brijframework.authorization.model.EOUserAccount;

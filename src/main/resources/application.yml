@@ -47,10 +47,10 @@ openapi:
   service:
       url: http://51.79.159.7:8080/auth
 # Discovery Server Access
-#eureka:
-#  client:
-#    serviceUrl:
-#      defaultZone: http://localhost:1111/eureka/
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
 # HTTP Server (Tomcat) Port
 server: 
   port: 2222

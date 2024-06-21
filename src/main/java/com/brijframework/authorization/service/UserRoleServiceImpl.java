@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.unlimits.rest.crud.mapper.GenericMapper;
 import org.unlimits.rest.crud.service.CrudServiceImpl;
 
-import com.brijframework.authorization.beans.UIUserRole;
+import com.brijframework.authorization.global.beans.UIUserRole;
 import com.brijframework.authorization.mapper.UserRoleMapper;
 import com.brijframework.authorization.model.EOUserRole;
 import com.brijframework.authorization.repository.UserRoleRepository;
@@ -25,6 +25,11 @@ public class UserRoleServiceImpl extends CrudServiceImpl<UIUserRole, EOUserRole,
 	@Override
 	public List<UIUserRole> getUserRoleList(String type) {
 		return userRoleMapper.mapToDTO(userRoleRepository.findAllByRoleType(type));
+	}
+	
+	@Override
+	public List<UIUserRole> getUserRoleListByPositions(List<Integer> positions) {
+		return userRoleMapper.mapToDTO(userRoleRepository.findByPositions(positions));
 	}
 
 	@Override

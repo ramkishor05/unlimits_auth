@@ -6,20 +6,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.unlimits.rest.crud.service.QueryService;
 
-import com.brijframework.authorization.beans.Response;
-import com.brijframework.authorization.beans.PasswordReset;
-import com.brijframework.authorization.beans.RegisterRequest;
-import com.brijframework.authorization.beans.LoginRequest;
-import com.brijframework.authorization.beans.UIUserAccount;
-import com.brijframework.authorization.beans.UIUserProfile;
-import com.brijframework.authorization.beans.UserDetailResponse;
+import com.brijframework.authorization.global.beans.GlobalLoginRequest;
+import com.brijframework.authorization.global.beans.GlobalPasswordReset;
+import com.brijframework.authorization.global.beans.GlobalRegisterRequest;
+import com.brijframework.authorization.global.beans.Response;
+import com.brijframework.authorization.global.beans.UIUserAccount;
+import com.brijframework.authorization.global.beans.UIUserProfile;
+import com.brijframework.authorization.global.beans.UserDetailResponse;
 import com.brijframework.authorization.model.EOUserAccount;
 
 public interface UserAccountService extends UserDetailsService, QueryService<UserDetailResponse, EOUserAccount, Long> {
 
-	Response register(RegisterRequest registerRequest);
+	Response register(GlobalRegisterRequest registerRequest);
 	
-	Response login(LoginRequest loginRequest);
+	Response login(GlobalLoginRequest loginRequest);
 	
 	boolean isAlreadyExists(String username);
 
@@ -36,7 +36,7 @@ public interface UserAccountService extends UserDetailsService, QueryService<Use
 	@Override
 	UIUserAccount loadUserByUsername(String username) throws UsernameNotFoundException;
 
-	UIUserAccount resetPassword(PasswordReset passwordReset);
+	UIUserAccount resetPassword(GlobalPasswordReset passwordReset);
 
-	UIUserAccount saveOtp(PasswordReset passwordReset);
+	UIUserAccount saveOtp(GlobalPasswordReset passwordReset);
 }

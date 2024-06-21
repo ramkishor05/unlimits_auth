@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.unlimits.rest.crud.service.CrudService;
 
-import com.brijframework.authorization.beans.UIUserOnBoardingQuestion;
+import com.brijframework.authorization.global.beans.UIUserOnBoardingQuestion;
 import com.brijframework.authorization.model.EOUserAccount;
 import com.brijframework.authorization.model.onboarding.EOUserOnBoardingQuestion;
 

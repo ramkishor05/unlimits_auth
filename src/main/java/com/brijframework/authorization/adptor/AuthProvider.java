@@ -18,12 +18,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.brijframework.authorization.beans.Response;
-import com.brijframework.authorization.beans.PasswordReset;
-import com.brijframework.authorization.beans.RegisterRequest;
-import com.brijframework.authorization.beans.LoginRequest;
-import com.brijframework.authorization.beans.UIUserAccount;
 import com.brijframework.authorization.constant.Authority;
+import com.brijframework.authorization.global.beans.GlobalLoginRequest;
+import com.brijframework.authorization.global.beans.GlobalPasswordReset;
+import com.brijframework.authorization.global.beans.GlobalRegisterRequest;
+import com.brijframework.authorization.global.beans.Response;
+import com.brijframework.authorization.global.beans.UIUserAccount;
 import com.brijframework.authorization.service.UserAccountService;
 
 
@@ -99,17 +99,17 @@ public class AuthProvider extends DaoAuthenticationProvider {
 		return userDetailsService.loadUserByUsername(username);
 	}
 	
-	public UIUserAccount resetPassword(PasswordReset passwordReset) {
+	public UIUserAccount resetPassword(GlobalPasswordReset passwordReset) {
 		UserAccountService userDetailsService= getUserDetailsServiceByRole(passwordReset);
 		return userDetailsService.resetPassword(passwordReset);
 	}
 	
-	public UIUserAccount saveOtp(PasswordReset passwordReset) {
+	public UIUserAccount saveOtp(GlobalPasswordReset passwordReset) {
 		UserAccountService userDetailsService= getUserDetailsServiceByRole(passwordReset);
 		return userDetailsService.saveOtp(passwordReset);
 	}
 
-	private UserAccountService getUserDetailsServiceByRole(PasswordReset passwordReset) {
+	private UserAccountService getUserDetailsServiceByRole(GlobalPasswordReset passwordReset) {
 		if(passwordReset.getAuthority().equals(Authority.ADMIN)) {
 			return userAccountService;
 		}
@@ -122,7 +122,7 @@ public class AuthProvider extends DaoAuthenticationProvider {
 		return null;
 	}
 
-	public Response register(RegisterRequest registerRequest) {
+	public Response register(GlobalRegisterRequest registerRequest) {
 		if(registerRequest.getAuthority()==null) {
 			registerRequest.setAuthority(Authority.USER);
 		}
@@ -140,7 +140,7 @@ public class AuthProvider extends DaoAuthenticationProvider {
 		return userDetailsService.register(registerRequest);
 	}
 
-	public Response userLogin(LoginRequest authRequest) {
+	public Response userLogin(GlobalLoginRequest authRequest) {
 		if(authRequest.getAuthority()==null) {
 			authRequest.setAuthority(Authority.USER);
 		}

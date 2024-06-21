@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.brijframework.authorization.beans.UIUserProfile;
-import com.brijframework.authorization.beans.UserDetailRequest;
-import com.brijframework.authorization.beans.UserDetailResponse;
 import com.brijframework.authorization.constant.UserType;
+import com.brijframework.authorization.global.beans.UIUserProfile;
+import com.brijframework.authorization.global.beans.UserDetailRequest;
+import com.brijframework.authorization.global.beans.UserDetailResponse;
 import com.brijframework.authorization.mapper.UserDetailMapper;
 import com.brijframework.authorization.model.EOUserAccount;
 import com.brijframework.authorization.model.EOUserProfile;

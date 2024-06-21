@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.unlimits.rest.crud.mapper.GenericMapper;
 
-import com.brijframework.authorization.beans.UIUserOnBoardingQuestion;
+import com.brijframework.authorization.global.beans.UIUserOnBoardingQuestion;
 import com.brijframework.authorization.model.onboarding.EOUserOnBoardingQuestion;
 
 @Mapper(componentModel = SPRING, implementationPackage = COM_BRIJFRAMEWORK_AUTHORIZATION_MAPPER_IMPL)

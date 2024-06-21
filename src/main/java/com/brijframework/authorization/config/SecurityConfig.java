@@ -15,30 +15,23 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.brijframework.authorization.filters.TokenFilter;
+import com.brijframework.authorization.filters.TransactionFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig { 
 	String[] patterns = { 
-			"/api/auth/**", 
-			"/api/user/role/**", 
-			"/api/user/detail/**", 
-			"/api/menu/group/**", 
-			"/api/menu/item/**", 
-			"/api/role/menu/group/**", 
-			"/api/role/menu/item/**", 
+			"/api/global/authentication/**", 
+			"/api/device/authentication/**", 
 			"/api/swagger-ui/**", 
-			"/v3/api-docs/**" ,
-			"/api/onboarding/question/**",
-			"/api/user/onboarding/question/**"
+			"/v3/api-docs/**"
 			};
 
 	private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
   
     @Autowired
-    private TokenFilter authFilter; 
+    private TransactionFilter authFilter; 
     
     @Autowired
     private AuthenticationProvider authenticationProvider;

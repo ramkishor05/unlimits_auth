@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.unlimits.rest.crud.mapper.GenericMapper;
 import org.unlimits.rest.crud.service.CrudServiceImpl;
 
-import com.brijframework.authorization.beans.UIRoleMenuItem;
+import com.brijframework.authorization.global.beans.UIRoleMenuItem;
 import com.brijframework.authorization.mapper.RoleMenuItemMapper;
 import com.brijframework.authorization.model.menus.EORoleMenuItem;
 import com.brijframework.authorization.repository.RoleMenuItemRepository;

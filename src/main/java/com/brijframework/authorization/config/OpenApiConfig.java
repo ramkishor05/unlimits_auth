@@ -10,6 +10,7 @@ import com.brijframework.authorization.constant.Constants;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 
@@ -18,7 +19,7 @@ public class OpenApiConfig {
 
 	private final String moduleName = "Auth";
 	private final String apiVersion = "1.1";
-	
+
 	@Value("${openapi.service.url}")
 	private String serverUrl;
 
@@ -28,9 +29,11 @@ public class OpenApiConfig {
 		final String apiTitle = String.format("%s API", StringUtils.capitalize(moduleName));
 
 		return new OpenAPI().addServersItem(new Server().url(serverUrl))
-				.components(new Components().addSecuritySchemes(securitySchemeName,
-						new SecurityScheme().name(securitySchemeName).type(SecurityScheme.Type.HTTP).scheme("bearer")
-								.bearerFormat("JWT")))
+				.addSecurityItem(new SecurityRequirement().addList(securitySchemeName)).components(
+
+						new Components().addSecuritySchemes(securitySchemeName,
+								new SecurityScheme().name(securitySchemeName).type(SecurityScheme.Type.HTTP)
+										.scheme("bearer").bearerFormat("JWT").in(SecurityScheme.In.HEADER)))
 
 				.info(new Info().title(apiTitle).version(apiVersion));
 	}

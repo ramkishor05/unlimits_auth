@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.unlimits.rest.crud.mapper.GenericMapper;
 import org.unlimits.rest.crud.service.CrudServiceImpl;
 
-import com.brijframework.authorization.beans.UIRoleMenuGroup;
+import com.brijframework.authorization.global.beans.UIRoleMenuGroup;
 import com.brijframework.authorization.mapper.RoleMenuGroupMapper;
 import com.brijframework.authorization.model.menus.EORoleMenuGroup;
 import com.brijframework.authorization.repository.RoleMenuGroupRepository;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.unlimits.rest.crud.service.CrudService;
 
-import com.brijframework.authorization.beans.UIMenuItem;
+import com.brijframework.authorization.global.beans.UIMenuItem;
 import com.brijframework.authorization.model.menus.EOMenuItem;
 
 public interface MenuItemService extends CrudService<UIMenuItem, EOMenuItem, Long>{

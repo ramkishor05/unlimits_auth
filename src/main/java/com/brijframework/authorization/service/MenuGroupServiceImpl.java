@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import org.unlimits.rest.crud.mapper.GenericMapper;
 import org.unlimits.rest.crud.service.CrudServiceImpl;
 
-import com.brijframework.authorization.beans.UIMenuGroup;
-import com.brijframework.authorization.beans.UIMenuItem;
+import com.brijframework.authorization.global.beans.UIMenuGroup;
+import com.brijframework.authorization.global.beans.UIMenuItem;
 import com.brijframework.authorization.mapper.MenuGroupMapper;
 import com.brijframework.authorization.mapper.MenuItemMapper;
 import com.brijframework.authorization.model.menus.EOMenuGroup;
