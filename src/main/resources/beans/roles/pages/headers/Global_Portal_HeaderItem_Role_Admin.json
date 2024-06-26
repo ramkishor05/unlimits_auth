@@ -1,0 +1,27 @@
+{
+	"id": "Global_Portal_HeaderItem_Role",
+	"orderSequence": 3,
+	"objects": [
+		
+		{
+			"id": "Global_Portal_HeaderItem_Role_ADMIN_ProfileSection",
+			"type": "com.brijframework.authorization.account.entities.headers.EOUserRoleHeaderItem",
+			"name": "Global_Portal_HeaderItem_Role",
+			"properties": {
+				"idenNo":"Global_Portal_HeaderItem_Role_ADMIN_ProfileSection",
+				"userRole": "LK@UserRole_ADMIN",
+				"headerItem": "LK@Global_Portal_HeaderItem_ProfileSection"
+			}
+		},
+		{
+			"id": "Global_Portal_HeaderItem_Role_ADMIN_NotificationSection",
+			"type": "com.brijframework.authorization.account.entities.headers.EOUserRoleHeaderItem",
+			"name": "Global_Portal_HeaderItem_Role",
+			"properties": {
+				"idenNo":"Global_Portal_HeaderItem_Role_ADMIN_NotificationSection",
+				"userRole": "LK@UserRole_ADMIN",
+				"headerItem": "LK@Global_Portal_HeaderItem_NotificationSection"
+			}
+		}
+	]
+}

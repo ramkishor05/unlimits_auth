@@ -1,0 +1,18 @@
+{
+	"id": "User_Portal_MenuItem_Role",
+	"orderSequence": 3,
+	"objects": [
+		{
+			"id": "User_Portal_MenuItem_Role_USER_Dashboard",
+			"type": "com.brijframework.authorization.account.entities.menus.EOUserRoleMenuItem",
+			"name": "User_Portal_MenuItem_Role",
+			"properties": {
+				"idenNo": "User_Portal_MenuItem_Role_USER_Dashboard",
+				"userRole": "LK@UserRole_USER",
+				"menuItem": "LK@User_Portal_MenuItem_Dashboard",
+				"roleMenuGroup": "LK@User_Portal_MenuGroup_Role_USER_Dashboard",
+				"homePage": true
+			}
+		}
+	]
+}

@@ -17,14 +17,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.unlimits.rest.crud.beans.Response;
 
+import com.brijframework.authorization.account.model.UIUserAccount;
+import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
+import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
+import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
+import com.brijframework.authorization.account.service.UserAccountService;
 import com.brijframework.authorization.constant.Authority;
-import com.brijframework.authorization.global.beans.GlobalLoginRequest;
-import com.brijframework.authorization.global.beans.GlobalPasswordReset;
-import com.brijframework.authorization.global.beans.GlobalRegisterRequest;
-import com.brijframework.authorization.global.beans.Response;
-import com.brijframework.authorization.global.beans.UIUserAccount;
-import com.brijframework.authorization.service.UserAccountService;
 
 
 @Component

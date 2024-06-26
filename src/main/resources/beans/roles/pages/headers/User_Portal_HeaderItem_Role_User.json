@@ -1,0 +1,46 @@
+{
+	"id": "User_Portal_HeaderItem_Role",
+	"orderSequence": 3,
+	"objects": [
+		{
+			"id": "User_Portal_HeaderItem_Role_USER_SearchBox",
+			"type": "com.brijframework.authorization.account.entities.headers.EOUserRoleHeaderItem",
+			"name": "User_Portal_HeaderItem_Role",
+			"properties": {
+				"idenNo":"User_Portal_HeaderItem_Role_USER_SearchBox",
+				"userRole": "LK@UserRole_USER",
+				"headerItem": "LK@User_Portal_HeaderItem_SearchBox"
+			}
+		},
+		{
+			"id": "User_Portal_HeaderItem_Role_USER_UserOptions",
+			"type": "com.brijframework.authorization.account.entities.headers.EOUserRoleHeaderItem",
+			"name": "User_Portal_HeaderItem_Role",
+			"properties": {
+				"idenNo":"User_Portal_HeaderItem_Role_USER_UserOptions",
+				"userRole": "LK@UserRole_USER",
+				"headerItem": "LK@User_Portal_HeaderItem_UserOptions"
+			}
+		},
+		{
+			"id": "User_Portal_HeaderItem_Role_USER_ProfileSection",
+			"type": "com.brijframework.authorization.account.entities.headers.EOUserRoleHeaderItem",
+			"name": "User_Portal_HeaderItem_Role",
+			"properties": {
+				"idenNo":"User_Portal_HeaderItem_Role_USER_ProfileSection",
+				"userRole": "LK@UserRole_USER",
+				"headerItem": "LK@User_Portal_HeaderItem_ProfileSection"
+			}
+		},
+		{
+			"id": "User_Portal_HeaderItem_Role_USER_NotificationSection",
+			"type": "com.brijframework.authorization.account.entities.headers.EOUserRoleHeaderItem",
+			"name": "User_Portal_HeaderItem_Role",
+			"properties": {
+				"idenNo":"User_Portal_HeaderItem_Role_USER_NotificationSection",
+				"userRole": "LK@UserRole_USER",
+				"headerItem": "LK@User_Portal_HeaderItem_NotificationSection"
+			}
+		}
+	]
+}

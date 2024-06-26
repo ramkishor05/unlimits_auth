@@ -1,0 +1,72 @@
+{
+	"id": "Global_Portal_PageGroup",
+	"type": "com.brijframework.authorization.view.entities.pages.EOViewPageGroup",
+	"orderSequence": 2,
+	"objects": [
+		{
+			"id": "Global_Portal_PageGroup_Dashboard",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageGroup",
+			"name": "Global_Portal_PageGroup",
+			"properties": {
+				"title": "Dashboard",
+				"idenNo": "Global_Portal_PageGroup_Dashboard",
+				"type": "group",
+				"icon": "Dashboard",
+				"orderSequence": 1.0,
+				"url": "/global/portal/dashboard"
+			}
+		},
+		{
+			"id": "Global_Portal_PageGroup_Content",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageGroup",
+			"name": "Global_Portal_PageGroup",
+			"properties": {
+				"title": "Content",
+				"idenNo": "Global_Portal_PageGroup_Content",
+				"type": "group",
+				"icon": "Content",
+				"orderSequence": 2.0,
+				"url": "/global/portal/content"
+			}
+		},
+		{
+			"id": "Global_Portal_PageGroup_Organizations",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageGroup",
+			"name": "Global_Portal_PageGroup",
+			"properties": {
+				"title": "Organizations",
+				"idenNo": "Global_Portal_PageGroup_Organizations",
+				"type": "group",
+				"icon": "Organizations",
+				"orderSequence": 3.0,
+				"url": "/global/portal/organizations"
+			}
+		},
+		{
+			"id": "Global_Portal_PageGroup_Application",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageGroup",
+			"name": "Global_Portal_PageGroup",
+			"properties": {
+				"title": "Application",
+				"idenNo": "Global_Portal_PageGroup_Application",
+				"type": "group",
+				"icon": "Application",
+				"orderSequence": 4.0,
+				"url": "/global/portal/application"
+			}
+		},
+		{
+			"id": "Global_Portal_PageGroup_UserProfile",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageGroup",
+			"name": "Global_Portal_PageGroup",
+			"properties": {
+				"title": "User profile",
+				"idenNo": "Global_Portal_PageGroup_UserProfile",
+				"type": "group",
+				"icon": "UserProfile",
+				"orderSequence": 5.0,
+				"url": "/global/portal/userprofile"
+			}
+		}
+	]
+}

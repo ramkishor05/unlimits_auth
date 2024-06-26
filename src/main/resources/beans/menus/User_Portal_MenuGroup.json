@@ -1,0 +1,20 @@
+{
+	"id": "User_Portal_MenuGroup",
+	"type": "com.brijframework.authorization.view.entities.menus.EOViewMenuGroup",
+	"orderSequence": 2,
+	"objects": [
+		{
+			"id": "User_Portal_MenuGroup_Dashboard",
+			"type": "com.brijframework.authorization.view.entities.menus.EOViewMenuGroup",
+			"name": "User_Portal_MenuGroup",
+			"properties": {
+				"title": "Dashboard",
+				"idenNo": "User_Portal_MenuGroup_Dashboard",
+				"type": "group",
+				"icon": "Dashboard",
+				"orderSequence": 1.0,
+				"url": "/user/portal/dashboard"
+			}
+		}
+	]
+}

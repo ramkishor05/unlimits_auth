@@ -1,0 +1,27 @@
+{
+	"id": "Global_Portal_MenuGroup_Role",
+	"orderSequence": 3,
+	"objects": [
+		
+		{
+			"id": "Global_Portal_MenuGroup_Role_Dev_Application",
+			"type": "com.brijframework.authorization.account.entities.menus.EOUserRoleMenuGroup",
+			"name": "Global_Portal_MenuGroup_Role",
+			"properties": {
+				"idenNo": "Global_Portal_MenuGroup_Role_Dev_Application",
+				"userRole": "LK@UserRole_DEVELOPER",
+				"menuGroup": "LK@Global_Portal_MenuGroup_Application"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuGroup_Role_Dev_UserProfile",
+			"type": "com.brijframework.authorization.account.entities.menus.EOUserRoleMenuGroup",
+			"name": "Global_Portal_MenuGroup_Role",
+			"properties": {
+				"idenNo": "Global_Portal_MenuGroup_Role_Dev_UserProfile",
+				"userRole": "LK@UserRole_DEVELOPER",
+				"menuGroup": "LK@Global_Portal_MenuGroup_UserProfile"
+			}
+		}
+	]
+}

@@ -1,0 +1,203 @@
+{
+	"id": "Global_Portal_PageItem",
+	"type": "com.brijframework.authorization.view.entities.pages.EOViewPageItem",
+	"orderSequence": 2,
+	"objects": [
+		{
+			"id": "Global_Portal_PageItem_Dashboard",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageItem",
+			"name": "Global_Portal_PageItem",
+			"properties": {
+				"title": "Dashboard",
+				"idenNo": "Global_Portal_PageItem_Dashboard",
+				"type": "item",
+				"url": "/global/dashboard/default",
+				"icon": "Dashboard",
+				"orderSequence": 1.0,
+				"pageGroup": "LK@Global_Portal_PageGroup_Dashboard"
+			}
+		},
+		{
+			"id": "Global_Portal_PageItem_Page_Groups",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageItem",
+			"name": "Global_Portal_PageItem",
+			"properties": {
+				"title": "Page Groups",
+				"idenNo": "Global_Portal_PageItem_Page_Groups",
+				"type": "item",
+				"url": "/global/portal/pages/groups",
+				"icon": "PageGroups",
+				"orderSequence": 1.0,
+				"pageGroup": "LK@Global_Portal_PageGroup_Application"
+			}
+		},
+		{
+			"id": "Global_Portal_PageItem_Page_Items",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageItem",
+			"name": "Global_Portal_PageItem",
+			"properties": {
+				"title": "Page Items",
+				"idenNo": "Global_Portal_PageItem_Page_Items",
+				"type": "item",
+				"url": "/global/portal/pages/items",
+				"icon": "PageItems",
+				"orderSequence": 2.0,
+				"pageGroup": "LK@Global_Portal_PageGroup_Application"
+			}
+		},
+		{
+			"id": "Global_Portal_PageItem_Role_Page_Groups",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageItem",
+			"name": "Global_Portal_PageItem",
+			"properties": {
+				"title": "Role Page Groups",
+				"idenNo": "Global_Portal_PageItem_Role_Page_Groups",
+				"type": "item",
+				"url": "/global/portal/pages/role/groups",
+				"icon": "RolePageGroups",
+				"orderSequence": 3.0,
+				"pageGroup": "LK@Global_Portal_PageGroup_Application"
+			}
+		},
+		{
+			"id": "Global_Portal_PageItem_Role_Page_Items",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageItem",
+			"name": "Global_Portal_PageItem",
+			"properties": {
+				"title": "Role Page Items",
+				"idenNo": "Global_Portal_PageItem_Role_Page_Items",
+				"type": "item",
+				"url": "/global/portal/pages/role/items",
+				"icon": "RolePageItems",
+				"orderSequence": 4.0,
+				"pageGroup": "LK@Global_Portal_PageGroup_Application"
+			}
+		},
+		{
+			"id": "Global_Portal_PageItem_Main_Category",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageItem",
+			"name": "Global_Portal_PageItem",
+			"properties": {
+				"title": "Main Categories",
+				"idenNo": "Global_Portal_PageItem_Main_Category",
+				"type": "item",
+				"url": "/global/portal/content/main/categories",
+				"icon": "MainCategories",
+				"orderSequence": 1.0,
+				"pageGroup": "LK@Global_Portal_PageGroup_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_PageItem_Sub_Category",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageItem",
+			"name": "Global_Portal_PageItem",
+			"properties": {
+				"title": "Sub Categories",
+				"idenNo": "Global_Portal_PageItem_Sub_Category",
+				"type": "item",
+				"url": "/global/portal/content/sub/categories",
+				"icon": "SubCategories",
+				"orderSequence": 2.0,
+				"pageGroup": "LK@Global_Portal_PageGroup_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_PageItem_Sub_Category_Tags",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageItem",
+			"name": "Global_Portal_PageItem",
+			"properties": {
+				"title": "Tag Library",
+				"idenNo": "Global_Portal_PageItem_Sub_Category_Tags",
+				"type": "item",
+				"url": "/global/portal/content/tag/library",
+				"icon": "Category_Tag",
+				"orderSequence": 3.0,
+				"pageGroup": "LK@Global_Portal_PageGroup_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_PageItem_Sub_Category_Images",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageItem",
+			"name": "Global_Portal_PageItem",
+			"properties": {
+				"title": "Image Library",
+				"idenNo": "Global_Portal_PageItem_Sub_Category_Images",
+				"type": "item",
+				"url": "/global/portal/content/image/library",
+				"icon": "Category_Image",
+				"orderSequence": 4.0,
+				"pageGroup": "LK@Global_Portal_PageGroup_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_PageItem_Mindsets",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageItem",
+			"name": "Global_Portal_PageItem",
+			"properties": {
+				"title": "My Mindset Videos",
+				"idenNo": "Global_Portal_PageItem_Mindsets",
+				"type": "item",
+				"url": "/global/portal/content/midsets",
+				"icon": "Mindsets",
+				"orderSequence": 5.0,
+				"pageGroup": "LK@Global_Portal_PageGroup_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_PageItem_Prompts",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageItem",
+			"name": "Global_Portal_PageItem",
+			"properties": {
+				"title": "Prompts",
+				"idenNo": "Global_Portal_PageItem_Prompts",
+				"type": "item",
+				"url": "/global/portal/content/prompts",
+				"icon": "Prompts",
+				"orderSequence": 6.0,
+				"pageGroup": "LK@Global_Portal_PageGroup_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_PageItem_Journals",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageItem",
+			"name": "Global_Portal_PageItem",
+			"properties": {
+				"title": "Journals",
+				"idenNo": "Global_Portal_PageItem_Journals",
+				"type": "item",
+				"url": "/global/portal/content/journals",
+				"icon": "Journals",
+				"orderSequence": 7.0,
+				"pageGroup": "LK@Global_Portal_PageGroup_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_PageItem_Users",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageItem",
+			"name": "Global_Portal_PageItem",
+			"properties": {
+				"title": "Users",
+				"idenNo": "Global_Portal_PageItem_Users",
+				"type": "item",
+				"url": "/global/portal/organizations/users",
+				"icon": "UserList",
+				"orderSequence": 1.0,
+				"pageGroup": "LK@Global_Portal_PageGroup_Organizations"
+			}
+		},
+		{
+			"id": "Global_Portal_PageItem_UserProfile",
+			"type": "com.brijframework.authorization.view.entities.pages.EOViewPageItem",
+			"name": "Global_Portal_PageItem",
+			"properties": {
+				"title": "User profile",
+				"idenNo": "Global_Portal_PageItem_UserProfile",
+				"type": "item",
+				"url": "/global/portal/user/profile",
+				"icon": "UserProfile",
+				"orderSequence": 1.0,
+				"pageGroup": "LK@Global_Portal_PageGroup_UserProfile"
+			}
+		}
+	]
+}

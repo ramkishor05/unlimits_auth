@@ -9,8 +9,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 public class AuthorizationApplication {
 
 	public static void main(String[] args) {
+		System.setProperty("spring.devtools.restart.enabled", "false");
 		SpringApplication.run(AuthorizationApplication.class, args);
-		
 	}
 
 }

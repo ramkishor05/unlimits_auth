@@ -1,0 +1,21 @@
+{
+  "id": "User_Portal_MenuItem",
+  "type": "com.brijframework.authorization.view.entities.menus.EOViewMenuItem",
+  "orderSequence": 2,
+  "objects": [
+    {
+      "id": "User_Portal_MenuItem_Dashboard",
+      "type": "com.brijframework.authorization.view.entities.menus.EOViewMenuItem",
+      "name": "User_Portal_MenuItem",
+      "properties": {
+        "title": "Dashboard",
+        "idenNo": "User_Portal_MenuItem_Dashboard",
+        "type": "item",
+        "url": "/user/portal/dashboard/default",
+        "icon": "Dashboard",
+        "orderSequence": 1.0,
+        "menuGroup": "LK@User_Portal_MenuGroup_Dashboard"
+      }
+    }
+  ]
+}

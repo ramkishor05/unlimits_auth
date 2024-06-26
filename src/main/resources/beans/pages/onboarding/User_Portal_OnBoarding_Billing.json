@@ -1,0 +1,32 @@
+{
+	"id": "User_Portal_OnBoarding_Billing",
+	"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingBilling",
+	"orderSequence": 4,
+	"objects": [
+		{
+			"id": "User_Portal_OnBoarding_Billing_Monthly",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingBilling",
+			"name": "User_Portal_OnBoarding_Billing",
+			"properties": {
+				"idenNo": "User_Portal_OnBoarding_Billing_Monthly",
+				"amount": "10",
+				"service" : "Paid",
+				"type": "Monthly",
+				"orderSequence": 1.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Billing_Yearly",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingBilling",
+			"name": "User_Portal_OnBoarding_Billing",
+			"properties": {
+				"idenNo": "User_Portal_OnBoarding_Billing_Yearly",
+				"amount": "100",
+				"type": "Yearly",
+				"service" : "Paid",
+				"orderSequence": 2.0,
+				"discount": "20" 
+			}
+		}
+	]
+}

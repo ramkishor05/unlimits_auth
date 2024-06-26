@@ -12,35 +12,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.brijframework.authorization.account.entities.EOUserAccount;
+import com.brijframework.authorization.account.entities.EOUserProfile;
+import com.brijframework.authorization.account.entities.EOUserRole;
+import com.brijframework.authorization.account.entities.headers.EOUserRoleHeaderItem;
+import com.brijframework.authorization.account.entities.menus.EOUserRoleMenuGroup;
+import com.brijframework.authorization.account.entities.menus.EOUserRoleMenuItem;
+import com.brijframework.authorization.account.repository.UserAccountRepository;
+import com.brijframework.authorization.account.repository.UserOnBoardingRepository;
+import com.brijframework.authorization.account.repository.UserProfileRepository;
+import com.brijframework.authorization.account.repository.UserRoleHeaderItemRepository;
+import com.brijframework.authorization.account.repository.UserRoleMenuGroupRepository;
+import com.brijframework.authorization.account.repository.UserRoleMenuItemRepository;
+import com.brijframework.authorization.account.repository.UserRoleRepository;
 import com.brijframework.authorization.constant.Authority;
-import com.brijframework.authorization.model.EOUserAccount;
-import com.brijframework.authorization.model.EOUserProfile;
-import com.brijframework.authorization.model.EOUserRole;
-import com.brijframework.authorization.model.headers.EOHeaderItem;
-import com.brijframework.authorization.model.headers.EORoleHeaderItem;
-import com.brijframework.authorization.model.menus.EOMenuGroup;
-import com.brijframework.authorization.model.menus.EOMenuItem;
-import com.brijframework.authorization.model.menus.EORoleMenuGroup;
-import com.brijframework.authorization.model.menus.EORoleMenuItem;
-import com.brijframework.authorization.model.onboarding.EOOnBoardingOptions;
-import com.brijframework.authorization.model.onboarding.EOOnBoardingQuestion;
-import com.brijframework.authorization.repository.HeaderItemRepository;
-import com.brijframework.authorization.repository.MenuGroupRepository;
-import com.brijframework.authorization.repository.MenuItemRepository;
-import com.brijframework.authorization.repository.OnBoardingOptionsRepository;
-import com.brijframework.authorization.repository.OnBoardingQuestionRepository;
-import com.brijframework.authorization.repository.RoleHeaderItemRepository;
-import com.brijframework.authorization.repository.RoleMenuGroupRepository;
-import com.brijframework.authorization.repository.RoleMenuItemRepository;
-import com.brijframework.authorization.repository.UserAccountRepository;
-import com.brijframework.authorization.repository.UserOnBoardingRepository;
-import com.brijframework.authorization.repository.UserProfileRepository;
-import com.brijframework.authorization.repository.UserRoleRepository;
-import com.brijframework.authorization.service.UserOnBoardingQuestionService;
+import com.brijframework.authorization.constant.BillingType;
+import com.brijframework.authorization.global.account.service.UserOnBoardingQuestionService;
+import com.brijframework.authorization.view.entities.headers.EOViewHeaderItem;
+import com.brijframework.authorization.view.entities.menus.EOViewMenuGroup;
+import com.brijframework.authorization.view.entities.menus.EOViewMenuItem;
+import com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingBilling;
+import com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions;
+import com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingQuestion;
+import com.brijframework.authorization.view.repository.ViewHeaderItemRepository;
+import com.brijframework.authorization.view.repository.ViewMenuGroupRepository;
+import com.brijframework.authorization.view.repository.ViewMenuItemRepository;
+import com.brijframework.authorization.view.repository.ViewOnBoardingBillingRepository;
+import com.brijframework.authorization.view.repository.ViewOnBoardingOptionsRepository;
+import com.brijframework.authorization.view.repository.ViewOnBoardingQuestionRepository;
 
 @Component
 public class AuthorizationMainListener implements ApplicationListener<ContextRefreshedEvent> {
@@ -55,31 +57,34 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 	private UserRoleRepository userRoleRepository;
 	
 	@Autowired
-	private MenuItemRepository globalMenuItemRepository;
+	private ViewMenuItemRepository globalMenuItemRepository;
 	
 	@Autowired
-	private MenuGroupRepository globalMenuGroupRepository;
+	private ViewMenuGroupRepository globalMenuGroupRepository;
 	
 	@Autowired
-	private RoleMenuGroupRepository roleMenuGroupRepository;
+	private UserRoleMenuGroupRepository roleMenuGroupRepository;
 	
 	@Autowired
-	private RoleMenuItemRepository roleMenuItemRepository;
+	private UserRoleMenuItemRepository roleMenuItemRepository;
 	
 	@Autowired
-	private HeaderItemRepository headerItemRepository;
+	private ViewHeaderItemRepository headerItemRepository;
 	
 	@Autowired
-	private RoleHeaderItemRepository roleHeaderItemRepository;
+	private UserRoleHeaderItemRepository roleHeaderItemRepository;
 	
 	@Autowired
 	private UserOnBoardingRepository userOnBoardingRepository;
 	
 	@Autowired
-	private OnBoardingQuestionRepository onBoardingQuestionRepository;
+	private ViewOnBoardingQuestionRepository onBoardingQuestionRepository;
 	
 	@Autowired
-	private OnBoardingOptionsRepository onBoardingOptionsRepository;
+	private ViewOnBoardingOptionsRepository onBoardingOptionsRepository;
+	
+	@Autowired
+	private ViewOnBoardingBillingRepository onBoardingBillingRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -88,8 +93,10 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 	private UserOnBoardingQuestionService userOnBoardingQuestionService;
 	
 	public static void main(String[] args) {
-		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-		System.out.println(""+bCryptPasswordEncoder.encode("Admin"));
+    	JsonSchemaDataFactory instance = JsonSchemaDataFactory.getInstance();
+
+		List<EOViewOnBoardingBilling> userRoleList = instance.getAll(EOViewOnBoardingBilling.class);
+		System.out.println(userRoleList);
 	}
 	
 	@Value("${spring.db.datajson.upload}")
@@ -102,6 +109,7 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
     	if(upload) {
 	    	JsonSchemaDataFactory instance = JsonSchemaDataFactory.getInstance();
 	    	List<EOUserRole> userRoleList = instance.getAll(EOUserRole.class);
+	    	System.out.println("userRoleList="+userRoleList);
 	    	for (EOUserRole userRole : userRoleList) {
 	    		EOUserRole eoUserRole = userRoleMap.getOrDefault(userRole.getPosition(),userRole);
 	    		BeanUtils.copyProperties(userRole, eoUserRole, "id");
@@ -127,13 +135,13 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
     	    		}
 	    		}
 	    	}
-	    	List<EOMenuGroup> globalMenuGroupList = instance.getAll(EOMenuGroup.class);
-	    	Map<String, EOMenuGroup> globalMenuGroupMap = globalMenuGroupRepository.findAll().stream().collect(Collectors.toMap(EOMenuGroup::getIdenNo, Function.identity()));
-	    	for (EOMenuGroup globalMenuGroup : globalMenuGroupList) {
+	    	List<EOViewMenuGroup> globalMenuGroupList = instance.getAll(EOViewMenuGroup.class);
+	    	Map<String, EOViewMenuGroup> globalMenuGroupMap = globalMenuGroupRepository.findAll().stream().collect(Collectors.toMap(EOViewMenuGroup::getIdenNo, Function.identity()));
+	    	for (EOViewMenuGroup globalMenuGroup : globalMenuGroupList) {
 	    		try {	
-		    		EOMenuGroup eoUserEndpoint = globalMenuGroupMap.getOrDefault(globalMenuGroup.getIdenNo(),globalMenuGroup);
+		    		EOViewMenuGroup eoUserEndpoint = globalMenuGroupMap.getOrDefault(globalMenuGroup.getIdenNo(),globalMenuGroup);
 		    		BeanUtils.copyProperties(globalMenuGroup, eoUserEndpoint, "id");
-		    		EOMenuGroup saveGlobalMenuGroup = globalMenuGroupRepository.saveAndFlush(eoUserEndpoint);
+		    		EOViewMenuGroup saveGlobalMenuGroup = globalMenuGroupRepository.saveAndFlush(eoUserEndpoint);
 		    		globalMenuGroup.setId(saveGlobalMenuGroup.getId());
 		    		globalMenuGroupMap.remove(globalMenuGroup.getIdenNo());
 	    		}catch (Exception e) {
@@ -141,14 +149,14 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 					e.printStackTrace();
 				}
 			}
-	    	List<EOMenuItem> globalMenuItemList = instance.getAll(EOMenuItem.class);
-	    	Map<String, EOMenuItem> globalMenuItemMap = globalMenuItemRepository.findAll()
-	    			.stream().collect(Collectors.toMap(EOMenuItem::getIdenNo, Function.identity()));
-	    	for (EOMenuItem globalMenuItem : globalMenuItemList) {
+	    	List<EOViewMenuItem> globalMenuItemList = instance.getAll(EOViewMenuItem.class);
+	    	Map<String, EOViewMenuItem> globalMenuItemMap = globalMenuItemRepository.findAll()
+	    			.stream().collect(Collectors.toMap(EOViewMenuItem::getIdenNo, Function.identity()));
+	    	for (EOViewMenuItem globalMenuItem : globalMenuItemList) {
 	    		try {	
-	    			EOMenuItem eoGlobalMenuItem = globalMenuItemMap.getOrDefault(globalMenuItem.getIdenNo(),globalMenuItem);
+	    			EOViewMenuItem eoGlobalMenuItem = globalMenuItemMap.getOrDefault(globalMenuItem.getIdenNo(),globalMenuItem);
 		    		BeanUtils.copyProperties(globalMenuItem, eoGlobalMenuItem, "id");
-		    		EOMenuItem saveGlobalMenuItem = globalMenuItemRepository.saveAndFlush(eoGlobalMenuItem);
+		    		EOViewMenuItem saveGlobalMenuItem = globalMenuItemRepository.saveAndFlush(eoGlobalMenuItem);
 		    		globalMenuItem.setId(saveGlobalMenuItem.getId());
 		    		globalMenuItemMap.remove(globalMenuItem.getIdenNo());
 		    	}catch (Exception e) {
@@ -156,14 +164,14 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 					e.printStackTrace();
 				}
 			}
-	    	Map<String, EORoleMenuGroup> roleMenuGroupMap = roleMenuGroupRepository.findAll().parallelStream().collect(Collectors.toMap((userRoleMenuGroup)->getRoleMenuGroupKey(userRoleMenuGroup), Function.identity()));
-	    	List<EORoleMenuGroup> roleMenuGroups = instance.getAll(EORoleMenuGroup.class);
-	    	for(EORoleMenuGroup roleMenuGroup: roleMenuGroups) {
+	    	Map<String, EOUserRoleMenuGroup> roleMenuGroupMap = roleMenuGroupRepository.findAll().parallelStream().collect(Collectors.toMap((userRoleMenuGroup)->getRoleMenuGroupKey(userRoleMenuGroup), Function.identity()));
+	    	List<EOUserRoleMenuGroup> roleMenuGroups = instance.getAll(EOUserRoleMenuGroup.class);
+	    	for(EOUserRoleMenuGroup roleMenuGroup: roleMenuGroups) {
 	    		try {
 	    			String roleMenuGroupKey= getRoleMenuGroupKey(roleMenuGroup);
-					EORoleMenuGroup eoRoleMenuGroup = roleMenuGroupMap.getOrDefault(roleMenuGroupKey,roleMenuGroup);
+					EOUserRoleMenuGroup eoRoleMenuGroup = roleMenuGroupMap.getOrDefault(roleMenuGroupKey,roleMenuGroup);
 					BeanUtils.copyProperties(roleMenuGroup, eoRoleMenuGroup, "id");
-		    		EORoleMenuGroup saveRoleMenuGroup = roleMenuGroupRepository.saveAndFlush(eoRoleMenuGroup);
+		    		EOUserRoleMenuGroup saveRoleMenuGroup = roleMenuGroupRepository.saveAndFlush(eoRoleMenuGroup);
 		    		roleMenuGroup.setId(saveRoleMenuGroup.getId());
 		    		eoRoleMenuGroup.setId(saveRoleMenuGroup.getId());
 		    		roleMenuGroupMap.remove(roleMenuGroupKey);
@@ -173,15 +181,15 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 				}
 			}
 	    	
-	    	Map<String, EORoleMenuItem> deleteRoleMenuItemMap = roleMenuItemRepository.findAll().parallelStream().collect(Collectors.toMap((roleMenuItem)->getRoleMenuItemKey(roleMenuItem), Function.identity()));
-	    	Map<String, EORoleMenuItem> checkRoleMenuItemMap = roleMenuItemRepository.findAll().parallelStream().collect(Collectors.toMap((roleMenuItem)->getRoleMenuItemKey(roleMenuItem), Function.identity()));
-	    	List<EORoleMenuItem> roleEndpointList = instance.getAll(EORoleMenuItem.class);
-	    	for(EORoleMenuItem roleMenuItem: roleEndpointList) {
+	    	Map<String, EOUserRoleMenuItem> deleteRoleMenuItemMap = roleMenuItemRepository.findAll().parallelStream().collect(Collectors.toMap((roleMenuItem)->getRoleMenuItemKey(roleMenuItem), Function.identity()));
+	    	Map<String, EOUserRoleMenuItem> checkRoleMenuItemMap = roleMenuItemRepository.findAll().parallelStream().collect(Collectors.toMap((roleMenuItem)->getRoleMenuItemKey(roleMenuItem), Function.identity()));
+	    	List<EOUserRoleMenuItem> roleEndpointList = instance.getAll(EOUserRoleMenuItem.class);
+	    	for(EOUserRoleMenuItem roleMenuItem: roleEndpointList) {
 	    		try {
 	    			String roleMenuItemKey= getRoleMenuItemKey(roleMenuItem);
-					EORoleMenuItem eoRoleEndpoint = checkRoleMenuItemMap.getOrDefault(roleMenuItemKey,roleMenuItem);
+					EOUserRoleMenuItem eoRoleEndpoint = checkRoleMenuItemMap.getOrDefault(roleMenuItemKey,roleMenuItem);
 					BeanUtils.copyProperties(roleMenuItem, eoRoleEndpoint, "id");
-		    		EORoleMenuItem saveRoleEndpoint = roleMenuItemRepository.saveAndFlush(eoRoleEndpoint);
+		    		EOUserRoleMenuItem saveRoleEndpoint = roleMenuItemRepository.saveAndFlush(eoRoleEndpoint);
 		    		roleMenuItem.setId(saveRoleEndpoint.getId());
 		    		deleteRoleMenuItemMap.remove(roleMenuItemKey);
 	    		}catch (Exception e) {
@@ -190,13 +198,13 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 				}
 			}
 	    	
-	    	Map<String, EOHeaderItem> headerItemMap = headerItemRepository.findAll().parallelStream().collect(Collectors.toMap((headerItem)->headerItem.getIdenNo(), Function.identity()));
-	    	List<EOHeaderItem> headerItemList = instance.getAll(EOHeaderItem.class);
-	    	for(EOHeaderItem headerItem: headerItemList) {
+	    	Map<String, EOViewHeaderItem> headerItemMap = headerItemRepository.findAll().parallelStream().collect(Collectors.toMap((headerItem)->headerItem.getIdenNo(), Function.identity()));
+	    	List<EOViewHeaderItem> headerItemList = instance.getAll(EOViewHeaderItem.class);
+	    	for(EOViewHeaderItem headerItem: headerItemList) {
 	    		try {
-	    			EOHeaderItem eoHeaderItem = headerItemMap.getOrDefault(headerItem.getIdenNo(),headerItem);
+	    			EOViewHeaderItem eoHeaderItem = headerItemMap.getOrDefault(headerItem.getIdenNo(),headerItem);
 					BeanUtils.copyProperties(headerItem, eoHeaderItem, "id");
-					EOHeaderItem saveHeaderItem = headerItemRepository.saveAndFlush(eoHeaderItem);
+					EOViewHeaderItem saveHeaderItem = headerItemRepository.saveAndFlush(eoHeaderItem);
 		    		headerItem.setId(saveHeaderItem.getId());
 		    		headerItemMap.remove(headerItem.getIdenNo());
 	    		}catch (Exception e) {
@@ -205,14 +213,14 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 				}
 			}
 	    	
-	    	Map<String, EORoleHeaderItem> roleHeaderItemMap = roleHeaderItemRepository.findAll().parallelStream().collect(Collectors.toMap((roleHeaderItem)->getRoleHeaderItemKey(roleHeaderItem), Function.identity()));
-	    	List<EORoleHeaderItem> userRoleHeaderItemList = instance.getAll(EORoleHeaderItem.class);
-	    	for(EORoleHeaderItem roleHeaderItem: userRoleHeaderItemList) {
+	    	Map<String, EOUserRoleHeaderItem> roleHeaderItemMap = roleHeaderItemRepository.findAll().parallelStream().collect(Collectors.toMap((roleHeaderItem)->getRoleHeaderItemKey(roleHeaderItem), Function.identity()));
+	    	List<EOUserRoleHeaderItem> userRoleHeaderItemList = instance.getAll(EOUserRoleHeaderItem.class);
+	    	for(EOUserRoleHeaderItem roleHeaderItem: userRoleHeaderItemList) {
 	    		try {
 	    			String roleHeaderItemKey=getRoleHeaderItemKey(roleHeaderItem);
-	    			EORoleHeaderItem eoRoleHeaderItem = roleHeaderItemMap.getOrDefault(roleHeaderItemKey,roleHeaderItem);
+	    			EOUserRoleHeaderItem eoRoleHeaderItem = roleHeaderItemMap.getOrDefault(roleHeaderItemKey,roleHeaderItem);
 					BeanUtils.copyProperties(roleHeaderItem, eoRoleHeaderItem, "id");
-					EORoleHeaderItem saveRoleHeaderItem = roleHeaderItemRepository.saveAndFlush(eoRoleHeaderItem);
+					EOUserRoleHeaderItem saveRoleHeaderItem = roleHeaderItemRepository.saveAndFlush(eoRoleHeaderItem);
 		    		roleHeaderItem.setId(saveRoleHeaderItem.getId());
 		    		roleHeaderItemMap.remove(roleHeaderItemKey);
 	    		}catch (Exception e) {
@@ -220,14 +228,14 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 					e.printStackTrace();
 				}
 			}
-	    	Map<String, EOOnBoardingQuestion> onBoardingQuestionMap = onBoardingQuestionRepository.findAll().parallelStream().collect(Collectors.toMap((onBoardingQuestion)->onBoardingQuestion.getQuestion(), Function.identity()));
-	    	List<EOOnBoardingQuestion> onBoardingQuestionList = instance.getAll(EOOnBoardingQuestion.class);
+	    	Map<String, EOViewOnBoardingQuestion> onBoardingQuestionMap = onBoardingQuestionRepository.findAll().parallelStream().collect(Collectors.toMap((onBoardingQuestion)->onBoardingQuestion.getQuestion(), Function.identity()));
+	    	List<EOViewOnBoardingQuestion> onBoardingQuestionList = instance.getAll(EOViewOnBoardingQuestion.class);
 	    	
-	    	for(EOOnBoardingQuestion onBoardingQuestion: onBoardingQuestionList) {
+	    	for(EOViewOnBoardingQuestion onBoardingQuestion: onBoardingQuestionList) {
 	    		try {
-	    			EOOnBoardingQuestion eoOnBoardingQuestion = onBoardingQuestionMap.getOrDefault(onBoardingQuestion.getQuestion(),onBoardingQuestion);
+	    			EOViewOnBoardingQuestion eoOnBoardingQuestion = onBoardingQuestionMap.getOrDefault(onBoardingQuestion.getQuestion(),onBoardingQuestion);
 					BeanUtils.copyProperties(onBoardingQuestion, eoOnBoardingQuestion, "id");
-					EOOnBoardingQuestion saveOnBoardingQuestion = onBoardingQuestionRepository.saveAndFlush(eoOnBoardingQuestion);
+					EOViewOnBoardingQuestion saveOnBoardingQuestion = onBoardingQuestionRepository.saveAndFlush(eoOnBoardingQuestion);
 					onBoardingQuestion.setId(saveOnBoardingQuestion.getId());
 		    		onBoardingQuestionMap.remove(onBoardingQuestion.getQuestion());
 	    		}catch (Exception e) {
@@ -236,14 +244,14 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 				}
 			}
 	    	
-	    	Map<String, EOOnBoardingOptions> onBoardingOptionsMap = onBoardingOptionsRepository.findAll().parallelStream().collect(Collectors.toMap((onBoardingOptions)->onBoardingOptions.getValue(), Function.identity()));
-	    	List<EOOnBoardingOptions> onBoardingOptionsList = instance.getAll(EOOnBoardingOptions.class);
+	    	Map<String, EOViewOnBoardingOptions> onBoardingOptionsMap = onBoardingOptionsRepository.findAll().parallelStream().collect(Collectors.toMap((onBoardingOptions)->onBoardingOptions.getValue(), Function.identity()));
+	    	List<EOViewOnBoardingOptions> onBoardingOptionsList = instance.getAll(EOViewOnBoardingOptions.class);
 	    	
-	    	for(EOOnBoardingOptions onBoardingOptions: onBoardingOptionsList) {
+	    	for(EOViewOnBoardingOptions onBoardingOptions: onBoardingOptionsList) {
 	    		try {
-	    			EOOnBoardingOptions eoOnBoardingOptions = onBoardingOptionsMap.getOrDefault(onBoardingOptions.getValue(),onBoardingOptions);
+	    			EOViewOnBoardingOptions eoOnBoardingOptions = onBoardingOptionsMap.getOrDefault(onBoardingOptions.getValue(),onBoardingOptions);
 					BeanUtils.copyProperties(onBoardingOptions, eoOnBoardingOptions, "id");
-					EOOnBoardingOptions saveOnBoardingOptions = onBoardingOptionsRepository.saveAndFlush(eoOnBoardingOptions);
+					EOViewOnBoardingOptions saveOnBoardingOptions = onBoardingOptionsRepository.saveAndFlush(eoOnBoardingOptions);
 					onBoardingOptions.setId(saveOnBoardingOptions.getId());
 		    		onBoardingOptionsMap.remove(onBoardingOptions.getValue());
 	    		}catch (Exception e) {
@@ -251,6 +259,30 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 					e.printStackTrace();
 				}
 			}
+	    	
+	    	Map<BillingType, EOViewOnBoardingBilling> onBoardingBillingMap = onBoardingBillingRepository.findAll().parallelStream().collect(Collectors.toMap((onBoardingOptions)->onBoardingOptions.getType(), Function.identity()));
+	    	List<EOViewOnBoardingBilling> onBoardingBillingList = instance.getAll(EOViewOnBoardingBilling.class);
+	    	
+	    	for(EOViewOnBoardingBilling onBoardingBilling: onBoardingBillingList) {
+	    		try {
+	    			EOViewOnBoardingBilling eoOnBoardingBilling = onBoardingBillingMap.getOrDefault(onBoardingBilling.getType(),onBoardingBilling);
+					BeanUtils.copyProperties(onBoardingBilling, eoOnBoardingBilling, "id");
+					EOViewOnBoardingBilling saveOnBoardingBilling = onBoardingBillingRepository.saveAndFlush(eoOnBoardingBilling);
+					onBoardingBilling.setId(saveOnBoardingBilling.getId());
+		    		onBoardingBillingMap.remove(onBoardingBilling.getType());
+	    		}catch (Exception e) {
+					System.out.println("onBoardingBilling="+onBoardingBilling);
+					e.printStackTrace();
+				}
+			}
+	    	
+	    	if(!onBoardingBillingMap.isEmpty()) {
+	    		onBoardingBillingRepository.deleteAll(onBoardingBillingMap.values());
+	    	}
+	    	
+	    	if(!onBoardingOptionsMap.isEmpty()) {
+	    		onBoardingOptionsRepository.deleteAll(onBoardingOptionsMap.values());
+	    	}
 	    	
 	    	if(!onBoardingQuestionMap.isEmpty()) {
 	    		onBoardingQuestionRepository.deleteAll(onBoardingQuestionMap.values());
@@ -262,8 +294,8 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 	    		headerItemRepository.deleteAll(headerItemMap.values());
 	    	}
 	    	if(!deleteRoleMenuItemMap.isEmpty()) {
-	    		Collection<EORoleMenuItem> values = deleteRoleMenuItemMap.values();
-	    		for(EORoleMenuItem eoRoleMenuItem :  values) {
+	    		Collection<EOUserRoleMenuItem> values = deleteRoleMenuItemMap.values();
+	    		for(EOUserRoleMenuItem eoRoleMenuItem :  values) {
 	    			userOnBoardingRepository.deleteByRoleMenuItem(eoRoleMenuItem);
 	    		}
 	    		if(!values.isEmpty())
@@ -285,21 +317,21 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
     	}
     }
 
-	private String getRoleMenuItemKey(EORoleMenuItem userRoleMenuItem) {
+	private String getRoleMenuItemKey(EOUserRoleMenuItem userRoleMenuItem) {
 		if(userRoleMenuItem.getMenuItem()==null || userRoleMenuItem.getUserRole()==null) {
 			return "";
 		}
 		return userRoleMenuItem.getUserRole().getId()+"_"+ userRoleMenuItem.getMenuItem().getId();
 	}
 
-	private String getRoleMenuGroupKey(EORoleMenuGroup userRoleMenuGroup) {
+	private String getRoleMenuGroupKey(EOUserRoleMenuGroup userRoleMenuGroup) {
 		if(userRoleMenuGroup.getMenuGroup()==null || userRoleMenuGroup.getUserRole()==null) {
 			return "";
 		}
 		return userRoleMenuGroup.getUserRole().getId()+"_"+ userRoleMenuGroup.getMenuGroup().getId();
 	}
     
-    public static String getRoleHeaderItemKey(EORoleHeaderItem eoRoleHeaderItem) {
+    public static String getRoleHeaderItemKey(EOUserRoleHeaderItem eoRoleHeaderItem) {
     	if(eoRoleHeaderItem.getHeaderItem()==null || eoRoleHeaderItem.getUserRole()==null) {
 			return "";
 		}

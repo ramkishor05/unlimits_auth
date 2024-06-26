@@ -1,0 +1,219 @@
+{
+	"id": "User_Portal_OnBoarding_Question_Options",
+	"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+	"orderSequence": 6,
+	"objects": [
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_AGE_Under18",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question_Options",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
+				"value": "Under 18",
+				"orderSequence": 1.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_AGE_18_25",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question_Options",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
+				"value": "18-25",
+				"orderSequence": 2.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_AGE_26_35",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question_Options",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
+				"value": "26-35",
+				"orderSequence": 3.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_AGE_36_45",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question_Options",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
+				"value": "36-45",
+				"orderSequence": 4.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_AGE_46_60",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question_Options",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
+				"value": "46-60",
+				"orderSequence": 5.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_AGE_60_+",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question_Options",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
+				"value": "60+",
+				"orderSequence": 6.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Gender_Male",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Gender",
+				"value": "Male",
+				"orderSequence": 1.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Gender_Female",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Gender",
+				"value": "Female",
+				"orderSequence": 2.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Gender_Other",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Gender",
+				"value": "Prefer not to say"
+				,
+				"orderSequence": 3.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Student",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I am student",
+				"orderSequence": 1.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Owner",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I run my own business",
+				"orderSequence": 2.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Self",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I am self employed",
+				"orderSequence": 3.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Carrier",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I just started my carrier",
+				"orderSequence": 4.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Leadership",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I am in senior leadership",
+				"orderSequence": 4.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Homemaker",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I am a homemaker",
+				"orderSequence": 5.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Artist",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I am an artist",
+				"orderSequence": 6.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Unemployed",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "I am an unemployed",
+				"orderSequence": 7.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work_Other",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
+				"value": "Other",
+				"orderSequence": 8.0
+			}
+		}
+		,
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Life_Moonshot",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Life",
+				"value": "I want a crezy moonshot",
+				"orderSequence": 1.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Life_vision",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Life",
+				"value": "I want bold vision",
+				"orderSequence": 2.0
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Life_zone",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingOptions",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"question": "LK@User_Portal_OnBoarding_Question_USER_Life",
+				"value": "I want break my confirm zone",
+				"orderSequence": 3.0
+			}
+		}
+	]
+}

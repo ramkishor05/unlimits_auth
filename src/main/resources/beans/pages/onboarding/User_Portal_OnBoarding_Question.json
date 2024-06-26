@@ -1,0 +1,56 @@
+{
+	"id": "User_Portal_OnBoarding_Question",
+	"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingQuestion",
+	"orderSequence": 4,
+	"objects": [
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_AGE",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingQuestion",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"idenNo": "User_Portal_OnBoarding_Question_USER_AGE",
+				"question": "How old are you?",
+				"hintText": "(It's jest between us)",
+				"type": "RADIO",
+				"orderSequence": 1.0,
+				"required": true
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Gender",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingQuestion",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"idenNo": "User_Portal_OnBoarding_Question_USER_Gender",
+				"question": "And your gender?",
+				"type": "RADIO",
+				"orderSequence": 2.0,
+				"required": true
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Work",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingQuestion",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"idenNo": "User_Portal_OnBoarding_Question_USER_Work",
+				"question": "What are you current adventure?",
+				"type": "RADIO",
+				"orderSequence": 3.0,
+				"required": true
+			}
+		},
+		{
+			"id": "User_Portal_OnBoarding_Question_USER_Life",
+			"type": "com.brijframework.authorization.view.entities.onboarding.EOViewOnBoardingQuestion",
+			"name": "User_Portal_OnBoarding_Question",
+			"properties": {
+				"idenNo": "User_Portal_OnBoarding_Question_USER_Life",
+				"question": "And the size of your dream?",
+				"type": "RADIO",
+				"orderSequence": 3.0,
+				"required": true
+			}
+		}
+	]
+}
