@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.unlimits.rest.context.ApiSecurityContext;
 import org.unlimits.rest.crud.beans.Response;
 
+import com.brijframework.authorization.account.entities.EOUserAccount;
 import com.brijframework.authorization.account.model.onboarding.UIUserOnBoardingQuestion;
+import com.brijframework.authorization.exceptions.UnauthorizedAccessException;
 import com.brijframework.authorization.exceptions.UserNotFoundException;
 import com.brijframework.authorization.global.account.service.UserOnBoardingQuestionService;
 
@@ -33,9 +36,9 @@ public class DeviceOnboardingQuestionController {
 	
 	@PutMapping
 	public Response update(@RequestBody UIUserOnBoardingQuestion dto, @RequestHeader(required =false)  MultiValueMap<String,String> headers){
-		List<String> list = headers.get(CLIENT_USER_ID);
-		if(CollectionUtils.isEmpty(list)) {
-			throw new UserNotFoundException("Invalid client");
+		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
+		if(currentAccount==null) {
+			throw new UnauthorizedAccessException();
 		}
 		Response response=new Response();
 		try {

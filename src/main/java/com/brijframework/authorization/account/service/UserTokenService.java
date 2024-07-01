@@ -21,5 +21,11 @@ public interface UserTokenService {
 	String logout(String token);
 
 	Object getUserDetailFromToken(String token);
+
+	/**
+	 * @param token
+	 * @return
+	 */
+	String extendExpiration(String token);
 	
 }

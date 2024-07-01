@@ -1,6 +1,7 @@
 package com.brijframework.authorization.account.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,4 +40,10 @@ public interface UserAccountService extends UserDetailsService, QueryService<Use
 	UIUserAccount resetPassword(GlobalPasswordReset passwordReset);
 
 	UIUserAccount saveOtp(GlobalPasswordReset passwordReset);
+
+	/**
+	 * @param authRequest
+	 * @return
+	 */
+	Optional<EOUserAccount> find(GlobalLoginRequest authRequest);
 }

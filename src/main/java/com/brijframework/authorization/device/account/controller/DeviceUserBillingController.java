@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.unlimits.rest.context.ApiSecurityContext;
 import org.unlimits.rest.crud.beans.Response;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
 import com.brijframework.authorization.account.model.onboarding.UIUserOnBoardingBilling;
-import com.brijframework.authorization.context.ApiSecurityContext;
 import com.brijframework.authorization.exceptions.UnauthorizedAccessException;
 import com.brijframework.authorization.global.account.service.UserOnBoardingBillingService;
 
@@ -32,7 +32,7 @@ public class DeviceUserBillingController {
 	
 	@PostMapping
 	public Response add(@RequestBody UIUserOnBoardingBilling dto, @RequestHeader(required =false)  MultiValueMap<String,String> headers){
-		EOUserAccount currentAccount = ApiSecurityContext.getContext().getCurrentAccount();
+		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
 		if(currentAccount==null) {
 			throw new UnauthorizedAccessException();
 		}
@@ -52,7 +52,7 @@ public class DeviceUserBillingController {
 	
 	@PutMapping
 	public Response update(@RequestBody UIUserOnBoardingBilling dto, @RequestHeader(required =false)  MultiValueMap<String,String> headers){
-		EOUserAccount currentAccount = ApiSecurityContext.getContext().getCurrentAccount();
+		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
 		if(currentAccount==null) {
 			throw new UnauthorizedAccessException();
 		}
@@ -72,7 +72,7 @@ public class DeviceUserBillingController {
 	
 	@GetMapping
 	public Response findUseraccount(@RequestHeader(required =false)  MultiValueMap<String,String> headers){
-		EOUserAccount currentAccount = ApiSecurityContext.getContext().getCurrentAccount();
+		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
 		if(currentAccount==null) {
 			throw new UnauthorizedAccessException();
 		}

@@ -8,11 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.unlimits.rest.token.ApiTokenContext;
+import org.unlimits.rest.context.ApiTokenContext;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
 import com.brijframework.authorization.account.entities.EOUserToken;
@@ -25,8 +23,6 @@ import com.brijframework.authorization.global.account.mapper.GlobalUserDetailMap
 @Service
 public class UserTokenServiceImpl implements UserTokenService {
 
-	private static final Logger log = LoggerFactory.getLogger(UserTokenServiceImpl.class);
-
 	@Autowired
 	private UserTokenRepository userTokenRepository;
 
@@ -38,7 +34,6 @@ public class UserTokenServiceImpl implements UserTokenService {
 
 	@Override
 	public String generateToken(String userName, Long userId, String role) {
-		log.debug("TokenServiceImpl :: generateToken() started");
 		Map<String, Object> claims = new HashMap<>();
 		return ApiTokenContext.createToken(claims, userName,userId, role);
 	}
@@ -47,11 +42,23 @@ public class UserTokenServiceImpl implements UserTokenService {
 	public String changeExpiration(String token, Date expiration) {
 		return ApiTokenContext.changeExpiration(token, expiration);
 	}
+	
+	@Override
+	public String extendExpiration(String authToken) {
+		String token = authToken.startsWith(BEARER) ? authToken.substring(7) : authToken;
+		Optional<EOUserToken> findBySource = userTokenRepository.findBySource(token);
+		if (!findBySource.isPresent()) {
+			return "";
+		}
+		EOUserToken eoToken = findBySource.get();
+		eoToken.setTarget(ApiTokenContext.extendExpiration(token));
+		userTokenRepository.save(eoToken);
+		return eoToken.getTarget();
+	}
 
 	@Override
 	public Boolean validateToken(String authToken) {
 		String token = authToken.startsWith(BEARER) ? authToken.substring(7) : authToken;
-		log.debug("TokenServiceImpl :: validateToken() started");
 		Optional<EOUserToken> findBySource = userTokenRepository.findBySource(token);
 		if (!findBySource.isPresent()) {
 			return false;
@@ -62,7 +69,7 @@ public class UserTokenServiceImpl implements UserTokenService {
 
 	@Override
 	public Date buildExprireationDate() {
-		return new Date(System.currentTimeMillis() + 1000 * 60 * 30);
+		return ApiTokenContext.buildExprireationDate();
 	}
 
 	@Override

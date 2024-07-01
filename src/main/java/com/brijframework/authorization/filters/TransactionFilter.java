@@ -21,13 +21,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.unlimits.rest.token.ApiTokenContext;
+import org.unlimits.rest.context.ApiSecurityContext;
+import org.unlimits.rest.context.ApiTokenContext;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
-import com.brijframework.authorization.account.repository.UserAccountRepository;
+import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
 import com.brijframework.authorization.account.service.UserTokenService;
-import com.brijframework.authorization.context.ApiSecurityContext;
-import com.brijframework.authorization.exceptions.InvalidTokenException;
+import com.brijframework.authorization.adptor.AuthProvider;
+import com.brijframework.authorization.constant.Authority;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -43,7 +44,7 @@ public class TransactionFilter extends OncePerRequestFilter {
     private UserTokenService tokenService;
 
     @Autowired
-	private UserAccountRepository userAccountRepository; 
+	private AuthProvider authProvider; 
   
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException { 
@@ -55,9 +56,7 @@ public class TransactionFilter extends OncePerRequestFilter {
         requestWrapper.putHeader("Accept", "*");
         if(StringUtils.isNotEmpty(authHeader) && !authHeader.equalsIgnoreCase("null")) {
         	 String token = authHeader.substring(7);
-        	 if (!tokenService.validateToken(token)) { 
-             	throw new InvalidTokenException("Invalid token !!");
-             }
+        	 tokenService.extendExpiration(token);
         	 String username = ApiTokenContext.getUsername(token); 
         	 String userId = ApiTokenContext.getUserId(token);
         	 String userRole = ApiTokenContext.getUserRole(token); 
@@ -72,8 +71,10 @@ public class TransactionFilter extends OncePerRequestFilter {
                  UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, null, getGrantedAuthority(userRole)); 
                  authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)); 
                  SecurityContextHolder.getContext().setAuthentication(authToken); 
-                 
-                 Optional<EOUserAccount> findUserLogin = userAccountRepository.findByUsername(username);
+                 GlobalLoginRequest loginRequest=new GlobalLoginRequest();
+                 loginRequest.setUsername(username);
+                 loginRequest.setAuthority(Authority.valueOf(userRole));
+                 Optional<EOUserAccount> findUserLogin = authProvider.find(loginRequest);
         		 EOUserAccount eoUserAccount = findUserLogin.orElseThrow(() -> new RuntimeException("Not found!"));
                  ApiSecurityContext.getContext().setCurrentAccount(eoUserAccount);
              } 

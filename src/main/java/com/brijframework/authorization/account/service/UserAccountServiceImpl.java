@@ -252,5 +252,10 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 		return userDetails;
 	}
 
+	@Override
+	public Optional<EOUserAccount> find(GlobalLoginRequest authRequest) {
+		return userAccountRepository.findByUsername(authRequest.getUsername());
+	}
+
 
 }
