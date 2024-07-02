@@ -4,6 +4,8 @@ package com.brijframework.authorization.account.entities;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.unlimits.rest.crud.beans.IUserAccount;
+
 import com.brijframework.authorization.account.entities.onboarding.EOUserOnBoardingBilling;
 import com.brijframework.authorization.account.entities.onboarding.EOUserOnBoardingMenu;
 import com.brijframework.authorization.account.entities.onboarding.EOUserOnBoardingPage;
@@ -22,7 +24,7 @@ import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "USER_ACCOUNT", uniqueConstraints = { @UniqueConstraint(columnNames = { "USERNAME", "ROLE_ID" }) })
-public class EOUserAccount extends EOEntityObject {
+public class EOUserAccount extends EOEntityObject implements IUserAccount {
 
 	/**
 	 * 

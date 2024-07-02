@@ -3,6 +3,7 @@ package com.brijframework.authorization.adptor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.unlimits.rest.crud.beans.Response;
 
+import com.brijframework.authorization.account.entities.EOUserAccount;
 import com.brijframework.authorization.account.model.UIUserAccount;
 import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
 import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
@@ -156,5 +158,28 @@ public class AuthProvider extends DaoAuthenticationProvider {
 			userDetailsService=userAccountService;
 		}
 		return userDetailsService.login(authRequest);
+	}
+
+	/**
+	 * @param username
+	 * @param userRole
+	 * @return
+	 */
+	public Optional<EOUserAccount> find(GlobalLoginRequest authRequest) {
+		if(authRequest.getAuthority()==null) {
+			authRequest.setAuthority(Authority.USER);
+		}
+		Authority authority= authRequest.getAuthority();
+		UserAccountService userDetailsService=null; 
+		if(authority.equals(Authority.ADMIN)) {
+			userDetailsService=userAccountService;
+		}
+		if(authority.equals(Authority.DEVELOPER)) {
+			userDetailsService=userAccountService;
+		}
+		if(authority.equals(Authority.USER)) {
+			userDetailsService=userAccountService;
+		}
+		return userDetailsService.find(authRequest);
 	}
 }

@@ -24,7 +24,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.unlimits.rest.context.ApiTokenContext;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
-import com.brijframework.authorization.account.repository.UserAccountRepository;
+import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
 import com.brijframework.authorization.account.service.UserTokenService;
 import com.brijframework.authorization.context.ApiSecurityContext;
 
