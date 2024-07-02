@@ -21,12 +21,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.unlimits.rest.context.ApiSecurityContext;
 import org.unlimits.rest.context.ApiTokenContext;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
-import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
+import com.brijframework.authorization.account.repository.UserAccountRepository;
 import com.brijframework.authorization.account.service.UserTokenService;
-import com.brijframework.authorization.context.ApiSecurityContext;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

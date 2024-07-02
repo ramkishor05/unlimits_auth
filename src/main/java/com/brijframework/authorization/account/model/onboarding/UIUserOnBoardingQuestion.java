@@ -14,6 +14,9 @@ public class UIUserOnBoardingQuestion extends UIModel {
 	private Long userAccountId;
 
 	public UIViewOnBoardingQuestion getQuestion() {
+		if(question==null) {
+			question=new UIViewOnBoardingQuestion();
+		}
 		return question;
 	}
 

@@ -15,6 +15,7 @@ import com.brijframework.authorization.account.entities.EOUserAccount;
 @Transactional
 public interface UserAccountRepository  extends JpaRepository<EOUserAccount, Long>{
 
+	
 	@Query(nativeQuery = true,  value="select * from USER_ACCOUNT UA where UA.USERNAME = :username")
 	Optional<EOUserAccount> findByUsername(@Param("username")String username);
 
