@@ -1,3 +1,7 @@
+# HTTP Server (Tomcat) Port
+server: 
+  host: 51.79.159.7
+  port: 2222
 spring:
    profiles:
      active: local
@@ -45,15 +49,12 @@ springdoc:
       paths-to-match: /v3/api-docs
 openapi:
   service:
-      url: http://51.79.159.7:8080/auth
+      url: http://${server.host}:8080/auth
 # Discovery Server Access
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:1111/eureka/
-# HTTP Server (Tomcat) Port
-server: 
-  port: 2222
+      defaultZone: http://${server.host}:1111/eureka/
 logging.level.org.hibernate.SQL: DEBUG
 logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 # Disable Spring Boot's "Whitelabel" default error page, so we can use our own

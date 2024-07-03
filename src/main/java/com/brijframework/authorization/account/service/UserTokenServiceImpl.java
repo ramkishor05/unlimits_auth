@@ -40,7 +40,7 @@ public class UserTokenServiceImpl implements UserTokenService {
 
 	@Override
 	public String changeExpiration(String token, Date expiration) {
-		return ApiTokenContext.changeExpiration(token, expiration);
+		return ApiTokenContext.updateExpiry(token, expiration);
 	}
 	
 	@Override
@@ -51,7 +51,7 @@ public class UserTokenServiceImpl implements UserTokenService {
 			return "";
 		}
 		EOUserToken eoToken = findBySource.get();
-		eoToken.setTarget(ApiTokenContext.extendExpiration(token));
+		eoToken.setTarget(ApiTokenContext.extendExpiry(token));
 		userTokenRepository.save(eoToken);
 		return eoToken.getTarget();
 	}
@@ -69,7 +69,7 @@ public class UserTokenServiceImpl implements UserTokenService {
 
 	@Override
 	public Date buildExprireationDate() {
-		return ApiTokenContext.buildExprireationDate();
+		return ApiTokenContext.generateExpriyDate();
 	}
 
 	@Override
