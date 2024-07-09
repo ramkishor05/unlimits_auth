@@ -2,7 +2,7 @@ package com.brijframework.authorization.device.account.model;
 
 import java.io.Serializable;
 
-public class DeviceLoginRequest implements Serializable{
+public class DeviceLoginRequest extends DeviceAuth implements Serializable{
 
 	/**
 	 * 

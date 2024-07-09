@@ -2,7 +2,7 @@ package com.brijframework.authorization.view.entities.onboarding;
 import static com.brijframework.authorization.view.constants.ViewTableConstants.VIEW_ONBOARDING_BILLING;
 
 import com.brijframework.authorization.constant.BillingType;
-import com.brijframework.authorization.constant.ServiceType;
+import com.brijframework.authorization.constant.PaymentMode;
 import com.brijframework.authorization.entities.EOPayment;
 
 import jakarta.persistence.Column;
@@ -31,7 +31,7 @@ public class EOViewOnBoardingBilling extends EOPayment {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "SERVICE")
-	private ServiceType service;
+	private PaymentMode service;
 	
 	@Column(name = "AMOUNT")
 	private Double amount;
@@ -55,11 +55,11 @@ public class EOViewOnBoardingBilling extends EOPayment {
 		this.type = type;
 	}
 
-	public ServiceType getService() {
+	public PaymentMode getService() {
 		return service;
 	}
 
-	public void setService(ServiceType service) {
+	public void setService(PaymentMode service) {
 		this.service = service;
 	}
 

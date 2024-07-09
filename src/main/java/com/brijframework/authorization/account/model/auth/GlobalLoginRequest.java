@@ -2,9 +2,7 @@ package com.brijframework.authorization.account.model.auth;
 
 import java.io.Serializable;
 
-import com.brijframework.authorization.constant.Authority;
-
-public class GlobalLoginRequest implements Serializable{
+public class GlobalLoginRequest extends GlobalAuth implements Serializable{
 
 	/**
 	 * 
@@ -15,8 +13,6 @@ public class GlobalLoginRequest implements Serializable{
 
 	private String password;
 	
-	private Authority authority;
-
 	public String getUsername() {
 		return username;
 	}
@@ -32,13 +28,4 @@ public class GlobalLoginRequest implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public Authority getAuthority() {
-		return authority;
-	}
-
-	public void setAuthority(Authority authority) {
-		this.authority = authority;
-	}
-
 }

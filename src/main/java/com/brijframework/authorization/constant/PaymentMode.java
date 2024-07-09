@@ -1,6 +1,8 @@
 package com.brijframework.authorization.constant;
 
-public enum ServiceType {
+public enum PaymentMode {
 
-	NORMAL, GOOGLE, APPLE
+	Paid,
+	Unpaid,
+	Trail
 }

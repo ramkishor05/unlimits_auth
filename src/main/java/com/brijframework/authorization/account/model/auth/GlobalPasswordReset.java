@@ -1,6 +1,5 @@
 package com.brijframework.authorization.account.model.auth;
 
-import com.brijframework.authorization.constant.Authority;
 import com.brijframework.authorization.constant.ResetBy;
 
 public class GlobalPasswordReset extends GlobalLoginRequest {
@@ -10,19 +9,9 @@ public class GlobalPasswordReset extends GlobalLoginRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Authority authority;
-	
 	private Integer otp;
 	
 	private ResetBy resetBy; 
-
-	public Authority getAuthority() {
-		return authority;
-	}
-
-	public void setAuthority(Authority authority) {
-		this.authority = authority;
-	}
 
 	public Integer getOtp() {
 		return otp;

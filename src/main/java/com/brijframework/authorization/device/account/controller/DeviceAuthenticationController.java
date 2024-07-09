@@ -93,7 +93,6 @@ public class DeviceAuthenticationController {
 		log.debug("User Login start.");
 		GlobalLoginRequest loginRequest=new GlobalLoginRequest();
 		BeanUtils.copyProperties(deviceLoginRequest, loginRequest);
-		loginRequest.setAuthority(Authority.USER);
 		Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 				loginRequest.getUsername(), loginRequest.getPassword(), getGrantedAuthority(loginRequest.getAuthority().getRoleId())));
 		if (authenticate.isAuthenticated()) {
@@ -111,7 +110,6 @@ public class DeviceAuthenticationController {
 	public Response userRegistor(@RequestBody DeviceRegisterRequest deviceRegisterRequest) {
 		GlobalRegisterRequest registerRequest=new GlobalRegisterRequest();
 		BeanUtils.copyProperties(deviceRegisterRequest, registerRequest);
-		registerRequest.setAuthority(Authority.USER);
 		return authProvider.register(registerRequest);
 	}
 	

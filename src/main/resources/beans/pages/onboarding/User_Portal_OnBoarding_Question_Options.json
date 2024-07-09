@@ -100,7 +100,7 @@
 			"name": "User_Portal_OnBoarding_Question",
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
-				"value": "I am student",
+				"value": "I am a student",
 				"orderSequence": 1.0
 			}
 		},
@@ -120,7 +120,7 @@
 			"name": "User_Portal_OnBoarding_Question",
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
-				"value": "I am self employed",
+				"value": "I am self-employed",
 				"orderSequence": 3.0
 			}
 		},
@@ -170,7 +170,7 @@
 			"name": "User_Portal_OnBoarding_Question",
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
-				"value": "I am an unemployed",
+				"value": "I am unemployed",
 				"orderSequence": 7.0
 			}
 		},
@@ -201,7 +201,7 @@
 			"name": "User_Portal_OnBoarding_Question",
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Life",
-				"value": "I want bold vision",
+				"value": "I want a bold vision",
 				"orderSequence": 2.0
 			}
 		},
@@ -211,7 +211,7 @@
 			"name": "User_Portal_OnBoarding_Question",
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Life",
-				"value": "I want break my confirm zone",
+				"value": "I want break my comfort zone",
 				"orderSequence": 3.0
 			}
 		}

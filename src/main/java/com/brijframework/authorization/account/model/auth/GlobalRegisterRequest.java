@@ -1,31 +1,15 @@
 package com.brijframework.authorization.account.model.auth;
 
-import com.brijframework.authorization.constant.Authority;
+public class GlobalRegisterRequest extends GlobalLoginRequest{
 
-public class GlobalRegisterRequest {
-
-	private String username;
-	private String password;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String registeredPhone;
 	private String registeredEmail;
 	private String accountName;
-	private Authority authority;
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public String getRegisteredPhone() {
 		return registeredPhone;
@@ -51,11 +35,4 @@ public class GlobalRegisterRequest {
 		this.accountName = accountName;
 	}
 
-	public Authority getAuthority() {
-		return authority;
-	}
-
-	public void setAuthority(Authority authority) {
-		this.authority = authority;
-	}
 }

@@ -1,7 +1,7 @@
 package com.brijframework.authorization.view.model.onboadring;
 
 import com.brijframework.authorization.constant.BillingType;
-import com.brijframework.authorization.constant.ServiceType;
+import com.brijframework.authorization.constant.PaymentMode;
 import com.brijframework.authorization.model.UIModel;
 
 public class UIViewOnBoardingBilling extends UIModel {
@@ -10,7 +10,7 @@ public class UIViewOnBoardingBilling extends UIModel {
 	
 	private BillingType type;
 	
-	private ServiceType service;
+	private PaymentMode service;
 	
 	private Double amount;
 	
@@ -32,11 +32,11 @@ public class UIViewOnBoardingBilling extends UIModel {
 		this.type = type;
 	}
 
-	public ServiceType getService() {
+	public PaymentMode getService() {
 		return service;
 	}
 
-	public void setService(ServiceType service) {
+	public void setService(PaymentMode service) {
 		this.service = service;
 	}
 

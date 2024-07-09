@@ -4,8 +4,12 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
+import org.brijframework.util.text.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +21,7 @@ import org.unlimits.rest.crud.mapper.GenericMapper;
 import org.unlimits.rest.crud.service.QueryServiceImpl;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
+import com.brijframework.authorization.account.entities.EOUserAccountService;
 import com.brijframework.authorization.account.entities.EOUserProfile;
 import com.brijframework.authorization.account.entities.EOUserRole;
 import com.brijframework.authorization.account.model.UIUserAccount;
@@ -27,9 +32,10 @@ import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
 import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
 import com.brijframework.authorization.account.repository.UserAccountRepository;
+import com.brijframework.authorization.account.repository.UserAccountServiceRepository;
 import com.brijframework.authorization.account.repository.UserProfileRepository;
 import com.brijframework.authorization.account.repository.UserRoleRepository;
-import com.brijframework.authorization.constant.Authority;
+import com.brijframework.authorization.constant.ServiceType;
 import com.brijframework.authorization.exceptions.UserAlreadyExistsException;
 import com.brijframework.authorization.exceptions.UserNotFoundException;
 import com.brijframework.authorization.global.account.mapper.GlobalUserDetailMapper;
@@ -68,7 +74,9 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 	
 	@Autowired
 	private UserTokenService tokenService;
-	
+
+	@Autowired
+	private UserAccountServiceRepository userAccountServiceRepository;
 
 	@Override
 	public JpaRepository<EOUserAccount, Long> getRepository() {
@@ -109,18 +117,17 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 		if(isAlreadyExists(registerRequest.getUsername())) {
 			throw new UserAlreadyExistsException();
 		}
-		if(registerRequest.getAuthority()==null) {
-			registerRequest.setAuthority(Authority.USER);
-		}
 		EOUserRole eoUserRole = userRoleRepository.findByPosition(registerRequest.getAuthority().getPosition()).orElse(null);
 		
 		EOUserProfile eoUserProfile=new EOUserProfile();
-		eoUserProfile.setFullName(eoUserRole.getRoleName());
+		eoUserProfile.setFullName(registerRequest.getAccountName());
 		eoUserProfile = userProfileRepository.save(eoUserProfile);
 		
 		EOUserAccount eoUserAccount=new EOUserAccount();
 		eoUserAccount.setUsername(registerRequest.getUsername());
-		eoUserAccount.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+		if(StringUtil.isNonEmpty(registerRequest.getPassword())) {
+			eoUserAccount.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+		}
 		eoUserAccount.setType(eoUserRole.getRoleId());
 		eoUserAccount.setRegisteredMobile(registerRequest.getRegisteredPhone());
 		eoUserAccount.setRegisteredEmail(registerRequest.getRegisteredEmail());
@@ -129,15 +136,25 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 		eoUserAccount.setUserProfile(eoUserProfile);
 		eoUserAccount.setOnBoarding(true);		
 		eoUserAccount=userAccountRepository.save(eoUserAccount);
+		this.initService(eoUserAccount);
 		userOnBoardingService.initOnBoarding(eoUserAccount);
 		Response auth=new Response();
 		auth.setSuccess(_1);
 		auth.setMessage(SUCCUSSFULLY_PROCESSED);
 		GlobalAuthDataDTO authDataDTO = new GlobalAuthDataDTO();
 		authDataDTO.setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
-		authDataDTO.setToken(tokenService.login(registerRequest.getUsername(), eoUserAccount.getId(), registerRequest.getAuthority().toString()));
+		authDataDTO.setToken(tokenService.login(registerRequest.getUsername(), eoUserAccount.getId(), registerRequest.getAuthority().toString(), registerRequest.getServiceType().toString()));
 		auth.setData(authDataDTO);
 		return auth;
+	}
+	
+	protected void initService(EOUserAccount eoUserAccount){
+		Map<String, EOUserAccountService> userAccountServiceMap = userAccountServiceRepository.findByUserAccountId(eoUserAccount.getId()).stream().collect(Collectors.toMap(EOUserAccountService::getType, Function.identity()));
+	
+		for(ServiceType serviceType: ServiceType.values()) {
+			EOUserAccountService eoUserAccountService = userAccountServiceMap.getOrDefault(serviceType.toString(), new EOUserAccountService(serviceType.toString(), eoUserAccount));
+			userAccountServiceRepository.save(eoUserAccountService);
+		}
 	}
 	
 	@Override
@@ -150,10 +167,9 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 		Response auth=new Response();
 		auth.setSuccess(_1);
 		auth.setMessage(SUCCUSSFULLY_PROCESSED);
-		
 		GlobalAuthDataDTO authDataDTO = new GlobalAuthDataDTO();
 		authDataDTO.setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
-		authDataDTO.setToken(tokenService.login(loginRequest.getUsername(), eoUserAccount.getId(), loginRequest.getAuthority().toString()));
+		authDataDTO.setToken(tokenService.login(loginRequest.getUsername(), eoUserAccount.getId(), loginRequest.getAuthority().toString(), loginRequest.getServiceType().toString()));
 		auth.setData(authDataDTO);
 		return auth;
 	}

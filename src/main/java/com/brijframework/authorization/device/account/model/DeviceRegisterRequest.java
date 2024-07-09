@@ -1,28 +1,10 @@
 package com.brijframework.authorization.device.account.model;
 
-public class DeviceRegisterRequest {
+public class DeviceRegisterRequest extends DeviceAuth{
 
-	private String username;
-	private String password;
 	private String registeredPhone;
 	private String registeredEmail;
 	private String accountName;
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public String getRegisteredPhone() {
 		return registeredPhone;
@@ -47,5 +29,4 @@ public class DeviceRegisterRequest {
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
 	}
-
 }

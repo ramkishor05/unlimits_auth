@@ -39,7 +39,7 @@ public class EOUserAccount extends EOEntityObject implements IUserAccount {
 
 	@Column(name = "ACCOUNT_NAME")
 	private String accountName;
-
+	
 	@Column(name = "ACCOUNT_MOBILE")
 	private String registeredMobile;
 
@@ -68,6 +68,9 @@ public class EOUserAccount extends EOEntityObject implements IUserAccount {
 
 	@Column(name = "RESET_PASSWORD_SENT_AT", nullable = true)
 	private Timestamp resetPasswordSentAt;
+	
+	@OneToMany(mappedBy = "userAccount")
+	private List<EOUserAccountService> authServices;
 
 	@OneToMany(mappedBy = "userAccount")
 	private List<EOUserOnBoardingMenu> onBoardingMenuList;

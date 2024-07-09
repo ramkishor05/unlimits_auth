@@ -33,9 +33,9 @@ public class UserTokenServiceImpl implements UserTokenService {
 	private GlobalUserDetailMapper userDetailMapper;
 
 	@Override
-	public String generateToken(String userName, Long userId, String role) {
+	public String generateToken(String userName, Long userId, String role, String serviceType) {
 		Map<String, Object> claims = new HashMap<>();
-		return ApiTokenContext.createToken(claims, userName,userId, role);
+		return ApiTokenContext.createToken(claims, userName,userId, role, serviceType);
 	}
 
 	@Override
@@ -73,9 +73,9 @@ public class UserTokenServiceImpl implements UserTokenService {
 	}
 
 	@Override
-	public String login(String username, Long userId, String role) {
-		String token = generateToken(username, userId, role);
-		EOUserToken eoToken = new EOUserToken(token, token, "NORMAL",
+	public String login(String username, Long userId, String role, String serviceType) {
+		String token = generateToken(username, userId, role, serviceType);
+		EOUserToken eoToken = new EOUserToken(token, token, serviceType,
 				userAccountRepository.findByUsername(username).orElse(null));
 		userTokenRepository.save(eoToken);
 		return TOKEN_PREFIX + token;
