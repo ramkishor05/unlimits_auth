@@ -10,8 +10,8 @@ public class GlobalAuth {
 
 
 	public ServiceType getServiceType() {
-		if(authority==null) {
-			authority=Authority.USER;
+		if(serviceType==null) {
+			serviceType=ServiceType.NORMAL;
 		}
 		return serviceType;
 	}

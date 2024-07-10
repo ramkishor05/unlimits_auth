@@ -30,7 +30,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -48,9 +47,8 @@ import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
 import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
 import com.brijframework.authorization.account.service.UserTokenService;
-import com.brijframework.authorization.adptor.UsernamePasswordAuthenticationProviderImpl;
 import com.brijframework.authorization.adptor.EnvironmentUtil;
-import com.brijframework.authorization.adptor.PreAuthenticatedAuthenticationProviderImpl;
+import com.brijframework.authorization.adptor.UsernamePasswordAuthenticationProviderImpl;
 import com.brijframework.authorization.constant.Authority;
 import com.brijframework.authorization.constant.ServiceType;
 import com.brijframework.authorization.device.account.model.DeviceLoginRequest;
@@ -79,8 +77,6 @@ public class DeviceAuthenticationController {
 	@Autowired
 	private UsernamePasswordAuthenticationProviderImpl passwordAuthenticationProvider;
 	
-	private PreAuthenticatedAuthenticationProviderImpl preAuthenticatedAuthenticationProvider;
-
 	@Autowired
 	private UserTokenService tokenService;
 
@@ -102,8 +98,8 @@ public class DeviceAuthenticationController {
 				ServiceType.NORMAL.equals(deviceLoginRequest.getServiceType())?
 				authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 						loginRequest.getUsername(), loginRequest.getPassword(), getGrantedAuthority(loginRequest.getAuthority().getRoleId()))):
-				authenticationManager.authenticate(new PreAuthenticatedAuthenticationToken(
-				loginRequest.getUsername(), getGrantedAuthority(loginRequest.getAuthority().getRoleId())));
+				authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+				loginRequest.getUsername(), null, getGrantedAuthority(loginRequest.getAuthority().getRoleId())));
 		if (authenticate.isAuthenticated()) {
 			Response authDTO =passwordAuthenticationProvider.userLogin(loginRequest);
 			return authDTO;
