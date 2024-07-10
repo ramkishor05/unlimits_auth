@@ -3,12 +3,8 @@ package com.brijframework.authorization.device.account.controller;
 import static com.brijframework.authorization.constant.ClientConstants.FAILED;
 import static com.brijframework.authorization.constant.ClientConstants.SUCCESS;
 import static com.brijframework.authorization.constant.ClientConstants.SUCCESSFULLY_PROCCEED;
-import static com.brijframework.authorization.constant.Constants.CLIENT_USER_ID;
-
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +19,6 @@ import org.unlimits.rest.crud.beans.Response;
 import com.brijframework.authorization.account.entities.EOUserAccount;
 import com.brijframework.authorization.account.model.onboarding.UIUserOnBoardingQuestion;
 import com.brijframework.authorization.exceptions.UnauthorizedAccessException;
-import com.brijframework.authorization.exceptions.UserNotFoundException;
 import com.brijframework.authorization.global.account.service.UserOnBoardingQuestionService;
 
 @RestController
@@ -55,11 +50,11 @@ public class DeviceOnboardingQuestionController {
 	
 	@GetMapping
 	public Response findUseraccount(@RequestHeader(required =false)  MultiValueMap<String,String> headers){
-		List<String> list = headers.get(CLIENT_USER_ID);
-		if(CollectionUtils.isEmpty(list)) {
-			throw new UserNotFoundException("Invalid client");
+		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
+		if(currentAccount==null) {
+			throw new UnauthorizedAccessException();
 		}
-		Long userAccountId=Long.valueOf(list.get(0));
+		Long userAccountId=currentAccount.getId();
 		Response response=new Response();
 		try {
 			response.setData(userOnBoardingQuestionService.findAllByUserAccountId(userAccountId));

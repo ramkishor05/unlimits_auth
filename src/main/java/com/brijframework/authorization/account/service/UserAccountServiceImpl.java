@@ -10,6 +10,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.brijframework.util.text.StringUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +25,7 @@ import com.brijframework.authorization.account.entities.EOUserAccount;
 import com.brijframework.authorization.account.entities.EOUserAccountService;
 import com.brijframework.authorization.account.entities.EOUserProfile;
 import com.brijframework.authorization.account.entities.EOUserRole;
+import com.brijframework.authorization.account.mapper.UserProfileMapper;
 import com.brijframework.authorization.account.model.UIUserAccount;
 import com.brijframework.authorization.account.model.UIUserProfile;
 import com.brijframework.authorization.account.model.UserDetailResponse;
@@ -74,6 +76,9 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 	
 	@Autowired
 	private UserTokenService tokenService;
+	
+	@Autowired
+	private UserProfileMapper userProfileMapper;
 
 	@Autowired
 	private UserAccountServiceRepository userAccountServiceRepository;
@@ -94,7 +99,11 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 		if (!findUserLogin.isPresent()) {
 			throw new UserNotFoundException();
 		}
-		EOUserAccount eoUserAccount = findUserLogin.get();
+		return getUserDetail(findUserLogin.get());
+	}
+
+	@Override
+	public  UIUserAccount getUserDetail(EOUserAccount eoUserAccount) {
 		UIUserAccount userDetails = userDetailMapper.mapToUI(eoUserAccount);
 		userDetails.setAuthorities(getGrantedAuthority(eoUserAccount.getUserRole().getRoleId()));
 		return userDetails;
@@ -181,20 +190,27 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 
 	@Override
 	public UIUserProfile updateUserProfile(UIUserProfile uiUserProfile) {
-		EOUserProfile eoUserProfile=userProfileRepository.findById(uiUserProfile.getId()).orElse(null);
-		eoUserProfile.setTitle(uiUserProfile.getTitle());
-		eoUserProfile.setFullName(uiUserProfile.getFullName());
-		eoUserProfile.setPreferredName(uiUserProfile.getPreferredName());
-		eoUserProfile.setPictureURL(uiUserProfile.getPictureURL());
+		EOUserProfile eoUserProfile=userProfileRepository.findById(uiUserProfile.getId()).orElse(new EOUserProfile());
+		BeanUtils.copyProperties(uiUserProfile, eoUserProfile,"id");
 		eoUserProfile = userProfileRepository.save(eoUserProfile);
 		return uiUserProfile;
+	}
+	
+	@Override
+	public UIUserProfile updateUserProfile(EOUserAccount eoUserAccount, UIUserProfile uiUserProfile) {
+		EOUserProfile eoUserProfile=Optional.ofNullable(eoUserAccount.getUserProfile()).orElse(new EOUserProfile());
+		BeanUtils.copyProperties(uiUserProfile, eoUserProfile,"id");
+		eoUserProfile = userProfileRepository.save(eoUserProfile);
+		eoUserAccount.setUserProfile(eoUserProfile);
+		userAccountRepository.save(eoUserAccount);
+		return userProfileMapper.mapToDTO(eoUserProfile);
 	}
 
 	@Override
 	public UserDetailResponse updateUserAccount(UIUserAccount uiUserAccount) {
 		EOUserAccount eoUserAccount=userAccountRepository.findById(uiUserAccount.getId()).orElse(null);
-		eoUserAccount.setUsername(uiUserAccount.getUsername());
-		eoUserAccount.setPassword(uiUserAccount.getPassword());
+		//eoUserAccount.setUsername(uiUserAccount.getUsername());
+		//eoUserAccount.setPassword(uiUserAccount.getPassword());
 		eoUserAccount.setType(uiUserAccount.getType());
 		eoUserAccount.setAccountName(uiUserAccount.getAccountName());
 		eoUserAccount.setRegisteredMobile(uiUserAccount.getRegisteredPhone());
@@ -206,12 +222,16 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 	@Override
 	public UIUserProfile getUserProfile(Long id) {
 		EOUserProfile eoUserProfile=userProfileRepository.findById(id).orElse(null);
-		UIUserProfile uiUserProfile=new UIUserProfile();
-		uiUserProfile.setTitle(eoUserProfile.getTitle());
-		uiUserProfile.setFullName(eoUserProfile.getFullName());
-		uiUserProfile.setPreferredName(eoUserProfile.getPreferredName());
-		uiUserProfile.setPictureURL(eoUserProfile.getPictureURL());
-		return uiUserProfile;
+		return userProfileMapper.mapToDTO(eoUserProfile);
+	}
+	
+	@Override
+	public UIUserProfile getUserProfile(EOUserAccount currentAccount) {
+		EOUserProfile eoUserProfile = Optional.ofNullable(currentAccount.getUserProfile()).orElse(new EOUserProfile());
+		eoUserProfile = userProfileRepository.save(eoUserProfile);
+		eoUserProfile.setUserAccount(currentAccount);
+		userAccountRepository.save(currentAccount);
+		return userProfileMapper.mapToDTO(eoUserProfile);
 	}
 
 	@Override

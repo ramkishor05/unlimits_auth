@@ -1,8 +1,5 @@
 package com.brijframework.authorization.global.account.controller;
 
-import static com.brijframework.authorization.constant.Constants.CLIENT_TOKEN;
-import static com.brijframework.authorization.constant.Constants.CLIENT_USER_NAME;
-import static com.brijframework.authorization.constant.Constants.CLIENT_USER_ROLE;
 import static com.brijframework.authorization.constant.Constants.RESET_LINK_MSG1;
 import static com.brijframework.authorization.constant.Constants.RESET_LINK_MSG2;
 import static com.brijframework.authorization.constant.Constants.SEND_LINK_MSG1;
@@ -25,11 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.util.CollectionUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,10 +42,13 @@ import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
 import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
 import com.brijframework.authorization.account.service.UserTokenService;
-import com.brijframework.authorization.adptor.UsernamePasswordAuthenticationProviderImpl;
 import com.brijframework.authorization.adptor.EnvironmentUtil;
 import com.brijframework.authorization.constant.Authority;
-import com.brijframework.authorization.exceptions.UserNotFoundException;
+import com.brijframework.authorization.constant.ServiceType;
+import com.brijframework.authorization.provider.BasicAuthentication;
+import com.brijframework.authorization.provider.BasicAuthenticationProvider;
+import com.brijframework.authorization.provider.SocialAuthentication;
+import com.brijframework.authorization.provider.TokenAuthentication;
 import com.brijframework.authorization.service.MailService;
 import com.brijframework.authorization.service.TemplateService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -74,7 +73,7 @@ public class GlobalAuthenticationController {
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private UsernamePasswordAuthenticationProviderImpl authProvider;
+	private BasicAuthenticationProvider basicAuthenticationProvider;
 
 	@Autowired
 	private UserTokenService tokenService;
@@ -89,15 +88,19 @@ public class GlobalAuthenticationController {
 	private TemplateService templateService;
 
 	@PostMapping("/login")
-	public Response userLogin(@RequestBody GlobalLoginRequest loginRequest) {
+	public Response userLogin(@RequestBody GlobalLoginRequest globalLoginRequest) {
 		log.debug("User Login start.");
-		if(loginRequest.getAuthority()==null) {
-			loginRequest.setAuthority(Authority.USER);
+		if(globalLoginRequest.getAuthority()==null) {
+			globalLoginRequest.setAuthority(Authority.USER);
 		}
-		Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-				loginRequest.getUsername(), loginRequest.getPassword(), getGrantedAuthority(loginRequest.getAuthority().getRoleId())));
+		Authentication authenticate = 
+				ServiceType.NORMAL.equals(globalLoginRequest.getServiceType())?
+				authenticationManager.authenticate(new BasicAuthentication(
+						globalLoginRequest.getUsername(), globalLoginRequest.getPassword(), getGrantedAuthority(globalLoginRequest.getAuthority().getRoleId()))):
+				authenticationManager.authenticate(new SocialAuthentication(
+				globalLoginRequest.getUsername(), null, getGrantedAuthority(globalLoginRequest.getAuthority().getRoleId())));
 		if (authenticate.isAuthenticated()) {
-			Response authDTO =authProvider.userLogin(loginRequest);
+			Response authDTO =basicAuthenticationProvider.userLogin(globalLoginRequest);
 			return authDTO;
 		} else {
 			Response authDTO =new Response();
@@ -109,42 +112,33 @@ public class GlobalAuthenticationController {
 
 	@PostMapping("/register")
 	public Response userRegistor(@RequestBody GlobalRegisterRequest registerRequest) {
-		return authProvider.register(registerRequest);
+		return basicAuthenticationProvider.register(registerRequest);
 	}
 	
 	
 	@PostMapping("/logout")
-	public String userLogout(@RequestHeader(CLIENT_TOKEN) String token) {
+	public String userLogout() {
+		TokenAuthentication tokenAuthentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
 		log.debug("User Login start.");
-		return tokenService.logout(token);
+		return tokenService.logout(tokenAuthentication.getToken());
 	}
 	
 	@PostMapping("/validate")
-	public Boolean userValidate(@RequestHeader(CLIENT_TOKEN) String token) {
+	public Boolean userValidate() {
 		log.debug("User Login start.");
-		return tokenService.validateToken(token);
+		TokenAuthentication tokenAuthentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
+		return tokenService.validateToken(tokenAuthentication.getToken());
 	}
 
 	@GetMapping
     public ResponseEntity<?> getUserInfo(@RequestHeader(required =false)  MultiValueMap<String,String> headers) throws AuthenticationException {
-		List<String> usernames = headers.get(CLIENT_USER_NAME);
-		if(CollectionUtils.isEmpty(usernames)) {
-			throw new UserNotFoundException("Invalid client");
-		}
-		List<String> roles = headers.get(CLIENT_USER_ROLE);
-		if(CollectionUtils.isEmpty(roles)) {
-			throw new UserNotFoundException("Invalid client");
-		}
-		return ResponseEntity.ok(authProvider.loadUserByUsername(usernames.get(0),roles.get(0)));
+		return ResponseEntity.ok(basicAuthenticationProvider.getUserDetail());
     }
 	
 	@GetMapping("/userdetail")
     public ResponseEntity<?> getUserDetail(@RequestHeader(required =false)  MultiValueMap<String,String> headers) throws AuthenticationException {
-		List<String> tokens = headers.get(CLIENT_TOKEN);
-		if(CollectionUtils.isEmpty(tokens)) {
-			throw new UserNotFoundException("Invalid client");
-		}
-		return ResponseEntity.ok(tokenService.getUserDetailFromToken(tokens.get(0)));
+		TokenAuthentication tokenAuthentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
+		return ResponseEntity.ok(tokenService.getUserDetailFromToken(tokenAuthentication.getToken()));
     }
 
 	@PostMapping("/password/send/link")
@@ -153,7 +147,7 @@ public class GlobalAuthenticationController {
 		Random resetToken = new Random();
 		int otp = resetToken.nextInt(9999);
 		passwordReset.setOtp(otp);
-		UIUserAccount uiUserAccount = authProvider.saveOtp(passwordReset);
+		UIUserAccount uiUserAccount = basicAuthenticationProvider.saveOtp(passwordReset);
 		HashMap<String, Object> hashMap = new HashMap<>();
 		if (uiUserAccount.getAccountName() == null) {
 			hashMap.put("name", "Hey, " + uiUserAccount.getRegisteredEmail());
@@ -183,7 +177,7 @@ public class GlobalAuthenticationController {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			GlobalPasswordReset passwordReset = objectMapper.readValue(decoder.decode(link), GlobalPasswordReset.class);
-			UIUserAccount uiUserAccount=authProvider.resetPassword(passwordReset);
+			UIUserAccount uiUserAccount=basicAuthenticationProvider.resetPassword(passwordReset);
 			HashMap<String, Object> hashMap = new HashMap<>();
 			if (uiUserAccount.getAccountName() == null) {
 				hashMap.put("name", "Congrats, " + uiUserAccount.getRegisteredEmail());
@@ -206,7 +200,7 @@ public class GlobalAuthenticationController {
 		Random resetToken = new Random();
 		int otp = resetToken.nextInt(9999);
 		passwordReset.setOtp(otp);
-		UIUserAccount userDetails=authProvider.saveOtp(passwordReset);
+		UIUserAccount userDetails=basicAuthenticationProvider.saveOtp(passwordReset);
 		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("name", "Hey " + userDetails.getAccountName());
 		hashMap.put("otp", otp + "");
@@ -218,7 +212,7 @@ public class GlobalAuthenticationController {
 	@PostMapping(PASSWORD_RESET_BY_OTP_ENDPOINT)
 	public Boolean resetPassword(@RequestBody GlobalPasswordReset passwordReset) {
 		log.debug("AuthController::resetPassword() start.");
-		authProvider.resetPassword(passwordReset);
+		basicAuthenticationProvider.resetPassword(passwordReset);
 		return true;
 	}
 

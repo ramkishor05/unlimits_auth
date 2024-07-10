@@ -1,4 +1,4 @@
-package com.brijframework.authorization.adptor;
+package com.brijframework.authorization.provider;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,8 +17,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
+import org.unlimits.rest.context.ApiSecurityContext;
 import org.unlimits.rest.crud.beans.Response;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
@@ -28,12 +28,13 @@ import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
 import com.brijframework.authorization.account.service.UserAccountService;
 import com.brijframework.authorization.constant.Authority;
+import com.brijframework.authorization.exceptions.UnauthorizedAccessException;
 
 
 @Component
-public class UsernamePasswordAuthenticationProviderImpl extends DaoAuthenticationProvider {
+public class BasicAuthenticationProvider extends DaoAuthenticationProvider {
 	
-	private static final Logger log = LoggerFactory.getLogger(UsernamePasswordAuthenticationProviderImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(BasicAuthenticationProvider.class);
 
 	@Autowired
 	//@Qualifier(PATIENT_USER_SERVICE)
@@ -49,7 +50,8 @@ public class UsernamePasswordAuthenticationProviderImpl extends DaoAuthenticatio
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		log.debug("AuthProvider :: authenticate() started");
+		System.out.println("authentication="+authentication);
+		log.info("BasicAuthenticationProvider :: authenticate() started");
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		List<String> authorityList=authorities==null ? new ArrayList<>(): 
 			authorities.stream().map(authoritie -> authoritie.getAuthority()).collect(Collectors.toList());
@@ -65,7 +67,7 @@ public class UsernamePasswordAuthenticationProviderImpl extends DaoAuthenticatio
 		}
 		this.setPasswordEncoder(passwordEncoder);
 		this.setUserDetailsService(userDetailsService);
-		log.debug("AuthProvider :: authenticate() end");
+		log.info("BasicAuthenticationProvider :: authenticate() end");
 		Authentication authenticate = super.authenticate(authentication);
 		List<String> list = authenticate.getAuthorities().stream().map(authoritie->authoritie.getAuthority()).toList();
 		for(GrantedAuthority authority : authentication.getAuthorities()) {
@@ -83,10 +85,9 @@ public class UsernamePasswordAuthenticationProviderImpl extends DaoAuthenticatio
 		super.additionalAuthenticationChecks(userDetails, authentication);
 	}
 
-
 	@Override
 	public boolean supports(Class<?> authentication) {
-		return authentication.equals(UsernamePasswordAuthenticationToken.class) || authentication.equals(PreAuthenticatedAuthenticationToken.class);
+		return authentication.equals(BasicAuthentication.class);
 	}
 	
 	public UIUserAccount loadUserByUsername(String username, String authority) {
@@ -183,5 +184,13 @@ public class UsernamePasswordAuthenticationProviderImpl extends DaoAuthenticatio
 			userDetailsService=userAccountService;
 		}
 		return userDetailsService.find(authRequest);
+	}
+
+	public UIUserAccount getUserDetail() {
+		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
+		if(currentAccount==null) {
+			throw new UnauthorizedAccessException();
+		}
+		return userAccountService.getUserDetail(currentAccount);
 	}
 }

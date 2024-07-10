@@ -1,8 +1,5 @@
 package com.brijframework.authorization.device.account.controller;
 
-import static com.brijframework.authorization.constant.Constants.CLIENT_TOKEN;
-import static com.brijframework.authorization.constant.Constants.CLIENT_USER_NAME;
-import static com.brijframework.authorization.constant.Constants.CLIENT_USER_ROLE;
 import static com.brijframework.authorization.constant.Constants.RESET_LINK_MSG1;
 import static com.brijframework.authorization.constant.Constants.RESET_LINK_MSG2;
 import static com.brijframework.authorization.constant.Constants.SEND_LINK_MSG1;
@@ -26,11 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.util.CollectionUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,12 +44,14 @@ import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
 import com.brijframework.authorization.account.service.UserTokenService;
 import com.brijframework.authorization.adptor.EnvironmentUtil;
-import com.brijframework.authorization.adptor.UsernamePasswordAuthenticationProviderImpl;
 import com.brijframework.authorization.constant.Authority;
 import com.brijframework.authorization.constant.ServiceType;
 import com.brijframework.authorization.device.account.model.DeviceLoginRequest;
 import com.brijframework.authorization.device.account.model.DeviceRegisterRequest;
-import com.brijframework.authorization.exceptions.UserNotFoundException;
+import com.brijframework.authorization.provider.BasicAuthentication;
+import com.brijframework.authorization.provider.BasicAuthenticationProvider;
+import com.brijframework.authorization.provider.SocialAuthentication;
+import com.brijframework.authorization.provider.TokenAuthentication;
 import com.brijframework.authorization.service.MailService;
 import com.brijframework.authorization.service.TemplateService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -75,7 +73,7 @@ public class DeviceAuthenticationController {
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private UsernamePasswordAuthenticationProviderImpl passwordAuthenticationProvider;
+	private BasicAuthenticationProvider passwordAuthenticationProvider;
 	
 	@Autowired
 	private UserTokenService tokenService;
@@ -88,17 +86,17 @@ public class DeviceAuthenticationController {
 
 	@Autowired
 	private TemplateService templateService;
-
+	
 	@PostMapping("/login")
 	public Response userLogin(@RequestBody DeviceLoginRequest deviceLoginRequest) {
 		log.debug("User Login start.");
 		GlobalLoginRequest loginRequest=new GlobalLoginRequest();
 		BeanUtils.copyProperties(deviceLoginRequest, loginRequest);
 		Authentication authenticate = 
-				ServiceType.NORMAL.equals(deviceLoginRequest.getServiceType())?
-				authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+				ServiceType.NORMAL.equals(loginRequest.getServiceType())?
+				authenticationManager.authenticate(new BasicAuthentication(
 						loginRequest.getUsername(), loginRequest.getPassword(), getGrantedAuthority(loginRequest.getAuthority().getRoleId()))):
-				authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+				authenticationManager.authenticate(new SocialAuthentication(
 				loginRequest.getUsername(), null, getGrantedAuthority(loginRequest.getAuthority().getRoleId())));
 		if (authenticate.isAuthenticated()) {
 			Response authDTO =passwordAuthenticationProvider.userLogin(loginRequest);
@@ -120,28 +118,22 @@ public class DeviceAuthenticationController {
 	
 	
 	@PostMapping("/logout")
-	public String userLogout(@RequestHeader(CLIENT_TOKEN) String token) {
+	public String userLogout() {
 		log.debug("User Login start.");
-		return tokenService.logout(token);
+		TokenAuthentication tokenAuthentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
+		return tokenService.logout(tokenAuthentication.getToken());
 	}
 	
 	@PostMapping("/validate")
-	public Boolean userValidate(@RequestHeader(CLIENT_TOKEN) String token) {
+	public Boolean userValidate() {
 		log.debug("User Login start.");
-		return tokenService.validateToken(token);
+		TokenAuthentication tokenAuthentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
+		return tokenService.validateToken(tokenAuthentication.getToken());
 	}
 
 	@GetMapping
     public ResponseEntity<?> getUserDetail(@RequestHeader(required =false)  MultiValueMap<String,String> headers) throws AuthenticationException {
-		List<String> usernames = headers.get(CLIENT_USER_NAME);
-		if(CollectionUtils.isEmpty(usernames)) {
-			throw new UserNotFoundException("Invalid client");
-		}
-		List<String> userroles = headers.get(CLIENT_USER_ROLE);
-		if(CollectionUtils.isEmpty(userroles)) {
-			throw new UserNotFoundException("Invalid client");
-		}
-		return ResponseEntity.ok(passwordAuthenticationProvider.loadUserByUsername(usernames.get(0), userroles.get(0)));
+		return ResponseEntity.ok(passwordAuthenticationProvider.getUserDetail());
     }
 
 

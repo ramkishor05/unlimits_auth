@@ -25,6 +25,8 @@ public interface UserAccountService extends UserDetailsService, QueryService<Use
 	boolean isAlreadyExists(String username);
 
 	UIUserProfile updateUserProfile(UIUserProfile uiUserProfile);
+	
+	UIUserProfile updateUserProfile(EOUserAccount eoUserAccount, UIUserProfile uiUserProfile);
 
 	UserDetailResponse updateUserAccount(UIUserAccount uiUserAccount);
 
@@ -46,4 +48,8 @@ public interface UserAccountService extends UserDetailsService, QueryService<Use
 	 * @return
 	 */
 	Optional<EOUserAccount> find(GlobalLoginRequest authRequest);
+
+	UIUserAccount getUserDetail(EOUserAccount eoUserAccount);
+
+	UIUserProfile getUserProfile(EOUserAccount currentAccount);
 }
