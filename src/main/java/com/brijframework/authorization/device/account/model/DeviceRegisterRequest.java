@@ -1,7 +1,11 @@
 package com.brijframework.authorization.device.account.model;
 
-public class DeviceRegisterRequest extends DeviceAuth{
+public class DeviceRegisterRequest extends DeviceLoginRequest {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String registeredPhone;
 	private String registeredEmail;
 	private String accountName;

@@ -12,7 +12,7 @@ spring:
    sql.init.mode: always
    datasource:
      driverClassName: com.mysql.cj.jdbc.Driver
-     url: jdbc:mysql://localhost:3306/unlimits_auth
+     url: jdbc:mysql://${server.host}:3306/unlimits_auth
      username: root
      password: root
      show-sql: true

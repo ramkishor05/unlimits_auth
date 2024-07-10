@@ -46,7 +46,7 @@ import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
 import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
 import com.brijframework.authorization.account.service.UserTokenService;
-import com.brijframework.authorization.adptor.AuthProvider;
+import com.brijframework.authorization.adptor.UsernamePasswordAuthenticationProviderImpl;
 import com.brijframework.authorization.adptor.EnvironmentUtil;
 import com.brijframework.authorization.constant.Authority;
 import com.brijframework.authorization.exceptions.UserNotFoundException;
@@ -74,7 +74,7 @@ public class GlobalAuthenticationController {
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private AuthProvider authProvider;
+	private UsernamePasswordAuthenticationProviderImpl authProvider;
 
 	@Autowired
 	private UserTokenService tokenService;

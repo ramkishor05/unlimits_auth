@@ -17,6 +17,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
 import org.unlimits.rest.crud.beans.Response;
 
@@ -30,9 +31,9 @@ import com.brijframework.authorization.constant.Authority;
 
 
 @Component
-public class AuthProvider extends DaoAuthenticationProvider {
+public class UsernamePasswordAuthenticationProviderImpl extends DaoAuthenticationProvider {
 	
-	private static final Logger log = LoggerFactory.getLogger(AuthProvider.class);
+	private static final Logger log = LoggerFactory.getLogger(UsernamePasswordAuthenticationProviderImpl.class);
 
 	@Autowired
 	//@Qualifier(PATIENT_USER_SERVICE)
@@ -82,9 +83,10 @@ public class AuthProvider extends DaoAuthenticationProvider {
 		super.additionalAuthenticationChecks(userDetails, authentication);
 	}
 
+
 	@Override
 	public boolean supports(Class<?> authentication) {
-		return authentication.equals(UsernamePasswordAuthenticationToken.class);
+		return authentication.equals(UsernamePasswordAuthenticationToken.class) || authentication.equals(PreAuthenticatedAuthenticationToken.class);
 	}
 	
 	public UIUserAccount loadUserByUsername(String username, String authority) {

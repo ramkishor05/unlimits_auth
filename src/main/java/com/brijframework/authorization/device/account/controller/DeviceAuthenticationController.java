@@ -30,6 +30,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -47,9 +48,11 @@ import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
 import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
 import com.brijframework.authorization.account.service.UserTokenService;
-import com.brijframework.authorization.adptor.AuthProvider;
+import com.brijframework.authorization.adptor.UsernamePasswordAuthenticationProviderImpl;
 import com.brijframework.authorization.adptor.EnvironmentUtil;
+import com.brijframework.authorization.adptor.PreAuthenticatedAuthenticationProviderImpl;
 import com.brijframework.authorization.constant.Authority;
+import com.brijframework.authorization.constant.ServiceType;
 import com.brijframework.authorization.device.account.model.DeviceLoginRequest;
 import com.brijframework.authorization.device.account.model.DeviceRegisterRequest;
 import com.brijframework.authorization.exceptions.UserNotFoundException;
@@ -74,7 +77,9 @@ public class DeviceAuthenticationController {
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private AuthProvider authProvider;
+	private UsernamePasswordAuthenticationProviderImpl passwordAuthenticationProvider;
+	
+	private PreAuthenticatedAuthenticationProviderImpl preAuthenticatedAuthenticationProvider;
 
 	@Autowired
 	private UserTokenService tokenService;
@@ -93,10 +98,14 @@ public class DeviceAuthenticationController {
 		log.debug("User Login start.");
 		GlobalLoginRequest loginRequest=new GlobalLoginRequest();
 		BeanUtils.copyProperties(deviceLoginRequest, loginRequest);
-		Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-				loginRequest.getUsername(), loginRequest.getPassword(), getGrantedAuthority(loginRequest.getAuthority().getRoleId())));
+		Authentication authenticate = 
+				ServiceType.NORMAL.equals(deviceLoginRequest.getServiceType())?
+				authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+						loginRequest.getUsername(), loginRequest.getPassword(), getGrantedAuthority(loginRequest.getAuthority().getRoleId()))):
+				authenticationManager.authenticate(new PreAuthenticatedAuthenticationToken(
+				loginRequest.getUsername(), getGrantedAuthority(loginRequest.getAuthority().getRoleId())));
 		if (authenticate.isAuthenticated()) {
-			Response authDTO =authProvider.userLogin(loginRequest);
+			Response authDTO =passwordAuthenticationProvider.userLogin(loginRequest);
 			return authDTO;
 		} else {
 			Response authDTO =new Response();
@@ -110,7 +119,7 @@ public class DeviceAuthenticationController {
 	public Response userRegistor(@RequestBody DeviceRegisterRequest deviceRegisterRequest) {
 		GlobalRegisterRequest registerRequest=new GlobalRegisterRequest();
 		BeanUtils.copyProperties(deviceRegisterRequest, registerRequest);
-		return authProvider.register(registerRequest);
+		return passwordAuthenticationProvider.register(registerRequest);
 	}
 	
 	
@@ -136,7 +145,7 @@ public class DeviceAuthenticationController {
 		if(CollectionUtils.isEmpty(userroles)) {
 			throw new UserNotFoundException("Invalid client");
 		}
-		return ResponseEntity.ok(authProvider.loadUserByUsername(usernames.get(0), userroles.get(0)));
+		return ResponseEntity.ok(passwordAuthenticationProvider.loadUserByUsername(usernames.get(0), userroles.get(0)));
     }
 
 
@@ -151,7 +160,7 @@ public class DeviceAuthenticationController {
 		Random resetToken = new Random();
 		int otp = resetToken.nextInt(9999);
 		passwordReset.setOtp(otp);
-		UIUserAccount uiUserAccount = authProvider.saveOtp(passwordReset);
+		UIUserAccount uiUserAccount = passwordAuthenticationProvider.saveOtp(passwordReset);
 		HashMap<String, Object> hashMap = new HashMap<>();
 		if (uiUserAccount.getAccountName() == null) {
 			hashMap.put("name", "Hey, " + uiUserAccount.getRegisteredEmail());
@@ -181,7 +190,7 @@ public class DeviceAuthenticationController {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			GlobalPasswordReset passwordReset = objectMapper.readValue(decoder.decode(link), GlobalPasswordReset.class);
-			UIUserAccount uiUserAccount=authProvider.resetPassword(passwordReset);
+			UIUserAccount uiUserAccount=passwordAuthenticationProvider.resetPassword(passwordReset);
 			HashMap<String, Object> hashMap = new HashMap<>();
 			if (uiUserAccount.getAccountName() == null) {
 				hashMap.put("name", "Congrats, " + uiUserAccount.getRegisteredEmail());
@@ -204,7 +213,7 @@ public class DeviceAuthenticationController {
 		Random resetToken = new Random();
 		int otp = resetToken.nextInt(9999);
 		passwordReset.setOtp(otp);
-		UIUserAccount userDetails=authProvider.saveOtp(passwordReset);
+		UIUserAccount userDetails=passwordAuthenticationProvider.saveOtp(passwordReset);
 		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("name", "Hey " + userDetails.getAccountName());
 		hashMap.put("otp", otp + "");
@@ -216,7 +225,7 @@ public class DeviceAuthenticationController {
 	@PostMapping(PASSWORD_RESET_BY_OTP_ENDPOINT)
 	public Boolean resetPassword(@RequestBody GlobalPasswordReset passwordReset) {
 		log.debug("AuthController::resetPassword() start.");
-		authProvider.resetPassword(passwordReset);
+		passwordAuthenticationProvider.resetPassword(passwordReset);
 		return true;
 	}
 

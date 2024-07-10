@@ -130,7 +130,7 @@
 			"name": "User_Portal_OnBoarding_Question",
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
-				"value": "I just started my carrier",
+				"value": "I just started my career",
 				"orderSequence": 4.0
 			}
 		},
@@ -141,7 +141,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
 				"value": "I am in senior leadership",
-				"orderSequence": 4.0
+				"orderSequence": 5.0
 			}
 		},
 		{
@@ -151,7 +151,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
 				"value": "I am a homemaker",
-				"orderSequence": 5.0
+				"orderSequence": 6.0
 			}
 		},
 		{
@@ -161,7 +161,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
 				"value": "I am an artist",
-				"orderSequence": 6.0
+				"orderSequence": 7.0
 			}
 		},
 		{
@@ -171,7 +171,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
 				"value": "I am unemployed",
-				"orderSequence": 7.0
+				"orderSequence": 8.0
 			}
 		},
 		{
@@ -181,7 +181,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
 				"value": "Other",
-				"orderSequence": 8.0
+				"orderSequence": 9.0
 			}
 		}
 		,
@@ -191,7 +191,7 @@
 			"name": "User_Portal_OnBoarding_Question",
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Life",
-				"value": "I want a crezy moonshot",
+				"value": "I want a crazy moonshot",
 				"orderSequence": 1.0
 			}
 		},

@@ -19,6 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.unlimits.rest.context.ApiSecurityContext;
@@ -66,8 +67,7 @@ public class TransactionFilter extends OncePerRequestFilter {
 				requestWrapper.putHeader(CLIENT_TOKEN, token);
 				requestWrapper.putHeader(CLIENT_USER_NAME, username);
 				if (SecurityContextHolder.getContext().getAuthentication() == null) {
-					UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username,
-							null, getGrantedAuthority(userRole));
+					PreAuthenticatedAuthenticationToken authToken = new PreAuthenticatedAuthenticationToken(username, getGrantedAuthority(userRole));
 					authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 					SecurityContextHolder.getContext().setAuthentication(authToken);
 					Optional<EOUserAccount> findUserLogin = userAccountRepository.findByUsername(username);
