@@ -124,6 +124,9 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 	@Override
 	public Response register(GlobalRegisterRequest registerRequest) {
 		if(isAlreadyExists(registerRequest.getUsername())) {
+			if(!ServiceType.NORMAL.equals(registerRequest.getServiceType())) {
+				return login(registerRequest);
+			}
 			throw new UserAlreadyExistsException();
 		}
 		EOUserRole eoUserRole = userRoleRepository.findByPosition(registerRequest.getAuthority().getPosition()).orElse(null);

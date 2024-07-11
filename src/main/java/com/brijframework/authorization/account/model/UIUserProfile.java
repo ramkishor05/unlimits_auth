@@ -6,8 +6,12 @@ public class UIUserProfile {
 
 	private String title;
 
+	private String description;
+
+	private String dateOfBirth;
+
 	private String preferredName;
-	
+
 	private String pictureURL;
 
 	private String fullName;
@@ -51,5 +55,21 @@ public class UIUserProfile {
 	public void setPictureURL(String pictureURL) {
 		this.pictureURL = pictureURL;
 	}
-	
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
 }

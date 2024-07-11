@@ -20,19 +20,25 @@ public class EOUserProfile extends EOEntityObject {
 	@Column(name = "TITLE")
 	private String title;
 
+	@Column(name = "DESCRIPTION")
+	private String description;
+
 	@Column(name = "FULL_NAME")
 	private String fullName;
-	
+
+	@Column(name = "DATE_OF_BIRTH")
+	private String dateOfBirth;
+
 	@Column(name = "PREFERRED_NAME")
 	private String preferredName;
-	
+
 	@Column(name = "PIC_URL")
 	@Lob
 	private String pictureURL;
-	
+
 	@Column(name = "ADDRESS")
 	private String address;
-	
+
 	@Column(name = "ZIP_CODE")
 	private String zipCode;
 
@@ -85,6 +91,22 @@ public class EOUserProfile extends EOEntityObject {
 
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public EOUserAccount getUserAccount() {
