@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code =  HttpStatus.FORBIDDEN)
 public class UserNotFoundException extends RuntimeException {
 
-	public static final String USER_NOT_EXISTS_IN_SYSTEM = "User not exists in system.";
+	public static final String USER_NOT_EXISTS_IN_SYSTEM = "Invalid username or password";
 	/**
 	 * 
 	 */
