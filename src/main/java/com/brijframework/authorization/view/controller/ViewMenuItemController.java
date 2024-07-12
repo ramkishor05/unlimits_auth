@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 @RequestMapping("/api/global/menu/item")
 @CrossOrigin("*")
 @Hidden
-public class ViewMenuItemController extends CrudController<UIViewMenuItem, EOViewMenuItem, Long>{
+public class ViewMenuItemController implements CrudController<UIViewMenuItem, EOViewMenuItem, Long>{
 	
 	@Autowired
     private ViewMenuItemService menuItemService;

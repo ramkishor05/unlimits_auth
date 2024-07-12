@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 @RestController
 @RequestMapping("/api/global/user/role")
 @Hidden
-public class GlobalUserRoleController extends CrudController<UIUserRole, EOUserRole, Long>{
+public class GlobalUserRoleController implements CrudController<UIUserRole, EOUserRole, Long>{
 	
 	@Autowired
     private UserRoleService userRolelService;

@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 @RequestMapping("/api/global/user/role/menu/group")
 @CrossOrigin("*")
 @Hidden
-public class GlobalUserRoleMenuGroupController extends CrudController<UIUserRoleMenuGroup, EOUserRoleMenuGroup, Long>{
+public class GlobalUserRoleMenuGroupController implements CrudController<UIUserRoleMenuGroup, EOUserRoleMenuGroup, Long>{
 	
 	@Autowired
     private UserRoleMenuGroupService roleMenuGroupService;

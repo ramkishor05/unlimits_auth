@@ -33,7 +33,7 @@ public class ViewOnBoardingBillingServiceImpl extends CrudServiceImpl<UIViewOnBo
 	}
 
 	@Override
-	protected List<UIViewOnBoardingBilling> postFetch(List<EOViewOnBoardingBilling> findObjects) {
+	public List<UIViewOnBoardingBilling> postFetch(List<EOViewOnBoardingBilling> findObjects) {
 		List<UIViewOnBoardingBilling> boardingBillings = super.postFetch(findObjects);
 		boardingBillings.sort((op1,op2)->op1.getOrderSequence().compareTo(op2.getOrderSequence()));
 		return boardingBillings;

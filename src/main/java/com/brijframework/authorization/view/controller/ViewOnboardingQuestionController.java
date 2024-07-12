@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 @RequestMapping("/api/global/onboarding/question")
 @CrossOrigin("*")
 @Hidden
-public class ViewOnboardingQuestionController extends CrudController<UIViewOnBoardingQuestion, EOViewOnBoardingQuestion, Long> {
+public class ViewOnboardingQuestionController implements CrudController<UIViewOnBoardingQuestion, EOViewOnBoardingQuestion, Long> {
 
 	@Autowired
 	private ViewOnBoardingQuestionService onBoardingQuestionService; 

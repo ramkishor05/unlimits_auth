@@ -24,7 +24,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 @RestController
 @RequestMapping("/api/global/user/detail")
 @Hidden
-public class GlobalUserDetailController extends QueryController<UserDetailResponse, EOUserAccount, Long> {
+public class GlobalUserDetailController implements QueryController<UserDetailResponse, EOUserAccount, Long> {
 	
 	@Autowired
     private UserAccountService userDetailService;

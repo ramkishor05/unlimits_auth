@@ -61,14 +61,14 @@ public class UserOnBoardingBillingServiceImpl extends CrudServiceImpl<UIUserOnBo
 	}
 
 	@Override
-	protected List<UIUserOnBoardingBilling> postFetch(List<EOUserOnBoardingBilling> findObjects) {
+	public List<UIUserOnBoardingBilling> postFetch(List<EOUserOnBoardingBilling> findObjects) {
 		List<UIUserOnBoardingBilling> boardingQuestions = super.postFetch(findObjects);
 		boardingQuestions.sort((op1,op2)->op1.getOrderSequence().compareTo(op2.getOrderSequence()));
 		return boardingQuestions;
 	}
 
 	@Override
-	protected void postFetch(EOUserOnBoardingBilling findObject, UIUserOnBoardingBilling dtoObject) {
+	public void postFetch(EOUserOnBoardingBilling findObject, UIUserOnBoardingBilling dtoObject) {
 	}
 
 }

@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 @RequestMapping("/api/global/user/onboarding/billing")
 @CrossOrigin("*")
 @Hidden
-public class GlobalUserOnboardingBillingController extends CrudController<UIUserOnBoardingBilling, EOUserOnBoardingBilling, Long> {
+public class GlobalUserOnboardingBillingController implements CrudController<UIUserOnBoardingBilling, EOUserOnBoardingBilling, Long> {
 
 	@Autowired
 	private UserOnBoardingBillingService onBoardingBillingService; 

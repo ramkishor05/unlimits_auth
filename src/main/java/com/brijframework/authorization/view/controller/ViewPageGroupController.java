@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 @RequestMapping("/api/global/page/group")
 @CrossOrigin("*")
 @Hidden
-public class ViewPageGroupController extends CrudController<UIViewPageGroup, EOViewPageGroup, Long>{
+public class ViewPageGroupController implements CrudController<UIViewPageGroup, EOViewPageGroup, Long>{
 	
 	@Autowired
     private ViewPageGroupService pageGroupService;

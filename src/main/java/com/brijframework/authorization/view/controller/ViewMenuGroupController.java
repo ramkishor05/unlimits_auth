@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 @RequestMapping("/api/view/menu/group")
 @CrossOrigin("*")
 @Hidden
-public class ViewMenuGroupController extends CrudController<UIViewMenuGroup, EOViewMenuGroup, Long>{
+public class ViewMenuGroupController implements CrudController<UIViewMenuGroup, EOViewMenuGroup, Long>{
 	
 	@Autowired
     private ViewMenuGroupService menuGroupService;

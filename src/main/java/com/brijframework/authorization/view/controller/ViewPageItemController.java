@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 @RequestMapping("/api/global/page/item")
 @CrossOrigin("*")
 @Hidden
-public class ViewPageItemController extends CrudController<UIViewPageItem, EOViewPageItem, Long>{
+public class ViewPageItemController implements CrudController<UIViewPageItem, EOViewPageItem, Long>{
 	
 	@Autowired
     private ViewPageItemService pageItemService;
