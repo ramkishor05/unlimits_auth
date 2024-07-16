@@ -5,17 +5,17 @@ import static com.brijframework.authorization.contants.TableConstants.USER_ROLE_
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.unlimits.rest.repository.CustomRepository;
 
 import com.brijframework.authorization.account.entities.pages.EOUserRolePageGroup;
 
 @Repository
 @Transactional
-public interface UserRolePageGroupRepository  extends JpaRepository<EOUserRolePageGroup, Long>{
+public interface UserRolePageGroupRepository  extends CustomRepository<EOUserRolePageGroup, Long>{
 
 	@Query(nativeQuery = true,  value="select * from "+USER_ROLE_PAGE_GROUP+" URE where URE.USER_ROLE_ID =?1")
 	List<EOUserRolePageGroup>  findAllByRoleId(Long roleId);

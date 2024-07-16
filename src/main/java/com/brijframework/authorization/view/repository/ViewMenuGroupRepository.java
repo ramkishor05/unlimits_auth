@@ -1,20 +1,20 @@
 package com.brijframework.authorization.view.repository;
-import static com.brijframework.authorization.view.constants.ViewTableConstants.*;
+import static com.brijframework.authorization.view.constants.ViewTableConstants.VIEW_MENU_GROUP;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.unlimits.rest.repository.CustomRepository;
 
 import com.brijframework.authorization.view.entities.menus.EOViewMenuGroup;
 
 @Repository
 @Transactional
-public interface ViewMenuGroupRepository  extends JpaRepository<EOViewMenuGroup, Long>{
+public interface ViewMenuGroupRepository  extends CustomRepository<EOViewMenuGroup, Long>{
 
 
 	@Query(nativeQuery = true,  value="select * from "+VIEW_MENU_GROUP+" UE where UE.TITLE = :title")

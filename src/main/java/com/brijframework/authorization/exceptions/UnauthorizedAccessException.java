@@ -3,7 +3,7 @@ package com.brijframework.authorization.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code =  HttpStatus.FORBIDDEN)
+@ResponseStatus(code =  HttpStatus.NON_AUTHORITATIVE_INFORMATION)
 public class UnauthorizedAccessException extends RuntimeException {
 
 	public static final String Unauthorized_Access_Msg = "Unauthorized Access!!";

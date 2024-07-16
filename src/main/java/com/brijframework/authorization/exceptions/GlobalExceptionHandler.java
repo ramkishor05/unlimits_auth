@@ -12,30 +12,37 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-	@ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class })
-	protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
-		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),"Conflict", 5001, ex.getMessage());
+	@ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class, Exception.class, RuntimeException.class })
+	protected ResponseEntity<Object> handleConflict(Exception ex, WebRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),"Server", 5001, ex.getMessage());
 
 		return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
 	}
 	
 	@ExceptionHandler(value = { UserAlreadyExistsException.class })
-	protected ResponseEntity<Object> alreadyExistsException(RuntimeException ex, WebRequest request) {
+	protected ResponseEntity<Object> alreadyExistsException(UserAlreadyExistsException ex, WebRequest request) {
 		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.CONFLICT.value(),"Conflict", 1409, ex.getMessage());
 		
 		return new ResponseEntity<Object>(errorResponse, new HttpHeaders(), HttpStatus.CONFLICT);
 	}
 	
 	@ExceptionHandler(value = { UserNotFoundException.class})
-	protected ResponseEntity<Object> notFoundException(RuntimeException ex, WebRequest request) {
-		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NO_CONTENT.value(),"NOT_FOUND", 1409, ex.getMessage());
+	protected ResponseEntity<Object> notFoundException(UserNotFoundException ex, WebRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(),"NOT_FOUND", 1404, ex.getMessage());
 		
-		return new ResponseEntity<Object>(errorResponse, new HttpHeaders(), HttpStatus.FORBIDDEN);
+		return new ResponseEntity<Object>(errorResponse, new HttpHeaders(), HttpStatus.NOT_FOUND);
 	}
 	
-	@ExceptionHandler(value = { InvalidTokenException.class, BadCredentialsException.class  })
-	protected ResponseEntity<Object> invalidException(RuntimeException ex, WebRequest request) {
-		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.FORBIDDEN.value(),"NOT_FOUND", 1409, ex.getMessage());
+	@ExceptionHandler(value = { InvalidTokenException.class})
+	protected ResponseEntity<Object> invalidException(InvalidTokenException ex, WebRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.UNAUTHORIZED.value(),"UNAUTHORIZED", 1401, ex.getMessage());
+
+		return new ResponseEntity<Object>(errorResponse, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+	}
+	
+	@ExceptionHandler(value = { BadCredentialsException.class  })
+	protected ResponseEntity<Object> invalidException(BadCredentialsException ex, WebRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.FORBIDDEN.value(),"FORBIDDEN", 1403, ex.getMessage());
 		
 		return new ResponseEntity<Object>(errorResponse, new HttpHeaders(), HttpStatus.FORBIDDEN);
 	}

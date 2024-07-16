@@ -4,6 +4,9 @@ import static com.brijframework.authorization.constant.ClientConstants.FAILED;
 import static com.brijframework.authorization.constant.ClientConstants.SUCCESS;
 import static com.brijframework.authorization.constant.ClientConstants.SUCCESSFULLY_PROCCEED;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
 import org.unlimits.rest.context.ApiSecurityContext;
 import org.unlimits.rest.crud.beans.Response;
 
@@ -27,14 +31,18 @@ public class DeviceOnboardingPlanController {
 	private ViewOnBoardingBillingService viewOnBoardingBillingService; 
 	
 	@GetMapping
-	public Response findAllByUser(@RequestHeader(required =false)  MultiValueMap<String,String> headers){
+	public Response findAllByUser(@RequestHeader(required =false)  MultiValueMap<String,String> headers, WebRequest webRequest){
 		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
 		if(currentAccount==null) {
 			throw new UnauthorizedAccessException();
 		}
+		Map<String, String> filters=new HashMap<String, String>();
+		webRequest.getParameterMap().forEach((key,values)->{
+			filters.put(key, values[0]);
+		});
 		Response response=new Response();
 		try {
-			response.setData(viewOnBoardingBillingService.findAll(headers));
+			response.setData(viewOnBoardingBillingService.findAll(headers, filters));
 			response.setSuccess(SUCCESS);
 			response.setMessage(SUCCESSFULLY_PROCCEED);
 			return response;

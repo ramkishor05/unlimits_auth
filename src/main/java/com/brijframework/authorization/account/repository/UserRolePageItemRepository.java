@@ -4,17 +4,17 @@ import static com.brijframework.authorization.contants.TableConstants.USER_ROLE_
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.unlimits.rest.repository.CustomRepository;
 
 import com.brijframework.authorization.account.entities.pages.EOUserRolePageItem;
 
 @Repository
 @Transactional
-public interface UserRolePageItemRepository  extends JpaRepository<EOUserRolePageItem, Long>{
+public interface UserRolePageItemRepository  extends CustomRepository<EOUserRolePageItem, Long>{
 
 	@Query(nativeQuery = true,  value="select * from "+USER_ROLE_PAGE_ITEM+" where URE.ROLE_ID = :roleId and URE.PAGE_ITEM_ID=:userEndpointId ")
 	Optional<EOUserRolePageItem> findByRoleIdAndEndpointId(@Param("roleId")Long roleId, @Param("userEndpointId") Long userEndpointId);

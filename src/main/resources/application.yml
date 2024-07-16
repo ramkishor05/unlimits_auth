@@ -2,6 +2,21 @@
 server: 
   host: 51.79.159.7
   port: 2222
+  resource:
+    location: file:C:/app_runs/unlimits-resources/resource
+  database:
+    host: 15.235.207.206
+    port: 3306
+    username: unlimits_usr
+    password: JJeV!EhBbuR
+    schema: unlimits_auth
+  gateway:
+    host: 51.79.159.7
+    port: 8080
+    endpoint: auth
+  eureka:
+    host: 51.79.159.7
+    port: 1111
 spring:
    profiles:
      active: local
@@ -12,9 +27,9 @@ spring:
    sql.init.mode: always
    datasource:
      driverClassName: com.mysql.cj.jdbc.Driver
-     url: jdbc:mysql://${server.host}:3306/unlimits_auth
-     username: root
-     password: root
+     url: jdbc:mysql://${server.database.host}:${server.database.port}/${server.database.schema}
+     username: ${server.database.username}
+     password: ${server.database.password}
      show-sql: true
    jpa: 
      hibernate: 
@@ -49,12 +64,12 @@ springdoc:
       paths-to-match: /v3/api-docs
 openapi:
   service:
-      url: http://${server.host}:8080/auth
+      url: http://${server.gateway.host}:${server.gateway.port}/${server.gateway.endpoint}
 # Discovery Server Access
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://${server.host}:1111/eureka/
+      defaultZone: http://${server.eureka.host}:${server.eureka.port}/eureka/
 logging.level.org.hibernate.SQL: DEBUG
 logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 # Disable Spring Boot's "Whitelabel" default error page, so we can use our own
