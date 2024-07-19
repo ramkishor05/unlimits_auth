@@ -36,7 +36,7 @@ public class DeviceOnboardingPlanController {
 		if(currentAccount==null) {
 			throw new UnauthorizedAccessException();
 		}
-		Map<String, String> filters=new HashMap<String, String>();
+		Map<String, Object> filters=new HashMap<String, Object>();
 		webRequest.getParameterMap().forEach((key,values)->{
 			filters.put(key, values[0]);
 		});
