@@ -96,9 +96,9 @@ public class GlobalAuthenticationController {
 		Authentication authenticate = 
 				ServiceType.NORMAL.equals(globalLoginRequest.getServiceType())?
 				authenticationManager.authenticate(new BasicAuthentication(
-						globalLoginRequest.getUsername(), globalLoginRequest.getPassword(), getGrantedAuthority(globalLoginRequest.getAuthority().getRoleId()))):
+						globalLoginRequest.getUsername(), globalLoginRequest.getPassword(), getGrantedAuthority(globalLoginRequest.getAuthority().getRoleType()))):
 				authenticationManager.authenticate(new SocialAuthentication(
-				globalLoginRequest.getUsername(), null, getGrantedAuthority(globalLoginRequest.getAuthority().getRoleId())));
+				globalLoginRequest.getUsername(), null, getGrantedAuthority(globalLoginRequest.getAuthority().getRoleType())));
 		if (authenticate.isAuthenticated()) {
 			Response authDTO =basicAuthenticationProvider.userLogin(globalLoginRequest);
 			return authDTO;

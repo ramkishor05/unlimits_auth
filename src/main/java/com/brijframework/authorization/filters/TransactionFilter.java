@@ -36,12 +36,13 @@ public class TransactionFilter extends OncePerRequestFilter {
 		log.info(getClass().getSimpleName()+":: doFilterInternal -started");
 		TransactionRequest requestWrapper = new TransactionRequest(request);
 		String authorization = request.getHeader(AUTHORIZATION);
+		System.out.println("authorization="+authorization);
 		requestWrapper.putHeader("Access-Control-Allow-Origin", "*");
 		requestWrapper.putHeader("Access-Control-Allow-Headers", "Content-Type");
 		requestWrapper.putHeader("Accept", "*");
 		if(StringUtils.isEmpty(authorization) || authorization.equalsIgnoreCase("null")) {
 	      log.info(getClass().getSimpleName()+" :: doFilterInternal - Did not authorization in request");
-	      filterChain.doFilter(request, response);
+	      filterChain.doFilter(requestWrapper, response);
 	      return;
 		}
 		TokenAuthentication tokenAuthentication = new TokenAuthentication(authorization);

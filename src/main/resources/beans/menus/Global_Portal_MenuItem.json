@@ -144,6 +144,34 @@
 			}
 		},
 		{
+			"id": "Global_Portal_MenuItem_RePrograms",
+			"type": "com.brijframework.authorization.view.entities.menus.EOViewMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "RePrograms",
+				"idenNo": "Global_Portal_MenuItem_RePrograms",
+				"type": "item",
+				"url": "/global/portal/content/reprograms",
+				"icon": "RePrograms",
+				"orderSequence": 5.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
+			}
+		},
+		{
+			"id": "Global_Portal_MenuItem_Affirmations",
+			"type": "com.brijframework.authorization.view.entities.menus.EOViewMenuItem",
+			"name": "Global_Portal_MenuItem",
+			"properties": {
+				"title": "Affirmations",
+				"idenNo": "Global_Portal_MenuItem_Affirmations",
+				"type": "item",
+				"url": "/global/portal/content/affirmations",
+				"icon": "Affirmations",
+				"orderSequence": 5.0,
+				"menuGroup": "LK@Global_Portal_MenuGroup_Content"
+			}
+		},
+		{
 			"id": "Global_Portal_MenuItem_Prompts",
 			"type": "com.brijframework.authorization.view.entities.menus.EOViewMenuItem",
 			"name": "Global_Portal_MenuItem",

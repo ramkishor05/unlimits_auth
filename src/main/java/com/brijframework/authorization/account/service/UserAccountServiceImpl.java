@@ -105,7 +105,7 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 	@Override
 	public  UIUserAccount getUserDetail(EOUserAccount eoUserAccount) {
 		UIUserAccount userDetails = userDetailMapper.mapToUI(eoUserAccount);
-		userDetails.setAuthorities(getGrantedAuthority(eoUserAccount.getUserRole().getRoleId()));
+		userDetails.setAuthorities(getGrantedAuthority(eoUserAccount.getUserRole().getRoleType()));
 		return userDetails;
 	}
 	
