@@ -1,6 +1,7 @@
 package com.brijframework.authorization.global.account.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.unlimits.rest.crud.controller.CrudController;
@@ -14,6 +15,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 
 @RestController
 @RequestMapping("/api/global/user/role")
+@CrossOrigin("*")
 @Hidden
 public class GlobalUserRoleController implements CrudController<UIUserRole, EOUserRole, Long>{
 	

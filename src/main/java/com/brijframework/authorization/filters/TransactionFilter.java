@@ -21,6 +21,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class TransactionFilter extends OncePerRequestFilter {
+	
+	 private static final String ONE_HOUR = "3600";
+
 
 	private static final Logger log = LoggerFactory.getLogger(TransactionFilter.class);
 

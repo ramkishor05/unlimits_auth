@@ -10,6 +10,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -23,7 +24,8 @@ public class SecurityConfig {
 			"/api/global/authentication/**", 
 			"/api/device/authentication/**", 
 			"/api/swagger-ui/**", 
-			"/v3/api-docs/**"
+			"/v3/api-docs/**",
+			"/resources/**"
 			};
 
 	private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
@@ -33,12 +35,17 @@ public class SecurityConfig {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+    
+    @Bean
+ 	public WebSecurityCustomizer webSecurityCustomizer() {
+ 		return (web) -> web.ignoring().requestMatchers(patterns);
+ 	}
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { 
     	log.debug("SecurityConfig :: securityFilterChain() started");
         return http.csrf((csrf)->csrf.disable()).cors(cors->cors.disable()) 
-                .authorizeHttpRequests(authorize->authorize.requestMatchers(patterns).permitAll().anyRequest()
+                .authorizeHttpRequests(authorize->authorize.requestMatchers("/**").permitAll().anyRequest()
                         .authenticated()) 
                 .sessionManagement(Customizer.withDefaults()) 
                 .authenticationManager(authenticationManager)

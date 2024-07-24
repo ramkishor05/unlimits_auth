@@ -3,13 +3,13 @@ package com.brijframework.authorization.provider;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
 import com.brijframework.authorization.account.model.UIUserAccount;
 
-public class TokenAuthentication implements Authentication {
+public class TokenAuthentication extends UsernamePasswordAuthenticationToken  {
 
 	/**
 	 * 
@@ -19,27 +19,31 @@ public class TokenAuthentication implements Authentication {
 	private UIUserAccount userDetails;
 	private EOUserAccount userAccount;
 	private final String token;
-	private Collection<? extends GrantedAuthority> grantedAuthority;
+	private Collection<GrantedAuthority> grantedAuthority;
+
 
 	public TokenAuthentication(String token) {
+		super(token, null);
 		this.token = token;
 		this.isAuthenticated = true;
 	}
 
 	public TokenAuthentication(String token, UIUserAccount userDetails) {
+		super(token, null);
 		this.token = token;
 		this.userDetails = userDetails;
 		this.isAuthenticated = true;
 	}
 
 	public TokenAuthentication(String token, UIUserAccount userDetails, List<GrantedAuthority> grantedAuthority) {
+		super(token, null);
 		this.token = token;
 		this.userDetails = userDetails;
 		this.isAuthenticated = true;
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+	public Collection<GrantedAuthority> getAuthorities() {
 		return grantedAuthority;
 	}
 
