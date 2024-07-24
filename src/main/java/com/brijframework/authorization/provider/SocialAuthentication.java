@@ -14,9 +14,15 @@ public class SocialAuthentication extends UsernamePasswordAuthenticationToken {
 	public SocialAuthentication(Object principal, Object credentials) {
 		super(principal, credentials);
 	}
+	
+	public SocialAuthentication(String principal) {
+		super(principal,null);
+	}
 
 	public SocialAuthentication(String principal, Object credentials, List<GrantedAuthority> grantedAuthority) {
 		super(principal, credentials, grantedAuthority);
 	}
+
+	
 	
 }

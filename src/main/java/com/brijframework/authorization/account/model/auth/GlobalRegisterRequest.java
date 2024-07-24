@@ -1,6 +1,8 @@
 package com.brijframework.authorization.account.model.auth;
 
-public class GlobalRegisterRequest extends GlobalLoginRequest{
+import java.io.Serializable;
+
+public class GlobalRegisterRequest extends GlobalLoginRequest implements Serializable{
 
 	/**
 	 * 
@@ -10,7 +12,7 @@ public class GlobalRegisterRequest extends GlobalLoginRequest{
 	private String registeredPhone;
 	private String registeredEmail;
 	private String accountName;
-
+	
 	public String getRegisteredPhone() {
 		return registeredPhone;
 	}

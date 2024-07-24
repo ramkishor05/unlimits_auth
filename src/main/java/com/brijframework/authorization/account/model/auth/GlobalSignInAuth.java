@@ -1,12 +1,12 @@
 package com.brijframework.authorization.account.model.auth;
 
-import com.brijframework.authorization.constant.Authority;
 import com.brijframework.authorization.constant.ServiceType;
+import com.brijframework.authorization.constant.UserType;
 
-public class GlobalAuth {
+public class GlobalSignInAuth {
 
 	private ServiceType serviceType;
-	private Authority authority;
+	private UserType userType;
 
 
 	public ServiceType getServiceType() {
@@ -20,14 +20,14 @@ public class GlobalAuth {
 		this.serviceType = serviceType;
 	}
 
-	public Authority getAuthority() {
-		if(authority==null) {
-			authority=Authority.USER;
+	public UserType getUserType() {
+		if(userType==null) {
+			userType=UserType.APP;
 		}
-		return authority;
+		return userType;
 	}
 
-	public void setAuthority(Authority authority) {
-		this.authority = authority;
+	public void setUserType(UserType userType) {
+		this.userType = userType;
 	}
 }

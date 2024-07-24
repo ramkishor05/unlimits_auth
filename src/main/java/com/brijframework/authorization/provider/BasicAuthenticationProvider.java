@@ -1,20 +1,14 @@
 package com.brijframework.authorization.provider;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -52,31 +46,10 @@ public class BasicAuthenticationProvider extends DaoAuthenticationProvider {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		System.out.println("authentication="+authentication);
 		log.info("BasicAuthenticationProvider :: authenticate() started");
-		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-		List<String> authorityList=authorities==null ? new ArrayList<>(): 
-			authorities.stream().map(authoritie -> authoritie.getAuthority()).collect(Collectors.toList());
-		UserAccountService userDetailsService=null; 
-		if(authorityList.contains(Authority.ADMIN.getRoleType().toString())) {
-			userDetailsService=userAccountService;
-		}
-		if(authorityList.contains(Authority.DEVELOPER.getRoleType().toString())) {
-			userDetailsService=userAccountService;
-		}
-		if(authorityList.contains(Authority.USER.getRoleType().toString())) {
-			userDetailsService=userAccountService;
-		}
 		this.setPasswordEncoder(passwordEncoder);
-		this.setUserDetailsService(userDetailsService);
+		this.setUserDetailsService(userAccountService);
 		log.info("BasicAuthenticationProvider :: authenticate() end");
-		Authentication authenticate = super.authenticate(authentication);
-		List<String> list = authenticate.getAuthorities().stream().map(authoritie->authoritie.getAuthority()).toList();
-		for(GrantedAuthority authority : authentication.getAuthorities()) {
-			if(!list.contains(authority.getAuthority())) {
-				throw new BadCredentialsException(this.messages
-						.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
-			}
-		}
-		return authenticate;
+		return super.authenticate(authentication);
 	}
 	
 	@Override
@@ -95,64 +68,22 @@ public class BasicAuthenticationProvider extends DaoAuthenticationProvider {
 	}
 	
 	public UIUserAccount resetPassword(GlobalPasswordReset passwordReset) {
-		UserAccountService userDetailsService= getUserDetailsServiceByRole(passwordReset);
-		return userDetailsService.resetPassword(passwordReset);
+		return userAccountService.resetPassword(passwordReset);
 	}
 	
 	public UIUserAccount saveOtp(GlobalPasswordReset passwordReset) {
-		UserAccountService userDetailsService= getUserDetailsServiceByRole(passwordReset);
-		return userDetailsService.saveOtp(passwordReset);
-	}
-
-	private UserAccountService getUserDetailsServiceByRole(GlobalPasswordReset passwordReset) {
-		Authority authority= passwordReset.getAuthority();
-		UserAccountService userDetailsService=null; 
-		if(authority.getRoleType().equals(Authority.ADMIN.getRoleType())) {
-			userDetailsService=userAccountService;
-		}
-		if(authority.getRoleType().equals(Authority.DEVELOPER.getRoleType())) {
-			userDetailsService=userAccountService;
-		}
-		if(authority.getRoleType().equals(Authority.USER.getRoleType())) {
-			userDetailsService=userAccountService;
-		}
-		return userDetailsService;
+		return userAccountService.saveOtp(passwordReset);
 	}
 
 	public Response register(GlobalRegisterRequest registerRequest) {
 		if(registerRequest.getAuthority()==null) {
 			registerRequest.setAuthority(Authority.USER);
 		}
-		Authority authority= registerRequest.getAuthority();
-		UserAccountService userDetailsService=null; 
-		if(authority.getRoleType().equals(Authority.ADMIN.getRoleType())) {
-			userDetailsService=userAccountService;
-		}
-		if(authority.getRoleType().equals(Authority.DEVELOPER.getRoleType())) {
-			userDetailsService=userAccountService;
-		}
-		if(authority.getRoleType().equals(Authority.USER.getRoleType())) {
-			userDetailsService=userAccountService;
-		}
-		return userDetailsService.register(registerRequest);
+		return userAccountService.register(registerRequest);
 	}
 
 	public Response userLogin(GlobalLoginRequest authRequest) {
-		if(authRequest.getAuthority()==null) {
-			authRequest.setAuthority(Authority.USER);
-		}
-		Authority authority= authRequest.getAuthority();
-		UserAccountService userDetailsService=null; 
-		if(authority.getRoleType().equals(Authority.ADMIN.getRoleType())) {
-			userDetailsService=userAccountService;
-		}
-		if(authority.getRoleType().equals(Authority.DEVELOPER.getRoleType())) {
-			userDetailsService=userAccountService;
-		}
-		if(authority.getRoleType().equals(Authority.USER.getRoleType())) {
-			userDetailsService=userAccountService;
-		}
-		return userDetailsService.login(authRequest);
+		return userAccountService.login(authRequest);
 	}
 
 	/**
@@ -161,24 +92,7 @@ public class BasicAuthenticationProvider extends DaoAuthenticationProvider {
 	 * @return
 	 */
 	public Optional<EOUserAccount> find(GlobalLoginRequest authRequest) {
-		if(authRequest.getAuthority()==null) {
-			authRequest.setAuthority(Authority.USER);
-		}
-		if(authRequest.getAuthority()==null) {
-			authRequest.setAuthority(Authority.USER);
-		}
-		Authority authority= authRequest.getAuthority();
-		UserAccountService userDetailsService=null; 
-		if(authority.getRoleType().equals(Authority.ADMIN.getRoleType())) {
-			userDetailsService=userAccountService;
-		}
-		if(authority.getRoleType().equals(Authority.DEVELOPER.getRoleType())) {
-			userDetailsService=userAccountService;
-		}
-		if(authority.getRoleType().equals(Authority.USER.getRoleType())) {
-			userDetailsService=userAccountService;
-		}
-		return userDetailsService.find(authRequest);
+		return userAccountService.find(authRequest);
 	}
 
 	public UIUserAccount getUserDetail() {
