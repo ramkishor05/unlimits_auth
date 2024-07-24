@@ -43,7 +43,6 @@ import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
 import com.brijframework.authorization.account.service.UserTokenService;
 import com.brijframework.authorization.adptor.EnvironmentUtil;
-import com.brijframework.authorization.constant.Authority;
 import com.brijframework.authorization.constant.ServiceType;
 import com.brijframework.authorization.provider.BasicAuthentication;
 import com.brijframework.authorization.provider.BasicAuthenticationProvider;
@@ -89,16 +88,11 @@ public class GlobalAuthenticationController {
 
 	@PostMapping("/login")
 	public Response userLogin(@RequestBody GlobalLoginRequest globalLoginRequest) {
-		log.debug("User Login start.");
-		if(globalLoginRequest.getAuthority()==null) {
-			globalLoginRequest.setAuthority(Authority.USER);
-		}
 		Authentication authenticate = 
 				ServiceType.NORMAL.equals(globalLoginRequest.getServiceType())?
 				authenticationManager.authenticate(new BasicAuthentication(
-						globalLoginRequest.getUsername(), globalLoginRequest.getPassword(), getGrantedAuthority(globalLoginRequest.getAuthority().getRoleId()))):
-				authenticationManager.authenticate(new SocialAuthentication(
-				globalLoginRequest.getUsername(), null, getGrantedAuthority(globalLoginRequest.getAuthority().getRoleId())));
+						globalLoginRequest.getUsername(), globalLoginRequest.getPassword())):
+				authenticationManager.authenticate(new SocialAuthentication(globalLoginRequest.getUsername()));
 		if (authenticate.isAuthenticated()) {
 			Response authDTO =basicAuthenticationProvider.userLogin(globalLoginRequest);
 			return authDTO;
@@ -119,7 +113,6 @@ public class GlobalAuthenticationController {
 	@PostMapping("/logout")
 	public String userLogout() {
 		TokenAuthentication tokenAuthentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
-		log.debug("User Login start.");
 		return tokenService.logout(tokenAuthentication.getToken());
 	}
 	
@@ -143,7 +136,6 @@ public class GlobalAuthenticationController {
 
 	@PostMapping("/password/send/link")
 	public Boolean sendLink(@RequestBody GlobalPasswordReset passwordReset) {
-		log.debug("AuthController::sendOtp() start.");
 		Random resetToken = new Random();
 		int otp = resetToken.nextInt(9999);
 		passwordReset.setOtp(otp);
@@ -216,7 +208,7 @@ public class GlobalAuthenticationController {
 		return true;
 	}
 
-	private List<GrantedAuthority> getGrantedAuthority(String authority) {
+	protected List<GrantedAuthority> getGrantedAuthority(String authority) {
 		return Arrays.asList(new GrantedAuthority() {
 
 			private static final long serialVersionUID = 1L;

@@ -16,7 +16,7 @@ public class TokenAuthentication extends UsernamePasswordAuthenticationToken  {
 	 */
 	private static final long serialVersionUID = 1L;
 	private boolean isAuthenticated;
-	private UIUserAccount userDetails;
+	private Object userDetails;
 	private EOUserAccount userAccount;
 	private final String token;
 	private Collection<GrantedAuthority> grantedAuthority;
@@ -74,14 +74,14 @@ public class TokenAuthentication extends UsernamePasswordAuthenticationToken  {
 
 	@Override
 	public String getName() {
-		return userDetails.getUsername();
+		return token;
 	}
 
-	public UIUserAccount getUserDetails() {
+	public Object getUserDetails() {
 		return userDetails;
 	}
 
-	public void setUserDetails(UIUserAccount userDetails) {
+	public void setUserDetails(Object userDetails) {
 		this.userDetails = userDetails;
 	}
 

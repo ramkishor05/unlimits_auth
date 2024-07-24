@@ -7,13 +7,11 @@ import static com.brijframework.authorization.constant.Constants.SEND_LINK_MSG2;
 import static com.brijframework.authorization.constant.Constants.SEND_LINK_VALID_TIME;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 
 import org.slf4j.Logger;
@@ -25,7 +23,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -44,7 +41,6 @@ import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
 import com.brijframework.authorization.account.service.UserTokenService;
 import com.brijframework.authorization.adptor.EnvironmentUtil;
-import com.brijframework.authorization.constant.Authority;
 import com.brijframework.authorization.constant.ServiceType;
 import com.brijframework.authorization.device.account.model.DeviceLoginRequest;
 import com.brijframework.authorization.device.account.model.DeviceRegisterRequest;
@@ -95,9 +91,9 @@ public class DeviceAuthenticationController {
 		Authentication authenticate = 
 				ServiceType.NORMAL.equals(loginRequest.getServiceType())?
 				authenticationManager.authenticate(new BasicAuthentication(
-						loginRequest.getUsername(), loginRequest.getPassword(), getGrantedAuthority(loginRequest.getAuthority().getRoleId()))):
+						loginRequest.getUsername(), loginRequest.getPassword())):
 				authenticationManager.authenticate(new SocialAuthentication(
-				loginRequest.getUsername(), null, getGrantedAuthority(loginRequest.getAuthority().getRoleId())));
+				loginRequest.getUsername()));
 		if (authenticate.isAuthenticated()) {
 			Response authDTO =passwordAuthenticationProvider.userLogin(loginRequest);
 			return authDTO;
@@ -143,8 +139,6 @@ public class DeviceAuthenticationController {
 		
 		GlobalPasswordReset passwordReset=new GlobalPasswordReset();
 		BeanUtils.copyProperties(devicePasswordReset, passwordReset);
-		passwordReset.setAuthority(Authority.USER);
-		
 		Random resetToken = new Random();
 		int otp = resetToken.nextInt(9999);
 		passwordReset.setOtp(otp);
@@ -215,18 +209,6 @@ public class DeviceAuthenticationController {
 		log.debug("AuthController::resetPassword() start.");
 		passwordAuthenticationProvider.resetPassword(passwordReset);
 		return true;
-	}
-
-	private List<GrantedAuthority> getGrantedAuthority(String authority) {
-		return Arrays.asList(new GrantedAuthority() {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public String getAuthority() {
-				return authority;
-			}
-		});
 	}
 
 }
