@@ -2,7 +2,7 @@ package com.brijframework.authorization.account.model.auth;
 
 import java.io.Serializable;
 
-public class GlobalLoginRequest extends GlobalSignUpAuth implements Serializable{
+public class GlobalLoginRequest extends GlobalSignInAuth implements Serializable{
 
 	/**
 	 * 

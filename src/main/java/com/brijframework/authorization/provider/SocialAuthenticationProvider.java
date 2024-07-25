@@ -66,13 +66,11 @@ public class SocialAuthenticationProvider extends DaoAuthenticationProvider {
 	}
 	
 	public UIUserAccount resetPassword(GlobalPasswordReset passwordReset) {
-		UserAccountService userDetailsService= getUserDetailsServiceByRole(passwordReset.getAuthority());
-		return userDetailsService.resetPassword(passwordReset);
+		return userAccountService.resetPassword(passwordReset);
 	}
 	
 	public UIUserAccount saveOtp(GlobalPasswordReset passwordReset) {
-		UserAccountService userDetailsService= getUserDetailsServiceByRole(passwordReset.getAuthority());
-		return userDetailsService.saveOtp(passwordReset);
+		return userAccountService.saveOtp(passwordReset);
 	}
 
 	private UserAccountService getUserDetailsServiceByRole(Authority authority) {
@@ -89,12 +87,7 @@ public class SocialAuthenticationProvider extends DaoAuthenticationProvider {
 	}
 
 	public Response userLogin(GlobalLoginRequest authRequest) {
-		if(authRequest.getAuthority()==null) {
-			authRequest.setAuthority(Authority.USER);
-		}
-		Authority authority= authRequest.getAuthority();
-		UserAccountService userDetailsService=getUserDetailsServiceByRole(authority);
-		return userDetailsService.login(authRequest);
+		return userAccountService.login(authRequest);
 	}
 
 	/**
@@ -103,11 +96,6 @@ public class SocialAuthenticationProvider extends DaoAuthenticationProvider {
 	 * @return
 	 */
 	public Optional<EOUserAccount> find(GlobalLoginRequest authRequest) {
-		if(authRequest.getAuthority()==null) {
-			authRequest.setAuthority(Authority.USER);
-		}
-		Authority authority= authRequest.getAuthority();
-		UserAccountService userDetailsService=getUserDetailsServiceByRole(authority);
-		return userDetailsService.find(authRequest);
+		return userAccountService.find(authRequest);
 	}
 }

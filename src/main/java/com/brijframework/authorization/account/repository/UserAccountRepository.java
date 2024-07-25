@@ -16,7 +16,7 @@ import com.brijframework.authorization.account.entities.EOUserAccount;
 public interface UserAccountRepository  extends CustomRepository<EOUserAccount, Long>{
 
 	
-	@Query(nativeQuery = true,  value="select * from USER_ACCOUNT UA where UA.USERNAME = :username")
+	@Query(nativeQuery = true,  value="select * from USER_ACCOUNT UA where UA.USERNAME = :username OR UA.ACCOUNT_MOBILE = :username OR UA.ACCOUNT_EMAIL = :username")
 	Optional<EOUserAccount> findByUsername(@Param("username")String username);
 
 	@Query(nativeQuery = true,  value="select * from USER_ACCOUNT UA where UA.OWNER_ID = :ownerId")

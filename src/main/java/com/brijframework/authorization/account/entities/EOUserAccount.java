@@ -23,7 +23,12 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "USER_ACCOUNT", uniqueConstraints = { @UniqueConstraint(columnNames = { "USERNAME", "ROLE_ID" }) })
+@Table(name = "USER_ACCOUNT", uniqueConstraints = { 
+		@UniqueConstraint(columnNames = { "USERNAME", "ROLE_ID" }),
+		@UniqueConstraint(columnNames = { "ACCOUNT_MOBILE", "ROLE_ID" }) ,
+		@UniqueConstraint(columnNames = { "ACCOUNT_EMAIL", "ROLE_ID" }) 
+	}
+)
 public class EOUserAccount extends EOEntityObject implements IUserAccount {
 
 	/**

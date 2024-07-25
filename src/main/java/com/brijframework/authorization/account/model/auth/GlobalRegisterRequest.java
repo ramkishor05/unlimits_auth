@@ -2,6 +2,8 @@ package com.brijframework.authorization.account.model.auth;
 
 import java.io.Serializable;
 
+import com.brijframework.authorization.constant.Authority;
+
 public class GlobalRegisterRequest extends GlobalLoginRequest implements Serializable{
 
 	/**
@@ -12,6 +14,7 @@ public class GlobalRegisterRequest extends GlobalLoginRequest implements Seriali
 	private String registeredPhone;
 	private String registeredEmail;
 	private String accountName;
+	private Authority authority;
 	
 	public String getRegisteredPhone() {
 		return registeredPhone;
@@ -35,6 +38,17 @@ public class GlobalRegisterRequest extends GlobalLoginRequest implements Seriali
 
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
+	}
+
+	public Authority getAuthority() {
+		if(authority==null) {
+			authority= Authority.USER;
+		}
+		return authority;
+	}
+
+	public void setAuthority(Authority authority) {
+		this.authority = authority;
 	}
 
 }

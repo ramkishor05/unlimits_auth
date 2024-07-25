@@ -16,7 +16,7 @@ public interface UserTokenService {
 
 	Date buildExprireationDate();
 
-	String login(String username,Long userId , String string, String serviceType);
+	String login(String username,Long userId , String authority, String serviceType);
 
 	String logout(String token);
 

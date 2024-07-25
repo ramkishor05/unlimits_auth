@@ -181,7 +181,7 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 		auth.setMessage(SUCCUSSFULLY_PROCESSED);
 		GlobalAuthDataDTO authDataDTO = new GlobalAuthDataDTO();
 		authDataDTO.setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
-		authDataDTO.setToken(tokenService.login(loginRequest.getUsername(), eoUserAccount.getId(), loginRequest.getAuthority().toString(), loginRequest.getServiceType().toString()));
+		authDataDTO.setToken(tokenService.login(loginRequest.getUsername(), eoUserAccount.getId(), eoUserAccount.getUserRole().getRoleName(), loginRequest.getServiceType().toString()));
 		auth.setData(authDataDTO);
 		return auth;
 	}
