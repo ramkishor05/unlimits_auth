@@ -3,20 +3,19 @@ package com.brijframework.authorization.provider;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
 import com.brijframework.authorization.account.model.UIUserAccount;
 
-public class TokenAuthentication extends UsernamePasswordAuthenticationToken  {
+public class TokenAuthentication extends PreAuthenticatedAuthenticationToken  {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private boolean isAuthenticated;
-	private Object userDetails;
+	private UIUserAccount userDetails;
 	private EOUserAccount userAccount;
 	private final String token;
 	private Collection<GrantedAuthority> grantedAuthority;
@@ -25,21 +24,21 @@ public class TokenAuthentication extends UsernamePasswordAuthenticationToken  {
 	public TokenAuthentication(String token) {
 		super(token, null);
 		this.token = token;
-		this.isAuthenticated = true;
+		this.setAuthenticated(true);
 	}
 
 	public TokenAuthentication(String token, UIUserAccount userDetails) {
 		super(token, null);
 		this.token = token;
 		this.userDetails = userDetails;
-		this.isAuthenticated = true;
+		this.setAuthenticated(true);
 	}
 
 	public TokenAuthentication(String token, UIUserAccount userDetails, List<GrantedAuthority> grantedAuthority) {
 		super(token, null);
 		this.token = token;
 		this.userDetails = userDetails;
-		this.isAuthenticated = true;
+		this.setAuthenticated(true);
 	}
 
 	@Override
@@ -63,25 +62,15 @@ public class TokenAuthentication extends UsernamePasswordAuthenticationToken  {
 	}
 
 	@Override
-	public boolean isAuthenticated() {
-		return isAuthenticated;
-	}
-
-	@Override
-	public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-		this.isAuthenticated=isAuthenticated;
-	}
-
-	@Override
 	public String getName() {
 		return token;
 	}
 
-	public Object getUserDetails() {
+	public UIUserAccount getUserDetails() {
 		return userDetails;
 	}
 
-	public void setUserDetails(Object userDetails) {
+	public void setUserDetails(UIUserAccount userDetails) {
 		this.userDetails = userDetails;
 	}
 

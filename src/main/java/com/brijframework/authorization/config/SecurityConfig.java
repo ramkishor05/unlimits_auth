@@ -14,7 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.brijframework.authorization.filters.TransactionFilter;
+import com.brijframework.authorization.filters.TokenAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +31,8 @@ public class SecurityConfig {
 	private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
   
     @Autowired
-    private TransactionFilter transactionFilter; 
+    private TokenAuthenticationFilter tokenAuthenticationFilter; 
+
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -45,12 +46,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { 
     	log.debug("SecurityConfig :: securityFilterChain() started");
         return http.csrf((csrf)->csrf.disable()).cors(cors->cors.disable()) 
-                .authorizeHttpRequests(authorize->authorize.requestMatchers("/**").permitAll().anyRequest()
-                        .authenticated()) 
-                .sessionManagement(Customizer.withDefaults()) 
-                .authenticationManager(authenticationManager)
-                .addFilterBefore(transactionFilter, UsernamePasswordAuthenticationFilter.class) 
-                .build(); 
+        .authorizeHttpRequests(authorize->
+           authorize.requestMatchers(patterns).permitAll().anyRequest().authenticated()
+         ) 
+        .sessionManagement(Customizer.withDefaults()) 
+        .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+        .authenticationManager(authenticationManager)
+        .build(); 
     } 
   
 } 

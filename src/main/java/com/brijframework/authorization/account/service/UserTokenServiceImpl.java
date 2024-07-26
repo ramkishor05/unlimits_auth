@@ -1,6 +1,5 @@
 package com.brijframework.authorization.account.service;
 
-import static com.brijframework.authorization.constant.Constants.BEARER;
 import static com.brijframework.authorization.constant.Constants.TOKEN_PREFIX;
 
 import java.util.Date;
@@ -45,7 +44,7 @@ public class UserTokenServiceImpl implements UserTokenService {
 	
 	@Override
 	public String extendExpiration(String authToken) {
-		String token = authToken.startsWith(BEARER) ? authToken.substring(7) : authToken;
+		String token = authToken.startsWith(TOKEN_PREFIX) ? authToken.substring(7) : authToken;
 		Optional<EOUserToken> findBySource = userTokenRepository.findBySource(token);
 		if (!findBySource.isPresent()) {
 			return "";
@@ -58,7 +57,7 @@ public class UserTokenServiceImpl implements UserTokenService {
 
 	@Override
 	public Boolean validateToken(String authToken) {
-		String token = authToken.startsWith(BEARER) ? authToken.substring(7) : authToken;
+		String token = authToken.startsWith(TOKEN_PREFIX) ? authToken.substring(7) : authToken;
 		Optional<EOUserToken> findBySource = userTokenRepository.findBySource(token);
 		if (!findBySource.isPresent()) {
 			return false;
@@ -83,7 +82,7 @@ public class UserTokenServiceImpl implements UserTokenService {
 
 	@Override
 	public String logout(String authToken) {
-		String token = authToken.startsWith(BEARER) ? authToken.substring(7) : authToken;
+		String token = authToken.startsWith(TOKEN_PREFIX) ? authToken.substring(7) : authToken;
 		Optional<EOUserToken> findBySource = userTokenRepository.findBySource(token);
 		if (!findBySource.isPresent()) {
 			return "Failed logout";
@@ -100,7 +99,7 @@ public class UserTokenServiceImpl implements UserTokenService {
 
 	@Override
 	public UserDetailResponse getUserDetailFromToken(String authToken) {
-		String token = authToken.startsWith(BEARER) ? authToken.substring(7) : authToken;
+		String token = authToken.startsWith(TOKEN_PREFIX) ? authToken.substring(7) : authToken;
 		Optional<EOUserToken> findBySource = userTokenRepository.findBySource(token);
 		if (!findBySource.isPresent()) {
 			throw new InvalidTokenException("Invalid token");
