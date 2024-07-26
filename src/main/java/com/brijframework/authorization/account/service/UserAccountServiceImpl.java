@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.unlimits.rest.crud.beans.Response;
 import org.unlimits.rest.crud.mapper.GenericMapper;
 import org.unlimits.rest.crud.service.QueryServiceImpl;
+import org.unlimits.rest.repository.CustomPredicate;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
 import com.brijframework.authorization.account.entities.EOUserAccountService;
@@ -42,6 +43,11 @@ import com.brijframework.authorization.exceptions.UserAlreadyExistsException;
 import com.brijframework.authorization.exceptions.UserNotFoundException;
 import com.brijframework.authorization.global.account.mapper.GlobalUserDetailMapper;
 import com.brijframework.authorization.global.account.service.UserOnBoardingService;
+
+import jakarta.persistence.criteria.CriteriaBuilder.In;
+import jakarta.persistence.criteria.Path;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
 
 @Service
 public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse, EOUserAccount, Long> implements UserAccountService {
@@ -91,6 +97,26 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 	@Override
 	public GenericMapper<EOUserAccount, UserDetailResponse> getMapper() {
 		return userDetailMapper;
+	}
+	
+	{
+		CustomPredicate<EOUserAccount> userRole = (type, root, criteriaQuery, criteriaBuilder, filter) -> {
+			Subquery<EOUserRole> subquery = criteriaQuery.subquery(EOUserRole.class);
+			Root<EOUserRole> fromUserRole = subquery.from(EOUserRole.class);
+			subquery.select(fromUserRole)
+					.where(criteriaBuilder.equal(fromUserRole.get("id"), Long.valueOf(filter.getColumnValue().toString())));
+			Path<Object> userRolePath = root.get("userRole");
+			In<Object> userRoleIn = criteriaBuilder.in(userRolePath);
+			userRoleIn.value(subquery);
+			return userRoleIn;
+		};
+
+		addCustomPredicate("userRoleId", userRole);
+		addCustomPredicate("userRole.id", userRole);
+	}
+	
+	{
+		getCustomSortingMap().put("userRoleId", "userRole.roleName");
 	}
 	
 	@Override
