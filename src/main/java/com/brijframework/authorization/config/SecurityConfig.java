@@ -13,6 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.brijframework.authorization.filters.TokenAuthenticationFilter;
 
@@ -41,11 +44,18 @@ public class SecurityConfig {
  	public WebSecurityCustomizer webSecurityCustomizer() {
  		return (web) -> web.ignoring().requestMatchers(patterns);
  	}
+    
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { 
     	log.debug("SecurityConfig :: securityFilterChain() started");
-        return http.csrf((csrf)->csrf.disable()).cors(cors->cors.disable()) 
+        return http.csrf((csrf)->csrf.disable()).cors(cors->cors.configurationSource(corsConfigurationSource())) 
         .authorizeHttpRequests(authorize->
            authorize.requestMatchers(patterns).permitAll().anyRequest().authenticated()
          ) 

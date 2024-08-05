@@ -23,22 +23,29 @@ public class TokenAuthentication extends PreAuthenticatedAuthenticationToken  {
 
 	public TokenAuthentication(String token) {
 		super(token, null);
-		this.token = token;
+		this.token = filteredToken(token);
 		this.setAuthenticated(true);
 	}
 
 	public TokenAuthentication(String token, UIUserAccount userDetails) {
 		super(token, null);
-		this.token = token;
+		this.token = filteredToken(token);
 		this.userDetails = userDetails;
 		this.setAuthenticated(true);
 	}
 
 	public TokenAuthentication(String token, UIUserAccount userDetails, List<GrantedAuthority> grantedAuthority) {
 		super(token, null);
-		this.token = token;
+		this.token = filteredToken(token);
 		this.userDetails = userDetails;
 		this.setAuthenticated(true);
+	}
+
+	private String filteredToken(String token) {
+		if(token==null) {
+			return token;
+		}
+		return token.startsWith("\"") && token.endsWith("\"")? token.substring(1, token.length()-1): token;
 	}
 
 	@Override

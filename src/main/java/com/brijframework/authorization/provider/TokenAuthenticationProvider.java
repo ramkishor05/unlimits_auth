@@ -27,8 +27,9 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		log.info("TokenAuthenticationProvider :: authenticate() started");
 		if(authentication instanceof TokenAuthentication) {
+			authentication.setAuthenticated(true);
 			TokenAuthentication tokenAuthentication= (TokenAuthentication) authentication; 
-			String token = tokenAuthentication.getToken().startsWith(Constants.TOKEN_PREFIX) ?  tokenAuthentication.getToken().substring(7) : tokenAuthentication.getToken();
+			String token = tokenAuthentication.getToken().startsWith(Constants.TOKEN_PREFIX) ?  tokenAuthentication.getToken().split(Constants.TOKEN_PREFIX)[1] : tokenAuthentication.getToken();
 			Optional<EOUserToken> findBySource = userTokenRepository.findBySource(token);
 			if(findBySource.isPresent()) {
 				EOUserToken eoUserToken = findBySource.get();
@@ -43,7 +44,6 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
 				tokenAuthentication.setAuthenticated(false);
 			}
 		}
-		authentication.setAuthenticated(true);
 		log.info("TokenAuthenticationProvider :: authenticate() ended");
 		return authentication;
 	}
