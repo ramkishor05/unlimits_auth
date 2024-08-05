@@ -122,7 +122,7 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 	}
 	
 	@Override
-	public Response register(GlobalRegisterRequest registerRequest) {
+	public Response<Object> register(GlobalRegisterRequest registerRequest) {
 		if(isAlreadyExists(registerRequest.getUsername())) {
 			if(!ServiceType.NORMAL.equals(registerRequest.getServiceType())) {
 				return login(registerRequest);
@@ -150,7 +150,7 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 		eoUserAccount=userAccountRepository.save(eoUserAccount);
 		this.initService(eoUserAccount);
 		userOnBoardingService.initOnBoarding(eoUserAccount);
-		Response auth=new Response();
+		Response<Object> auth=new Response<Object>();
 		auth.setSuccess(_1);
 		auth.setMessage(SUCCUSSFULLY_PROCESSED);
 		GlobalAuthDataDTO authDataDTO = new GlobalAuthDataDTO();
@@ -170,13 +170,13 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 	}
 	
 	@Override
-	public Response login(GlobalLoginRequest loginRequest) {
+	public Response<Object> login(GlobalLoginRequest loginRequest) {
 		Optional<EOUserAccount> findUserLogin = userAccountRepository.findByUsername(loginRequest.getUsername());
 		if (!findUserLogin.isPresent()) {
 			throw new UserNotFoundException();
 		}
 		EOUserAccount eoUserAccount = findUserLogin.get();
-		Response auth=new Response();
+		Response<Object> auth=new Response<Object>();
 		auth.setSuccess(_1);
 		auth.setMessage(SUCCUSSFULLY_PROCESSED);
 		GlobalAuthDataDTO authDataDTO = new GlobalAuthDataDTO();

@@ -13,9 +13,12 @@ import org.unlimits.rest.crud.mapper.GenericMapper;
 import org.unlimits.rest.crud.service.CrudServiceImpl;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
+import com.brijframework.authorization.account.entities.onboarding.EOUserOnBoardingAnswer;
 import com.brijframework.authorization.account.entities.onboarding.EOUserOnBoardingQuestion;
+import com.brijframework.authorization.account.model.onboarding.UIUserOnBoardingAnswer;
 import com.brijframework.authorization.account.model.onboarding.UIUserOnBoardingQuestion;
 import com.brijframework.authorization.account.repository.UserAccountRepository;
+import com.brijframework.authorization.account.repository.UserOnBoardingAnswerRepository;
 import com.brijframework.authorization.account.repository.UserOnBoardingQuestionRepository;
 import com.brijframework.authorization.global.account.mapper.GlobalUserDetailMapper;
 import com.brijframework.authorization.global.account.mapper.GlobalUserOnBoardingQuestionMapper;
@@ -26,6 +29,9 @@ public class UserOnBoardingQuestionServiceImpl extends CrudServiceImpl<UIUserOnB
 
 	@Autowired
 	private UserOnBoardingQuestionRepository userOnBoardingQuestionRepository;
+	
+	@Autowired
+	private UserOnBoardingAnswerRepository userOnBoardingAnswerRepository;
 
 	@Autowired
 	private ViewOnBoardingQuestionRepository onBoardingQuestionRepository;
@@ -92,6 +98,19 @@ public class UserOnBoardingQuestionServiceImpl extends CrudServiceImpl<UIUserOnB
 		List<UIUserOnBoardingQuestion> boardingQuestions = super.postFetch(findObjects);
 		boardingQuestions.sort((op1,op2)->op1.getQuestion().getOrderSequence().compareTo(op2.getQuestion().getOrderSequence()));
 		return boardingQuestions;
+	}
+	
+	@Override
+	public void postUpdate(UIUserOnBoardingQuestion data, EOUserOnBoardingQuestion entity,
+			Map<String, List<String>> headers) {
+		List<UIUserOnBoardingAnswer> answers = data.getAnswers();
+		userOnBoardingAnswerRepository.deleteAllByQuestion(entity);
+		for (UIUserOnBoardingAnswer uiUserOnBoardingAnswer : answers) {
+			EOUserOnBoardingAnswer eoUserOnBoardingAnswer=new EOUserOnBoardingAnswer();
+			eoUserOnBoardingAnswer.setValue(uiUserOnBoardingAnswer.getValue());
+			eoUserOnBoardingAnswer.setQuestion(entity);
+			userOnBoardingAnswerRepository.save(eoUserOnBoardingAnswer);
+		}
 	}
 
 	public void postFetch(EOUserOnBoardingQuestion findObject, UIUserOnBoardingQuestion dtoObject) {

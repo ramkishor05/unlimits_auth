@@ -28,8 +28,8 @@ public class DeviceUserRoleController{
     private UserRoleService userRolelService;
 
 	@GetMapping
-	public Response findAll(@RequestHeader(required =false)  MultiValueMap<String,String> headers){
-		Response response=new Response();
+	public Response<Object> findAll(@RequestHeader(required =false)  MultiValueMap<String,String> headers){
+		Response<Object> response=new Response<Object>();
 		try {
 			response.setData(userRolelService.getUserRoleListByPositions(Arrays.asList(Authority.USER.getPosition())));
 			response.setSuccess(SUCCESS);

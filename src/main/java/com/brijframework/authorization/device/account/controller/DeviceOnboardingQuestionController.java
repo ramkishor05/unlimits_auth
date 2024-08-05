@@ -30,12 +30,12 @@ public class DeviceOnboardingQuestionController {
 	private UserOnBoardingQuestionService userOnBoardingQuestionService; 
 	
 	@PutMapping
-	public Response update(@RequestBody UIUserOnBoardingQuestion dto, @RequestHeader(required =false)  MultiValueMap<String,String> headers){
+	public Response<Object> update(@RequestBody UIUserOnBoardingQuestion dto, @RequestHeader(required =false)  MultiValueMap<String,String> headers){
 		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
 		if(currentAccount==null) {
 			throw new UnauthorizedAccessException();
 		}
-		Response response=new Response();
+		Response<Object> response=new Response<Object>();
 		try {
 			response.setData(userOnBoardingQuestionService.update(dto,headers));
 			response.setSuccess(SUCCESS);
@@ -49,13 +49,13 @@ public class DeviceOnboardingQuestionController {
 	}
 	
 	@GetMapping
-	public Response findUseraccount(@RequestHeader(required =false)  MultiValueMap<String,String> headers){
+	public Response<Object> findUseraccount(@RequestHeader(required =false)  MultiValueMap<String,String> headers){
 		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
 		if(currentAccount==null) {
 			throw new UnauthorizedAccessException();
 		}
 		Long userAccountId=currentAccount.getId();
-		Response response=new Response();
+		Response<Object> response=new Response<Object>();
 		try {
 			response.setData(userOnBoardingQuestionService.findAllByUserAccountId(userAccountId));
 			response.setSuccess(SUCCESS);

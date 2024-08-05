@@ -31,13 +31,13 @@ public class DeviceUserBillingController {
 	private UserOnBoardingBillingService userOnBoardingBillingService; 
 	
 	@PostMapping
-	public Response add(@RequestBody UIUserOnBoardingBilling dto, @RequestHeader(required =false)  MultiValueMap<String,String> headers){
+	public Response<Object> add(@RequestBody UIUserOnBoardingBilling dto, @RequestHeader(required =false)  MultiValueMap<String,String> headers){
 		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
 		if(currentAccount==null) {
 			throw new UnauthorizedAccessException();
 		}
 		dto.setUserAccountId(currentAccount.getId());
-		Response response=new Response();
+		Response<Object> response=new Response<Object>();
 		try {
 			response.setData(userOnBoardingBillingService.update(dto,headers));
 			response.setSuccess(SUCCESS);
@@ -51,13 +51,13 @@ public class DeviceUserBillingController {
 	}
 	
 	@PutMapping
-	public Response update(@RequestBody UIUserOnBoardingBilling dto, @RequestHeader(required =false)  MultiValueMap<String,String> headers){
+	public Response<Object> update(@RequestBody UIUserOnBoardingBilling dto, @RequestHeader(required =false)  MultiValueMap<String,String> headers){
 		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
 		if(currentAccount==null) {
 			throw new UnauthorizedAccessException();
 		}
 		dto.setUserAccountId(currentAccount.getId());
-		Response response=new Response();
+		Response<Object> response=new Response<Object>();
 		try {
 			response.setData(userOnBoardingBillingService.update(dto,headers));
 			response.setSuccess(SUCCESS);
@@ -71,13 +71,13 @@ public class DeviceUserBillingController {
 	}
 	
 	@GetMapping
-	public Response findUseraccount(@RequestHeader(required =false)  MultiValueMap<String,String> headers){
+	public Response<Object> findUseraccount(@RequestHeader(required =false)  MultiValueMap<String,String> headers){
 		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
 		if(currentAccount==null) {
 			throw new UnauthorizedAccessException();
 		}
 		Long userAccountId=currentAccount.getId();
-		Response response=new Response();
+		Response<Object> response=new Response<Object>();
 		try {
 			response.setData(userOnBoardingBillingService.findAllByUserAccountId(userAccountId));
 			response.setSuccess(SUCCESS);

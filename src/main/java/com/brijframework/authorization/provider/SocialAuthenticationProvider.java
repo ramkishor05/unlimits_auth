@@ -77,7 +77,7 @@ public class SocialAuthenticationProvider extends DaoAuthenticationProvider {
 		return userAccountService;
 	}
 
-	public Response register(GlobalRegisterRequest registerRequest) {
+	public Response<Object> register(GlobalRegisterRequest registerRequest) {
 		if(registerRequest.getAuthority()==null) {
 			registerRequest.setAuthority(Authority.USER);
 		}
@@ -86,7 +86,7 @@ public class SocialAuthenticationProvider extends DaoAuthenticationProvider {
 		return userDetailsService.register(registerRequest);
 	}
 
-	public Response userLogin(GlobalLoginRequest authRequest) {
+	public Response<Object> userLogin(GlobalLoginRequest authRequest) {
 		return userAccountService.login(authRequest);
 	}
 

@@ -1,6 +1,6 @@
 # HTTP Server (Tomcat) Port
 server: 
-  host: 51.79.159.7
+  host: localhost
   port: 2222
   resource:
     location: file:C:/app_runs/unlimits-resources/resource
@@ -11,11 +11,11 @@ server:
     password: JJeV!EhBbuR
     schema: unlimits_auth
   gateway:
-    host: 51.79.159.7
+    host: localhost
     port: 8080
     endpoint: auth
   eureka:
-    host: 51.79.159.7
+    host: localhost
     port: 1111
 spring:
    profiles:

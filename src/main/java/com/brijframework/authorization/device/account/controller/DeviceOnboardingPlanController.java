@@ -31,7 +31,7 @@ public class DeviceOnboardingPlanController {
 	private ViewOnBoardingBillingService viewOnBoardingBillingService; 
 	
 	@GetMapping
-	public Response findAllByUser(@RequestHeader(required =false)  MultiValueMap<String,String> headers, WebRequest webRequest){
+	public Response<Object> findAllByUser(@RequestHeader(required =false)  MultiValueMap<String,String> headers, WebRequest webRequest){
 		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
 		if(currentAccount==null) {
 			throw new UnauthorizedAccessException();
@@ -40,7 +40,7 @@ public class DeviceOnboardingPlanController {
 		webRequest.getParameterMap().forEach((key,values)->{
 			filters.put(key, values[0]);
 		});
-		Response response=new Response();
+		Response<Object> response=new Response<Object>();
 		try {
 			response.setData(viewOnBoardingBillingService.findAll(headers, filters));
 			response.setSuccess(SUCCESS);

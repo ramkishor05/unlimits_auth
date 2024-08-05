@@ -84,7 +84,7 @@ public class DeviceAuthenticationController {
 	private TemplateService templateService;
 	
 	@PostMapping("/login")
-	public Response userLogin(@RequestBody DeviceLoginRequest deviceLoginRequest) {
+	public Response<Object> userLogin(@RequestBody DeviceLoginRequest deviceLoginRequest) {
 		log.debug("User Login start.");
 		GlobalLoginRequest loginRequest=new GlobalLoginRequest();
 		BeanUtils.copyProperties(deviceLoginRequest, loginRequest);
@@ -95,10 +95,10 @@ public class DeviceAuthenticationController {
 				authenticationManager.authenticate(new SocialAuthentication(
 				loginRequest.getUsername()));
 		if (authenticate.isAuthenticated()) {
-			Response authDTO =passwordAuthenticationProvider.userLogin(loginRequest);
+			Response<Object> authDTO =passwordAuthenticationProvider.userLogin(loginRequest);
 			return authDTO;
 		} else {
-			Response authDTO =new Response();
+			Response<Object> authDTO =new Response<Object>();
 			authDTO.setSuccess("0");
 			authDTO.setMessage("Login faild, due to invalid creditional.");
 			return authDTO;
@@ -106,7 +106,7 @@ public class DeviceAuthenticationController {
 	}
 
 	@PostMapping("/register")
-	public Response userRegistor(@RequestBody DeviceRegisterRequest deviceRegisterRequest) {
+	public Response<Object> userRegistor(@RequestBody DeviceRegisterRequest deviceRegisterRequest) {
 		GlobalRegisterRequest registerRequest=new GlobalRegisterRequest();
 		BeanUtils.copyProperties(deviceRegisterRequest, registerRequest);
 		return passwordAuthenticationProvider.register(registerRequest);

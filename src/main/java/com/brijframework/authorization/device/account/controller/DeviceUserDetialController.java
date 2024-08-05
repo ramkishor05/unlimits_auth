@@ -28,12 +28,12 @@ public class DeviceUserDetialController {
     private UserAccountService userDetailService;
 	
 	@GetMapping("/profile")
-	public Response updateUserProfile(){
+	public Response<Object> updateUserProfile(){
 		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
 		if(currentAccount==null) {
 			throw new UnauthorizedAccessException();
 		}
-		Response response=new Response();
+		Response<Object> response=new Response<Object>();
 		try {
 			response.setData(userDetailService.getUserProfile(currentAccount));
 			response.setSuccess(SUCCESS);
@@ -47,12 +47,12 @@ public class DeviceUserDetialController {
 	}
 	
 	@PutMapping("/profile")
-	public Response updateUserProfile(@RequestBody UIUserProfile uiUserProfile){
+	public Response<Object> updateUserProfile(@RequestBody UIUserProfile uiUserProfile){
 		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
 		if(currentAccount==null) {
 			throw new UnauthorizedAccessException();
 		}
-		Response response=new Response();
+		Response<Object> response=new Response<Object>();
 		try {
 			response.setData(userDetailService.updateUserProfile(currentAccount, uiUserProfile));
 			response.setSuccess(SUCCESS);

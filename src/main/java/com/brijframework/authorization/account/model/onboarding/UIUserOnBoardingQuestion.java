@@ -1,5 +1,6 @@
 package com.brijframework.authorization.account.model.onboarding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.brijframework.authorization.model.UIModel;
@@ -25,6 +26,9 @@ public class UIUserOnBoardingQuestion extends UIModel {
 	}
 
 	public List<UIUserOnBoardingAnswer> getAnswers() {
+		if(answers==null) {
+			answers=new ArrayList<UIUserOnBoardingAnswer>();
+		}
 		return answers;
 	}
 

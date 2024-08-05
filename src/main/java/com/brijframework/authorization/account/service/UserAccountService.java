@@ -18,9 +18,9 @@ import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
 
 public interface UserAccountService extends UserDetailsService, QueryService<UserDetailResponse, EOUserAccount, Long> {
 
-	Response register(GlobalRegisterRequest registerRequest);
+	Response<Object> register(GlobalRegisterRequest registerRequest);
 	
-	Response login(GlobalLoginRequest loginRequest);
+	Response<Object> login(GlobalLoginRequest loginRequest);
 	
 	boolean isAlreadyExists(String username);
 

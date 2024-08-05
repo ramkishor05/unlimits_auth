@@ -87,17 +87,17 @@ public class GlobalAuthenticationController {
 	private TemplateService templateService;
 
 	@PostMapping("/login")
-	public Response userLogin(@RequestBody GlobalLoginRequest globalLoginRequest) {
+	public Response<Object> userLogin(@RequestBody GlobalLoginRequest globalLoginRequest) {
 		Authentication authenticate = 
 				ServiceType.NORMAL.equals(globalLoginRequest.getServiceType())?
 				authenticationManager.authenticate(new BasicAuthentication(
 						globalLoginRequest.getUsername(), globalLoginRequest.getPassword())):
 				authenticationManager.authenticate(new SocialAuthentication(globalLoginRequest.getUsername()));
 		if (authenticate.isAuthenticated()) {
-			Response authDTO =basicAuthenticationProvider.userLogin(globalLoginRequest);
+			Response<Object> authDTO =basicAuthenticationProvider.userLogin(globalLoginRequest);
 			return authDTO;
 		} else {
-			Response authDTO =new Response();
+			Response<Object> authDTO =new Response<Object>();
 			authDTO.setSuccess("0");
 			authDTO.setMessage("Login faild, due to invalid creditional.");
 			return authDTO;
@@ -105,7 +105,7 @@ public class GlobalAuthenticationController {
 	}
 
 	@PostMapping("/register")
-	public Response userRegistor(@RequestBody GlobalRegisterRequest registerRequest) {
+	public Response<Object> userRegistor(@RequestBody GlobalRegisterRequest registerRequest) {
 		return basicAuthenticationProvider.register(registerRequest);
 	}
 	
