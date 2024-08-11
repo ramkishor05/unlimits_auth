@@ -1,6 +1,6 @@
 # HTTP Server (Tomcat) Port
 server: 
-  host: localhost
+  host: 51.79.159.7
   port: 2222
   resource:
     location: file:C:/app_runs/unlimits-resources/resource
@@ -11,11 +11,11 @@ server:
     password: JJeV!EhBbuR
     schema: unlimits_auth
   gateway:
-    host: localhost
+    host: 51.79.159.7
     port: 8080
     endpoint: auth
   eureka:
-    host: localhost
+    host: 51.79.159.7
     port: 1111
 spring:
    profiles:
@@ -27,7 +27,7 @@ spring:
    sql.init.mode: always
    datasource:
      driverClassName: com.mysql.cj.jdbc.Driver
-     url: jdbc:mysql://${server.database.host}:${server.database.port}/${server.database.schema}
+     url: jdbc:mysql://${server.database.host}:${server.database.port}/${server.database.schema}?sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false
      username: ${server.database.username}
      password: ${server.database.password}
      show-sql: true
@@ -55,7 +55,7 @@ spring:
     port: '587'
    db:
      datajson:
-       upload: false
+       upload: true
 springdoc:
    swagger-ui:
       path: /api/swagger-ui.html

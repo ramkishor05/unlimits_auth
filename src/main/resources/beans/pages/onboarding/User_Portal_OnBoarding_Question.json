@@ -10,7 +10,7 @@
 			"properties": {
 				"idenNo": "User_Portal_OnBoarding_Question_USER_AGE",
 				"question": "How old are you?",
-				"hintText": "(It's jest between us)",
+				"hintText": "(It's just between us)",
 				"type": "RADIO",
 				"orderSequence": 1.0,
 				"required": true
@@ -34,7 +34,7 @@
 			"name": "User_Portal_OnBoarding_Question",
 			"properties": {
 				"idenNo": "User_Portal_OnBoarding_Question_USER_Work",
-				"question": "What are you current adventure?",
+				"question": "What is your current adventure?",
 				"type": "RADIO",
 				"orderSequence": 3.0,
 				"required": true
@@ -47,6 +47,7 @@
 			"properties": {
 				"idenNo": "User_Portal_OnBoarding_Question_USER_Life",
 				"question": "And the size of your dream?",
+				"hintText": "(Crazy to cosmic!)",
 				"type": "RADIO",
 				"orderSequence": 3.0,
 				"required": true
