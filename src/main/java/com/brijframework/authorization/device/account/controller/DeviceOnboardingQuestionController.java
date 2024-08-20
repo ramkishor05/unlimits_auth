@@ -42,6 +42,7 @@ public class DeviceOnboardingQuestionController {
 			response.setMessage(SUCCESSFULLY_PROCCEED);
 			return response;
 		}catch (Exception e) {
+			e.printStackTrace();;
 			response.setSuccess(FAILED);
 			response.setMessage(e.getMessage());
 			return response;
@@ -62,6 +63,7 @@ public class DeviceOnboardingQuestionController {
 			response.setMessage(SUCCESSFULLY_PROCCEED);
 			return response;
 		}catch (Exception e) {
+			e.printStackTrace();
 			response.setSuccess(FAILED);
 			response.setMessage(e.getMessage());
 			return response;

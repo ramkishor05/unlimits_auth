@@ -32,7 +32,7 @@ public class EOUserProfile extends EOEntityObject {
 	@Column(name = "PREFERRED_NAME")
 	private String preferredName;
 
-	@Column(name = "PIC_URL")
+	@Column(name = "PIC_URL", columnDefinition = "LONGTEXT")
 	@Lob
 	private String pictureURL;
 

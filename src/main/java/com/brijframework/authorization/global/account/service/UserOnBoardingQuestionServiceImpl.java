@@ -101,17 +101,20 @@ public class UserOnBoardingQuestionServiceImpl extends CrudServiceImpl<UIUserOnB
 	}
 	
 	@Override
-	public void postUpdate(UIUserOnBoardingQuestion data, EOUserOnBoardingQuestion entity,
+	public void merge(UIUserOnBoardingQuestion dtoObject, EOUserOnBoardingQuestion entityObject,
+			UIUserOnBoardingQuestion updateDtoObject, EOUserOnBoardingQuestion updateEntityObject,
 			Map<String, List<String>> headers) {
-		List<UIUserOnBoardingAnswer> answers = data.getAnswers();
-		userOnBoardingAnswerRepository.deleteAllByQuestion(entity);
+		List<UIUserOnBoardingAnswer> answers = dtoObject.getAnswers();
+		userOnBoardingAnswerRepository.deleteAllByQuestionId(updateEntityObject.getId());
 		for (UIUserOnBoardingAnswer uiUserOnBoardingAnswer : answers) {
 			EOUserOnBoardingAnswer eoUserOnBoardingAnswer=new EOUserOnBoardingAnswer();
 			eoUserOnBoardingAnswer.setValue(uiUserOnBoardingAnswer.getValue());
-			eoUserOnBoardingAnswer.setQuestion(entity);
-			userOnBoardingAnswerRepository.save(eoUserOnBoardingAnswer);
+			eoUserOnBoardingAnswer.setQuestion(updateEntityObject);
+			eoUserOnBoardingAnswer = userOnBoardingAnswerRepository.save(eoUserOnBoardingAnswer);
+			updateDtoObject.getAnswers().add(userOnBoardingQuestionMapper.toAnswerDTO(eoUserOnBoardingAnswer));
 		}
 	}
+
 
 	public void postFetch(EOUserOnBoardingQuestion findObject, UIUserOnBoardingQuestion dtoObject) {
 		dtoObject.getQuestion().getOptions().sort((op1,op2)->op1.getOrderSequence().compareTo(op2.getOrderSequence()));

@@ -7,7 +7,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.unlimits.rest.crud.mapper.GenericMapper;
 
+import com.brijframework.authorization.account.entities.onboarding.EOUserOnBoardingAnswer;
 import com.brijframework.authorization.account.entities.onboarding.EOUserOnBoardingQuestion;
+import com.brijframework.authorization.account.model.onboarding.UIUserOnBoardingAnswer;
 import com.brijframework.authorization.account.model.onboarding.UIUserOnBoardingQuestion;
 
 @Mapper(componentModel = SPRING, implementationPackage = COM_BRIJFRAMEWORK_AUTHORIZATION_MAPPER_IMPL)
@@ -20,4 +22,6 @@ public interface GlobalUserOnBoardingQuestionMapper extends GenericMapper<EOUser
 	@Mapping(source  = "userAccountId", target  = "userAccount.id")
 	@Override
     EOUserOnBoardingQuestion mapToDAO(UIUserOnBoardingQuestion eoRoleDTO);
+	
+	UIUserOnBoardingAnswer toAnswerDTO(EOUserOnBoardingAnswer eoUserOnBoardingAnswer);
 }
