@@ -42,8 +42,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 		log.info(getClass().getSimpleName()+":: doFilterInternal -started");
 		TransactionRequest requestWrapper = new TransactionRequest(request);
 		String authorization = request.getHeader(AUTHORIZATION);
-		System.out.println("url : "+request.getRequestURI());
-		System.out.println("authorization="+authorization);
 		SecurityContext context = SecurityContextHolder.getContext();
 		if(context.getAuthentication()!=null && context.getAuthentication().isAuthenticated()) {
 		    log.info(getClass().getSimpleName()+" :: doFilterInternal - Authorization in request");
@@ -60,9 +58,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 		filterChain.doFilter(requestWrapper, response);
 		log.info(getClass().getSimpleName()+":: doFilterInternal -ended");
 	}
-	
-	public static void main(String[] args) {
-		
-	}
+
 
 }

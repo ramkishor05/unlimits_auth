@@ -55,7 +55,7 @@ spring:
     port: '587'
    db:
      datajson:
-       upload: true
+       upload: false
 springdoc:
    swagger-ui:
       path: /api/swagger-ui.html

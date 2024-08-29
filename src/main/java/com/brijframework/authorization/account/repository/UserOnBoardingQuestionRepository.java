@@ -21,4 +21,6 @@ public interface UserOnBoardingQuestionRepository  extends CustomRepository<EOUs
 	 */
 	List<EOUserOnBoardingQuestion> findAllByUserAccountId(Long userAccountId);
 
+	EOUserOnBoardingQuestion findOneByUserAccountIdAndQuestionId(Long userAccountId, Long questionId);
+
 }

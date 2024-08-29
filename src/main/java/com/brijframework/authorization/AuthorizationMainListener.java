@@ -109,7 +109,6 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
     	if(upload) {
 	    	JsonSchemaDataFactory instance = JsonSchemaDataFactory.getInstance();
 	    	List<EOUserRole> userRoleList = instance.getAll(EOUserRole.class);
-	    	System.out.println("userRoleList="+userRoleList);
 	    	for (EOUserRole userRole : userRoleList) {
 	    		EOUserRole eoUserRole = userRoleMap.getOrDefault(userRole.getPosition(),userRole);
 	    		BeanUtils.copyProperties(userRole, eoUserRole, "id");

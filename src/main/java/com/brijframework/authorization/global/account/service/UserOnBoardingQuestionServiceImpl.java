@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.unlimits.rest.context.ApiSecurityContext;
 import org.unlimits.rest.crud.mapper.GenericMapper;
 import org.unlimits.rest.crud.service.CrudServiceImpl;
 
@@ -87,6 +88,34 @@ public class UserOnBoardingQuestionServiceImpl extends CrudServiceImpl<UIUserOnB
 		eoUserOnBoardingQuestion = userOnBoardingQuestionRepository.saveAndFlush(eoUserOnBoardingQuestion);
 		return userDetailMapper.mapToUserOnBoardingQuestionDTO(eoUserOnBoardingQuestion);
 	}
+	
+	@Override
+	public void merge(UIUserOnBoardingQuestion dtoObject, EOUserOnBoardingQuestion entityObject,
+			UIUserOnBoardingQuestion updateDtoObject, EOUserOnBoardingQuestion updateEntityObject,
+			Map<String, List<String>> headers) {
+		List<UIUserOnBoardingAnswer> answers = dtoObject.getAnswers();
+		Map<String, EOUserOnBoardingAnswer> valueMap = userOnBoardingAnswerRepository.findAllByQuestionId(updateEntityObject.getId()).stream().collect(Collectors.toMap(EOUserOnBoardingAnswer::getValue, Function.identity()));
+		for (UIUserOnBoardingAnswer uiUserOnBoardingAnswer : answers) {
+			EOUserOnBoardingAnswer eoUserOnBoardingAnswer= valueMap.getOrDefault(uiUserOnBoardingAnswer.getValue(), new EOUserOnBoardingAnswer());
+			eoUserOnBoardingAnswer.setValue(uiUserOnBoardingAnswer.getValue());
+			eoUserOnBoardingAnswer.setQuestion(updateEntityObject);
+			eoUserOnBoardingAnswer = userOnBoardingAnswerRepository.save(eoUserOnBoardingAnswer);
+			valueMap.put(eoUserOnBoardingAnswer.getValue(), eoUserOnBoardingAnswer);
+			updateDtoObject.getAnswers().add(userOnBoardingQuestionMapper.toAnswerDTO(eoUserOnBoardingAnswer));
+		}
+	}
+	
+	@Override
+	public void preUpdate(UIUserOnBoardingQuestion data, Map<String, List<String>> headers) {
+		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
+		if(currentAccount!=null) {
+			EOUserOnBoardingQuestion clientQuestion = userOnBoardingQuestionRepository.findOneByUserAccountIdAndQuestionId(currentAccount.getId(), data.getQuestion().getId());
+		    if(clientQuestion!=null) {
+		    	data.setId(clientQuestion.getId());
+		    }
+		}
+		super.preUpdate(data, headers);
+	}
 
 	@Override
 	public List<UIUserOnBoardingQuestion> findAllByUserAccountId(Long userAccountId) {
@@ -99,22 +128,6 @@ public class UserOnBoardingQuestionServiceImpl extends CrudServiceImpl<UIUserOnB
 		boardingQuestions.sort((op1,op2)->op1.getQuestion().getOrderSequence().compareTo(op2.getQuestion().getOrderSequence()));
 		return boardingQuestions;
 	}
-	
-	@Override
-	public void merge(UIUserOnBoardingQuestion dtoObject, EOUserOnBoardingQuestion entityObject,
-			UIUserOnBoardingQuestion updateDtoObject, EOUserOnBoardingQuestion updateEntityObject,
-			Map<String, List<String>> headers) {
-		List<UIUserOnBoardingAnswer> answers = dtoObject.getAnswers();
-		userOnBoardingAnswerRepository.deleteAllByQuestionId(updateEntityObject.getId());
-		for (UIUserOnBoardingAnswer uiUserOnBoardingAnswer : answers) {
-			EOUserOnBoardingAnswer eoUserOnBoardingAnswer=new EOUserOnBoardingAnswer();
-			eoUserOnBoardingAnswer.setValue(uiUserOnBoardingAnswer.getValue());
-			eoUserOnBoardingAnswer.setQuestion(updateEntityObject);
-			eoUserOnBoardingAnswer = userOnBoardingAnswerRepository.save(eoUserOnBoardingAnswer);
-			updateDtoObject.getAnswers().add(userOnBoardingQuestionMapper.toAnswerDTO(eoUserOnBoardingAnswer));
-		}
-	}
-
 
 	public void postFetch(EOUserOnBoardingQuestion findObject, UIUserOnBoardingQuestion dtoObject) {
 		dtoObject.getQuestion().getOptions().sort((op1,op2)->op1.getOrderSequence().compareTo(op2.getOrderSequence()));
