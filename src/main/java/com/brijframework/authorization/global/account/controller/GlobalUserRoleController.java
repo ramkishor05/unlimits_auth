@@ -11,12 +11,9 @@ import com.brijframework.authorization.account.entities.EOUserRole;
 import com.brijframework.authorization.account.model.UIUserRole;
 import com.brijframework.authorization.account.service.UserRoleService;
 
-import io.swagger.v3.oas.annotations.Hidden;
-
 @RestController
 @RequestMapping("/api/global/user/role")
 @CrossOrigin("*")
-@Hidden
 public class GlobalUserRoleController implements CrudController<UIUserRole, EOUserRole, Long>{
 	
 	@Autowired

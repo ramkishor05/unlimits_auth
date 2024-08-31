@@ -17,11 +17,8 @@ import org.unlimits.rest.crud.beans.Response;
 import com.brijframework.authorization.account.service.UserRoleService;
 import com.brijframework.authorization.constant.Authority;
 
-import io.swagger.v3.oas.annotations.Hidden;
-
 @RestController
 @RequestMapping("/api/device/user/role")
-@Hidden
 public class DeviceUserRoleController{
 	
 	@Autowired

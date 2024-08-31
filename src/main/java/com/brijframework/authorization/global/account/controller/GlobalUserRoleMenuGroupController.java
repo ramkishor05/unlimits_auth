@@ -11,12 +11,9 @@ import com.brijframework.authorization.account.entities.menus.EOUserRoleMenuGrou
 import com.brijframework.authorization.account.model.menus.UIUserRoleMenuGroup;
 import com.brijframework.authorization.global.account.service.UserRoleMenuGroupService;
 
-import io.swagger.v3.oas.annotations.Hidden;
-
 @RestController
 @RequestMapping("/api/global/user/role/menu/group")
 @CrossOrigin("*")
-@Hidden
 public class GlobalUserRoleMenuGroupController implements CrudController<UIUserRoleMenuGroup, EOUserRoleMenuGroup, Long>{
 	
 	@Autowired

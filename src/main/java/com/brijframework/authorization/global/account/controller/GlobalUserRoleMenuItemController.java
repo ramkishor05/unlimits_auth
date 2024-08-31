@@ -15,11 +15,8 @@ import com.brijframework.authorization.account.entities.menus.EOUserRoleMenuItem
 import com.brijframework.authorization.account.model.menus.UIUserRoleMenuItem;
 import com.brijframework.authorization.global.account.service.UserRoleMenuItemService;
 
-import io.swagger.v3.oas.annotations.Hidden;
-
 @RestController
 @RequestMapping("/api/global/user/role/menu/item")
-@Hidden
 public class GlobalUserRoleMenuItemController implements CrudController<UIUserRoleMenuItem, EOUserRoleMenuItem, Long>{
 	
 	@Autowired

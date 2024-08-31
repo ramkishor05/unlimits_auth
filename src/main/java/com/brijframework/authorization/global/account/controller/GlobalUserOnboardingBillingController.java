@@ -11,12 +11,9 @@ import com.brijframework.authorization.account.entities.onboarding.EOUserOnBoard
 import com.brijframework.authorization.account.model.onboarding.UIUserOnBoardingBilling;
 import com.brijframework.authorization.global.account.service.UserOnBoardingBillingService;
 
-import io.swagger.v3.oas.annotations.Hidden;
-
 @RestController
 @RequestMapping("/api/global/user/onboarding/billing")
 @CrossOrigin("*")
-@Hidden
 public class GlobalUserOnboardingBillingController implements CrudController<UIUserOnBoardingBilling, EOUserOnBoardingBilling, Long> {
 
 	@Autowired

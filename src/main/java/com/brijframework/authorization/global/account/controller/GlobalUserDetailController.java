@@ -20,12 +20,9 @@ import com.brijframework.authorization.account.model.UserDetailResponse;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
 import com.brijframework.authorization.account.service.UserAccountService;
 
-import io.swagger.v3.oas.annotations.Hidden;
-
 @RestController
 @RequestMapping("/api/global/user/detail")
 @CrossOrigin("*")
-@Hidden
 public class GlobalUserDetailController implements QueryController<UserDetailResponse, EOUserAccount, Long> {
 	
 	@Autowired

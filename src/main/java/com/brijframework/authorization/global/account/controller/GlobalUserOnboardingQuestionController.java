@@ -11,12 +11,9 @@ import com.brijframework.authorization.account.entities.onboarding.EOUserOnBoard
 import com.brijframework.authorization.account.model.onboarding.UIUserOnBoardingQuestion;
 import com.brijframework.authorization.global.account.service.UserOnBoardingQuestionService;
 
-import io.swagger.v3.oas.annotations.Hidden;
-
 @RestController
 @RequestMapping("/api/global/user/onboarding/question")
 @CrossOrigin("*")
-@Hidden
 public class GlobalUserOnboardingQuestionController implements CrudController<UIUserOnBoardingQuestion, EOUserOnBoardingQuestion, Long> {
 
 	@Autowired

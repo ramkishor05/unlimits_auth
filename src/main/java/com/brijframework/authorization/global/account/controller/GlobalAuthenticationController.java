@@ -53,12 +53,9 @@ import com.brijframework.authorization.service.TemplateService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.swagger.v3.oas.annotations.Hidden;
-
 @RestController
 @RequestMapping(GlobalAuthenticationController.API_AUTH)
 @CrossOrigin("*")
-@Hidden
 public class GlobalAuthenticationController {
 
 	private static final String PASSWORD_RESET_BY_LINK_ENDPOINT = "/password/reset/by/link/";
