@@ -22,6 +22,7 @@ import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
 import com.brijframework.authorization.account.service.UserAccountService;
 import com.brijframework.authorization.constant.Authority;
+import com.brijframework.authorization.device.account.model.DeviceLoginRequest;
 import com.brijframework.authorization.exceptions.UnauthorizedAccessException;
 
 
@@ -101,5 +102,13 @@ public class BasicAuthenticationProvider extends DaoAuthenticationProvider {
 			throw new UnauthorizedAccessException();
 		}
 		return userAccountService.getUserDetail(currentAccount);
+	}
+
+	public Boolean passwordUpdateByToken(DeviceLoginRequest deviceLoginRequest) {
+		EOUserAccount currentAccount = (EOUserAccount) ApiSecurityContext.getContext().getCurrentAccount();
+		if(currentAccount==null) {
+			throw new UnauthorizedAccessException();
+		}
+		return userAccountService.passwordUpdateByToken(currentAccount,deviceLoginRequest);
 	}
 }

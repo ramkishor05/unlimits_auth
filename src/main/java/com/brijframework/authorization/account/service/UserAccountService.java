@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.unlimits.rest.crud.beans.Response;
-import org.unlimits.rest.crud.service.QueryService;
+import org.unlimits.rest.crud.service.CrudService;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
 import com.brijframework.authorization.account.model.UIUserAccount;
@@ -15,8 +15,9 @@ import com.brijframework.authorization.account.model.UserDetailResponse;
 import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
 import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
+import com.brijframework.authorization.device.account.model.DeviceLoginRequest;
 
-public interface UserAccountService extends UserDetailsService, QueryService<UserDetailResponse, EOUserAccount, Long> {
+public interface UserAccountService extends UserDetailsService, CrudService<UserDetailResponse, EOUserAccount, Long> {
 
 	Response<Object> register(GlobalRegisterRequest registerRequest);
 	
@@ -52,4 +53,6 @@ public interface UserAccountService extends UserDetailsService, QueryService<Use
 	UIUserAccount getUserDetail(EOUserAccount eoUserAccount);
 
 	UIUserProfile getUserProfile(EOUserAccount currentAccount);
+
+	Boolean passwordUpdateByToken(EOUserAccount currentAccount, DeviceLoginRequest deviceLoginRequest);
 }

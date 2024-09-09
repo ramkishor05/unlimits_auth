@@ -19,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.unlimits.rest.crud.beans.Response;
 import org.unlimits.rest.crud.mapper.GenericMapper;
-import org.unlimits.rest.crud.service.QueryServiceImpl;
+import org.unlimits.rest.crud.service.CrudServiceImpl;
 import org.unlimits.rest.repository.CustomPredicate;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
@@ -39,6 +39,7 @@ import com.brijframework.authorization.account.repository.UserAccountServiceRepo
 import com.brijframework.authorization.account.repository.UserProfileRepository;
 import com.brijframework.authorization.account.repository.UserRoleRepository;
 import com.brijframework.authorization.constant.ServiceType;
+import com.brijframework.authorization.device.account.model.DeviceLoginRequest;
 import com.brijframework.authorization.exceptions.UserAlreadyExistsException;
 import com.brijframework.authorization.exceptions.UserNotFoundException;
 import com.brijframework.authorization.global.account.mapper.GlobalUserDetailMapper;
@@ -50,7 +51,7 @@ import jakarta.persistence.criteria.Root;
 import jakarta.persistence.criteria.Subquery;
 
 @Service
-public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse, EOUserAccount, Long> implements UserAccountService {
+public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, EOUserAccount, Long> implements UserAccountService {
 	
 	/**
 	 * 
@@ -246,6 +247,13 @@ public class UserAccountServiceImpl extends QueryServiceImpl<UserDetailResponse,
 		eoUserAccount.setRegisteredEmail(uiUserAccount.getRegisteredEmail());
 		eoUserAccount=userAccountRepository.save(eoUserAccount);
 		return userDetailMapper.mapToDTO(eoUserAccount);
+	}
+	
+	@Override
+	public Boolean passwordUpdateByToken(EOUserAccount currentAccount, DeviceLoginRequest deviceLoginRequest) {
+		currentAccount.setPassword(passwordEncoder.encode(deviceLoginRequest.getPassword()));
+		userAccountRepository.save(currentAccount);
+		return true;
 	}
 
 	@Override

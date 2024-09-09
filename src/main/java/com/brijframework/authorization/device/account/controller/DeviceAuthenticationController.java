@@ -1,5 +1,8 @@
 package com.brijframework.authorization.device.account.controller;
 
+import static com.brijframework.authorization.constant.ClientConstants.FAILED;
+import static com.brijframework.authorization.constant.ClientConstants.SUCCESS;
+import static com.brijframework.authorization.constant.ClientConstants.SUCCESSFULLY_PROCCEED;
 import static com.brijframework.authorization.constant.Constants.RESET_LINK_MSG1;
 import static com.brijframework.authorization.constant.Constants.RESET_LINK_MSG2;
 import static com.brijframework.authorization.constant.Constants.SEND_LINK_MSG1;
@@ -29,6 +32,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -99,7 +103,7 @@ public class DeviceAuthenticationController {
 			return authDTO;
 		} else {
 			Response<Object> authDTO =new Response<Object>();
-			authDTO.setSuccess("0");
+			authDTO.setSuccess(FAILED);
 			authDTO.setMessage("Login faild, due to invalid creditional.");
 			return authDTO;
 		}
@@ -114,17 +118,73 @@ public class DeviceAuthenticationController {
 	
 	
 	@PostMapping("/logout")
-	public String userLogout() {
+	public Response<Object> userLogout() {
 		log.debug("User Login start.");
-		TokenAuthentication tokenAuthentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
-		return tokenService.logout(tokenAuthentication.getToken());
+		Response<Object> response=new Response<Object>();
+		try {
+			TokenAuthentication tokenAuthentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
+			if(tokenAuthentication==null) {
+				response.setData( false);
+				response.setSuccess(FAILED);
+			} else {
+				response.setData(tokenService.logout(tokenAuthentication.getToken()));
+				response.setSuccess(SUCCESS);
+			}
+			response.setMessage(SUCCESSFULLY_PROCCEED);
+			return response;
+		}catch (Exception e) {
+			response.setSuccess(FAILED);
+			response.setMessage(e.getMessage());
+			return response;
+		}
 	}
 	
 	@PostMapping("/validate")
-	public Boolean userValidate() {
+	public Response<Object> userValidate() {
 		log.debug("User Login start.");
-		TokenAuthentication tokenAuthentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
-		return tokenService.validateToken(tokenAuthentication.getToken());
+		Response<Object> response=new Response<Object>();
+		try {
+			TokenAuthentication tokenAuthentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
+			if(tokenAuthentication==null) {
+				response.setData( false);
+				response.setSuccess(FAILED);
+			} else {
+				response.setData(tokenService.validateToken(tokenAuthentication.getToken()));
+				response.setSuccess(SUCCESS);
+			}
+			response.setMessage(SUCCESSFULLY_PROCCEED);
+			return response;
+		}catch (Exception e) {
+			response.setSuccess(FAILED);
+			response.setMessage(e.getMessage());
+			return response;
+		}
+	}
+	
+	@PutMapping("/password/update")
+	public Response<Object> passwordUpdate(@RequestBody DeviceLoginRequest deviceLoginRequest) {
+		log.debug("User Login start.");
+		Response<Object> response=new Response<Object>();
+		try {
+			TokenAuthentication tokenAuthentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
+			if(tokenAuthentication==null) {
+				response.setData( false);
+				response.setSuccess(FAILED);
+			} else
+			if( !tokenAuthentication.isAuthenticated()){
+				response.setData(false);
+				response.setSuccess(FAILED);
+			} else {
+				response.setData(passwordAuthenticationProvider.passwordUpdateByToken(deviceLoginRequest));
+				response.setSuccess(SUCCESS);
+			}
+			response.setMessage(SUCCESSFULLY_PROCCEED);
+			return response;
+		}catch (Exception e) {
+			response.setSuccess(FAILED);
+			response.setMessage(e.getMessage());
+			return response;
+		}
 	}
 
 	@GetMapping
