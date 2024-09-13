@@ -18,8 +18,9 @@ server:
     host: 51.79.159.7
     port: 1001
 spring:
-   profiles:
-     active: local
+   config:
+     activate:
+        on-profile: local
    application:
      name: unlimits_auth
    main:
@@ -96,8 +97,9 @@ server:
     host: 51.79.159.7
     port: 1002
 spring:
-   profiles:
-     active: develop
+   config:
+     activate:
+        on-profile: develop
    application:
      name: unlimits_auth
    main:
@@ -174,8 +176,9 @@ server:
     host: 51.79.159.7
     port: 1003
 spring:
-   profiles:
-     active: stage
+   config:
+     activate:
+        on-profile: stage
    application:
      name: unlimits_auth_stage
    main:
