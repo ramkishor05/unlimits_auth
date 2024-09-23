@@ -55,4 +55,6 @@ public interface UserAccountService extends UserDetailsService, CrudService<User
 	UIUserProfile getUserProfile(EOUserAccount currentAccount);
 
 	Boolean passwordUpdateByToken(EOUserAccount currentAccount, DeviceLoginRequest deviceLoginRequest);
+
+	Response<Object> tryLogin(GlobalRegisterRequest loginRequest);
 }

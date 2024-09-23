@@ -38,9 +38,9 @@ import com.brijframework.authorization.account.repository.UserAccountRepository;
 import com.brijframework.authorization.account.repository.UserAccountServiceRepository;
 import com.brijframework.authorization.account.repository.UserProfileRepository;
 import com.brijframework.authorization.account.repository.UserRoleRepository;
+import com.brijframework.authorization.constant.RecordStatus;
 import com.brijframework.authorization.constant.ServiceType;
 import com.brijframework.authorization.device.account.model.DeviceLoginRequest;
-import com.brijframework.authorization.exceptions.UserAlreadyExistsException;
 import com.brijframework.authorization.exceptions.UserNotFoundException;
 import com.brijframework.authorization.global.account.mapper.GlobalUserDetailMapper;
 import com.brijframework.authorization.global.account.service.UserOnBoardingService;
@@ -57,6 +57,7 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 	 * 
 	 */
 	private static final String _1 = "1";
+	private static final String RECORD_STATE = "recordState";
 
 	/**
 	 * 
@@ -150,11 +151,8 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 	
 	@Override
 	public Response<Object> register(GlobalRegisterRequest registerRequest) {
-		if(isAlreadyExists(registerRequest.getUsername())) {
-			if(!ServiceType.NORMAL.equals(registerRequest.getServiceType())) {
-				return login(registerRequest);
-			}
-			throw new UserAlreadyExistsException();
+		if(isAlreadyExists(registerRequest.getUsername()) || isAlreadyExists(registerRequest.getRegisteredPhone()) || isAlreadyExists(registerRequest.getRegisteredEmail())) {
+			return tryLogin(registerRequest);
 		}
 		EOUserRole eoUserRole = userRoleRepository.findByPosition(registerRequest.getAuthority().getPosition()).orElse(null);
 		
@@ -168,8 +166,8 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 			eoUserAccount.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 		}
 		eoUserAccount.setType(eoUserRole.getRoleId());
-		eoUserAccount.setRegisteredMobile(registerRequest.getRegisteredPhone());
-		eoUserAccount.setRegisteredEmail(registerRequest.getRegisteredEmail());
+		eoUserAccount.setRegisteredMobile(StringUtil.isEmpty(registerRequest.getRegisteredPhone()) ? null : registerRequest.getRegisteredPhone().trim());
+		eoUserAccount.setRegisteredEmail(StringUtil.isEmpty(registerRequest.getRegisteredEmail()) ? null : registerRequest.getRegisteredEmail().trim());
 		eoUserAccount.setAccountName(registerRequest.getAccountName());
 		eoUserAccount.setUserRole(eoUserRole);
 		eoUserAccount.setUserProfile(eoUserProfile);
@@ -197,6 +195,21 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 	}
 	
 	@Override
+	public Response<Object> tryLogin(GlobalRegisterRequest loginRequest) {
+		if(StringUtil.isEmpty(loginRequest.getUsername())) {
+			if(StringUtil.isNonEmpty(loginRequest.getRegisteredEmail())) {
+				loginRequest.setUsername(loginRequest.getRegisteredEmail());
+				return login(loginRequest);
+			}
+			if(StringUtil.isNonEmpty(loginRequest.getRegisteredPhone())) {
+				loginRequest.setUsername(loginRequest.getRegisteredPhone());
+				return login(loginRequest);
+			}
+		}
+		return login(loginRequest);
+	}
+	
+	@Override
 	public Response<Object> login(GlobalLoginRequest loginRequest) {
 		Optional<EOUserAccount> findUserLogin = userAccountRepository.findByUsername(loginRequest.getUsername());
 		if (!findUserLogin.isPresent()) {
@@ -215,7 +228,22 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 
 	@Override
 	public boolean isAlreadyExists(String username) {
+		if(StringUtil.isEmpty(username)) {
+			return false;
+		}
 		return userAccountRepository.findByUsername(username).isPresent();
+	}
+	
+	@Override
+	public Boolean deleteById(Long uuid) {
+		Optional<EOUserAccount> userOptional = userAccountRepository.findById(uuid);
+		if(userOptional.isPresent()) {
+			EOUserAccount eoUserProfile = userOptional.get();
+			eoUserProfile.setRecordState(RecordStatus.DACTIVETED.getStatus());
+			userAccountRepository.saveAndFlush(eoUserProfile);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -273,7 +301,7 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 
 	@Override
 	public List<UserDetailResponse> getUsers() {
-		return userDetailMapper.mapToDTO(userAccountRepository.findAll());
+		return postFetch(userAccountRepository.findAll());
 	}
 
 	@Override
@@ -324,6 +352,14 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 		UIUserAccount userDetails = userDetailMapper.mapToUI(userAccount);
 		return userDetails;
 	}
+
+	@Override
+	public void preFetch(Map<String, List<String>> headers, Map<String, Object> filters) {
+		if (filters != null && !filters.containsKey(RECORD_STATE)) {
+			filters.put(RECORD_STATE, RecordStatus.ACTIVETED.getStatusIds());
+		}
+	}
+
 
 	@Override
 	public Optional<EOUserAccount> find(GlobalLoginRequest authRequest) {

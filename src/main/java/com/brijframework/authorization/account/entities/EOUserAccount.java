@@ -89,6 +89,7 @@ public class EOUserAccount extends EOEntityObject implements IUserAccount {
 	@PrePersist
 	public void init() {
 		onBoarding = true;
+		super.init();
 	}
 
 	@Override

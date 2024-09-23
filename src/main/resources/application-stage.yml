@@ -1,0 +1,78 @@
+server: 
+  host: 51.79.159.7
+  port: 2003
+  resource:
+    location: file:C:/app_runs/unlimits-resources/resource
+  database:
+    host: 15.235.207.206
+    port: 3306
+    username: unlimits_usr
+    password: JJeV!EhBbuR
+    schema: unlimits_auth_stage
+  gateway:
+    host: 51.79.159.7
+    port: 8083
+    endpoint: auth
+  eureka:
+    host: 51.79.159.7
+    port: 1003
+spring:
+   config:
+     activate:
+        on-profile: stage
+   application:
+     name: unlimits_auth_stage
+   main:
+     allow-bean-definition-overriding: true
+   sql.init.mode: always
+   datasource:
+     driverClassName: com.mysql.cj.jdbc.Driver
+     url: jdbc:mysql://${server.database.host}:${server.database.port}/${server.database.schema}?sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false
+     username: ${server.database.username}
+     password: ${server.database.password}
+     show-sql: true
+   jpa: 
+     hibernate: 
+       dialect: org.hibernate.dialect.MySQLDialect
+       ddl-auto: update
+       format_sql: true
+       show_sql: true
+       naming: 
+         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+         
+   mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+          auth: 'true'
+    host: mail.smtp2go.com #smtp.gmail.com
+    username: clavisdigital #nikhilraj0123467@gmail.com
+    protocol: smtp
+    password: PoqAKFiNmCSIm5Xy #keqx xjod sicl qtzy
+    test-connection: 'false'
+    port: '587'
+   db:
+     datajson:
+       upload: true
+springdoc:
+   swagger-ui:
+      path: /api/swagger-ui.html
+      disable-swagger-default-url: true
+      api-docs.path: /v3/api-docs
+      paths-to-match: /v3/api-docs
+openapi:
+  service:
+      url: http://${server.gateway.host}:${server.gateway.port}/${server.gateway.endpoint}
+# Discovery Server Access
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${server.eureka.host}:${server.eureka.port}/eureka/
+logging.level.org.hibernate.SQL: DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+# Disable Spring Boot's "Whitelabel" default error page, so we can use our own
+error:
+  whitelabel:
+    enabled: true

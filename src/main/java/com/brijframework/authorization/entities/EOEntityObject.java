@@ -6,6 +6,8 @@ import java.util.Date;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.brijframework.authorization.constant.RecordStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,14 +42,14 @@ public abstract class EOEntityObject implements Serializable {
 	private Date updatedAt;
 	
 	@Column(name = "RECORD_STATUS")
-	private Boolean recordState;
+	private String recordState;
 	
 	@Column(name = "ORDER_SEQUENCE")
 	private Double orderSequence;
 	
 	@PrePersist
 	public void init() {
-		this.recordState=true;
+		setRecordState(RecordStatus.ACTIVETED.getStatus());
 	}
 
 	public Long getId() {
@@ -90,14 +92,14 @@ public abstract class EOEntityObject implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public Boolean getRecordState() {
+	public String getRecordState() {
 		if(recordState==null) {
-			recordState=false;
+			recordState="";
 		}
 		return recordState;
 	}
 
-	public void setRecordState(Boolean recordState) {
+	public void setRecordState(String recordState) {
 		this.recordState = recordState;
 	}
 

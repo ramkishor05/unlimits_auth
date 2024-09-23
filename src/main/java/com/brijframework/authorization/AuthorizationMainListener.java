@@ -104,9 +104,9 @@ public class AuthorizationMainListener implements ApplicationListener<ContextRef
 	
     @Override
     public void onApplicationEvent(final ContextRefreshedEvent event) {
-    	Map<Integer, EOUserRole> userRoleMap = userRoleRepository.findAll().parallelStream().collect(Collectors.toMap(EOUserRole::getPosition, Function.identity()));
-    	Map<String, EOUserAccount> userAccountMap = userAccountRepository.findAll().parallelStream().collect(Collectors.toMap(EOUserAccount::getUsername, Function.identity()));
     	if(upload) {
+    		Map<Integer, EOUserRole> userRoleMap = userRoleRepository.findAll().parallelStream().collect(Collectors.toMap(EOUserRole::getPosition, Function.identity()));
+        	Map<String, EOUserAccount> userAccountMap = userAccountRepository.findAll().parallelStream().collect(Collectors.toMap(EOUserAccount::getUsername, Function.identity()));
 	    	JsonSchemaDataFactory instance = JsonSchemaDataFactory.getInstance();
 	    	List<EOUserRole> userRoleList = instance.getAll(EOUserRole.class);
 	    	for (EOUserRole userRole : userRoleList) {
