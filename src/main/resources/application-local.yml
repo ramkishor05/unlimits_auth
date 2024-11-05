@@ -49,11 +49,13 @@ spring:
             enable: 'true'
           auth: 'true'
     host: mail.smtp2go.com #smtp.gmail.com
-    username: clavisdigital #nikhilraj0123467@gmail.com
+    username: linxella #nikhilraj0123467@gmail.com
+    from_email: noreply@clavis.digital
+    from_subject: Unlimits
     protocol: smtp
-    password: PoqAKFiNmCSIm5Xy #keqx xjod sicl qtzy
+    password: 9RVtJzHQ4AajunnQ #keqx xjod sicl qtzy
     test-connection: 'false'
-    port: '587'
+    port: '2525'
    db:
      datajson:
        upload: false

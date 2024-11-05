@@ -13,10 +13,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.unlimits.rest.context.ApiSecurityContext;
-import org.unlimits.rest.crud.beans.Response;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
 import com.brijframework.authorization.account.model.UIUserAccount;
+import com.brijframework.authorization.account.model.auth.GlobalAuthDataDTO;
 import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
 import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
@@ -45,7 +45,6 @@ public class BasicAuthenticationProvider extends DaoAuthenticationProvider {
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		System.out.println("authentication="+authentication);
 		log.info("BasicAuthenticationProvider :: authenticate() started");
 		this.setPasswordEncoder(passwordEncoder);
 		this.setUserDetailsService(userAccountService);
@@ -76,14 +75,14 @@ public class BasicAuthenticationProvider extends DaoAuthenticationProvider {
 		return userAccountService.saveOtp(passwordReset);
 	}
 
-	public Response<Object> register(GlobalRegisterRequest registerRequest) {
+	public GlobalAuthDataDTO register(GlobalRegisterRequest registerRequest) {
 		if(registerRequest.getAuthority()==null) {
 			registerRequest.setAuthority(Authority.USER);
 		}
 		return userAccountService.register(registerRequest);
 	}
 
-	public Response<Object> userLogin(GlobalLoginRequest authRequest) {
+	public GlobalAuthDataDTO userLogin(GlobalLoginRequest authRequest) {
 		return userAccountService.login(authRequest);
 	}
 

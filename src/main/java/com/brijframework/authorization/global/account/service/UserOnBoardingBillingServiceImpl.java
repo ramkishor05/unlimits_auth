@@ -14,6 +14,7 @@ import com.brijframework.authorization.account.entities.onboarding.EOUserOnBoard
 import com.brijframework.authorization.account.model.onboarding.UIUserOnBoardingBilling;
 import com.brijframework.authorization.account.repository.UserAccountRepository;
 import com.brijframework.authorization.account.repository.UserOnBoardingBillingRepository;
+import com.brijframework.authorization.constant.RecordStatus;
 import com.brijframework.authorization.global.account.mapper.GlobalUserDetailMapper;
 import com.brijframework.authorization.global.account.mapper.GlobalUserOnBoardingBillingMapper;
 
@@ -44,7 +45,7 @@ public class UserOnBoardingBillingServiceImpl extends CrudServiceImpl<UIUserOnBo
 
 	@Override
 	public UIUserOnBoardingBilling saveOnBoardingBilling(UIUserOnBoardingBilling userOnBoardingBilling, String username) {
-		Optional<EOUserAccount> findUserAccount = userAccountRepository.findByUsername(username);
+		Optional<EOUserAccount> findUserAccount = userAccountRepository.findByUsername(username, RecordStatus.ACTIVETED.getStatusIds());
 		if (!findUserAccount.isPresent()) {
 			return null;
 		}

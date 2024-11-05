@@ -1,5 +1,8 @@
 package com.brijframework.authorization.constant;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum Authority {
 
 	DEVELOPER("Dev", "DEVELOPER", 1, "GLOBAL"),
@@ -43,6 +46,10 @@ public enum Authority {
 			}
 		}
 		return null;
+	}
+	
+	public List<String> getRoleNames(){
+		return Arrays.asList(this.roleName);
 	}
 
 }

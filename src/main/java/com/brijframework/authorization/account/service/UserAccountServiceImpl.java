@@ -17,7 +17,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.unlimits.rest.crud.beans.Response;
 import org.unlimits.rest.crud.mapper.GenericMapper;
 import org.unlimits.rest.crud.service.CrudServiceImpl;
 import org.unlimits.rest.repository.CustomPredicate;
@@ -38,6 +37,7 @@ import com.brijframework.authorization.account.repository.UserAccountRepository;
 import com.brijframework.authorization.account.repository.UserAccountServiceRepository;
 import com.brijframework.authorization.account.repository.UserProfileRepository;
 import com.brijframework.authorization.account.repository.UserRoleRepository;
+import com.brijframework.authorization.constant.Authority;
 import com.brijframework.authorization.constant.RecordStatus;
 import com.brijframework.authorization.constant.ServiceType;
 import com.brijframework.authorization.device.account.model.DeviceLoginRequest;
@@ -53,16 +53,7 @@ import jakarta.persistence.criteria.Subquery;
 @Service
 public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, EOUserAccount, Long> implements UserAccountService {
 	
-	/**
-	 * 
-	 */
-	private static final String _1 = "1";
 	private static final String RECORD_STATE = "recordState";
-
-	/**
-	 * 
-	 */
-	private static final String SUCCUSSFULLY_PROCESSED = "Succussfully processed.";
 
 	@Autowired
 	private UserRoleRepository userRoleRepository;
@@ -102,7 +93,7 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 	}
 	
 	{
-		CustomPredicate<EOUserAccount> userRole = (type, root, criteriaQuery, criteriaBuilder, filter) -> {
+		CustomPredicate<EOUserAccount> userRoleId = (type, root, criteriaQuery, criteriaBuilder, filter) -> {
 			Subquery<EOUserRole> subquery = criteriaQuery.subquery(EOUserRole.class);
 			Root<EOUserRole> fromUserRole = subquery.from(EOUserRole.class);
 			subquery.select(fromUserRole)
@@ -112,9 +103,22 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 			userRoleIn.value(subquery);
 			return userRoleIn;
 		};
+		
+		CustomPredicate<EOUserAccount> userRoleName = (type, root, criteriaQuery, criteriaBuilder, filter) -> {
+			Subquery<EOUserRole> subquery = criteriaQuery.subquery(EOUserRole.class);
+			Root<EOUserRole> fromUserRole = subquery.from(EOUserRole.class);
+			subquery.select(fromUserRole)
+					.where(criteriaBuilder.equal(fromUserRole.get("roleName"), filter.getColumnValue().toString()));
+			Path<Object> userRolePath = root.get("userRole");
+			In<Object> userRoleIn = criteriaBuilder.in(userRolePath);
+			userRoleIn.value(subquery);
+			return userRoleIn;
+		};
 
-		addCustomPredicate("userRoleId", userRole);
-		addCustomPredicate("userRole.id", userRole);
+		addCustomPredicate("userRoleId", userRoleId);
+		addCustomPredicate("userRole.id", userRoleId);
+		addCustomPredicate("userRoleName", userRoleName);
+		addCustomPredicate("userRole.name", userRoleName);
 	}
 	
 	{
@@ -123,7 +127,7 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 	
 	@Override
 	public UIUserAccount loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<EOUserAccount> findUserLogin = userAccountRepository.findByUsername(username);
+		Optional<EOUserAccount> findUserLogin = userAccountRepository.findByUsername(username, RecordStatus.ACTIVETED.getStatusIds());
 		if (!findUserLogin.isPresent()) {
 			throw new UserNotFoundException();
 		}
@@ -150,7 +154,7 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 	}
 	
 	@Override
-	public Response<Object> register(GlobalRegisterRequest registerRequest) {
+	public GlobalAuthDataDTO register(GlobalRegisterRequest registerRequest) {
 		if(isAlreadyExists(registerRequest.getUsername()) || isAlreadyExists(registerRequest.getRegisteredPhone()) || isAlreadyExists(registerRequest.getRegisteredEmail())) {
 			return tryLogin(registerRequest);
 		}
@@ -171,18 +175,15 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 		eoUserAccount.setAccountName(registerRequest.getAccountName());
 		eoUserAccount.setUserRole(eoUserRole);
 		eoUserAccount.setUserProfile(eoUserProfile);
-		eoUserAccount.setOnBoarding(true);		
+		eoUserAccount.setOnBoarding(true);	
+		eoUserAccount.setRecordState(RecordStatus.ACTIVETED.getStatus());
 		eoUserAccount=userAccountRepository.save(eoUserAccount);
 		this.initService(eoUserAccount);
 		userOnBoardingService.initOnBoarding(eoUserAccount);
-		Response<Object> auth=new Response<Object>();
-		auth.setSuccess(_1);
-		auth.setMessage(SUCCUSSFULLY_PROCESSED);
 		GlobalAuthDataDTO authDataDTO = new GlobalAuthDataDTO();
 		authDataDTO.setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
 		authDataDTO.setToken(tokenService.login(registerRequest.getUsername(), eoUserAccount.getId(), registerRequest.getAuthority().toString(), registerRequest.getServiceType().toString()));
-		auth.setData(authDataDTO);
-		return auth;
+		return authDataDTO;
 	}
 	
 	protected void initService(EOUserAccount eoUserAccount){
@@ -195,7 +196,7 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 	}
 	
 	@Override
-	public Response<Object> tryLogin(GlobalRegisterRequest loginRequest) {
+	public GlobalAuthDataDTO tryLogin(GlobalRegisterRequest loginRequest) {
 		if(StringUtil.isEmpty(loginRequest.getUsername())) {
 			if(StringUtil.isNonEmpty(loginRequest.getRegisteredEmail())) {
 				loginRequest.setUsername(loginRequest.getRegisteredEmail());
@@ -210,32 +211,28 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 	}
 	
 	@Override
-	public Response<Object> login(GlobalLoginRequest loginRequest) {
-		Optional<EOUserAccount> findUserLogin = userAccountRepository.findByUsername(loginRequest.getUsername());
+	public GlobalAuthDataDTO login(GlobalLoginRequest loginRequest) {
+		Optional<EOUserAccount> findUserLogin = userAccountRepository.findByUsername(loginRequest.getUsername(), RecordStatus.ACTIVETED.getStatusIds());
 		if (!findUserLogin.isPresent()) {
 			throw new UserNotFoundException();
 		}
 		EOUserAccount eoUserAccount = findUserLogin.get();
-		Response<Object> auth=new Response<Object>();
-		auth.setSuccess(_1);
-		auth.setMessage(SUCCUSSFULLY_PROCESSED);
 		GlobalAuthDataDTO authDataDTO = new GlobalAuthDataDTO();
 		authDataDTO.setUser(userDetailMapper.mapToDetailDTO(eoUserAccount));
 		authDataDTO.setToken(tokenService.login(loginRequest.getUsername(), eoUserAccount.getId(), eoUserAccount.getUserRole().getRoleName(), loginRequest.getServiceType().toString()));
-		auth.setData(authDataDTO);
-		return auth;
+		return authDataDTO;
 	}
 
 	@Override
-	public boolean isAlreadyExists(String username) {
+	public Boolean isAlreadyExists(String username) {
 		if(StringUtil.isEmpty(username)) {
 			return false;
 		}
-		return userAccountRepository.findByUsername(username).isPresent();
+		return userAccountRepository.findByUsername(username, RecordStatus.ALL.getStatusIds()).isPresent();
 	}
 	
 	@Override
-	public Boolean deleteById(Long uuid) {
+	public  Boolean deleteById(Long uuid) {
 		Optional<EOUserAccount> userOptional = userAccountRepository.findById(uuid);
 		if(userOptional.isPresent()) {
 			EOUserAccount eoUserProfile = userOptional.get();
@@ -247,7 +244,7 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 	}
 
 	@Override
-	public UIUserProfile updateUserProfile(UIUserProfile uiUserProfile) {
+	public UIUserProfile  updateUserProfile(UIUserProfile uiUserProfile) {
 		EOUserProfile eoUserProfile=userProfileRepository.findById(uiUserProfile.getId()).orElse(new EOUserProfile());
 		BeanUtils.copyProperties(uiUserProfile, eoUserProfile,"id");
 		eoUserProfile = userProfileRepository.save(eoUserProfile);
@@ -260,7 +257,7 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 		BeanUtils.copyProperties(uiUserProfile, eoUserProfile,"id");
 		eoUserProfile = userProfileRepository.save(eoUserProfile);
 		eoUserAccount.setUserProfile(eoUserProfile);
-		userAccountRepository.save(eoUserAccount);
+		eoUserAccount=userAccountRepository.save(eoUserAccount);
 		return userProfileMapper.mapToDTO(eoUserProfile);
 	}
 
@@ -317,7 +314,7 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 	@Override
 	public UIUserAccount resetPassword(GlobalPasswordReset passwordReset) {
 		String username = passwordReset.getUsername();
-		Optional<EOUserAccount> findUserAccount = userAccountRepository.findByUsername(username);
+		Optional<EOUserAccount> findUserAccount = userAccountRepository.findByUsername(username, RecordStatus.ACTIVETED.getStatusIds());
 		if(!findUserAccount.isPresent()) {
 			throw new UserNotFoundException(UserNotFoundException.USER_NOT_EXISTS_IN_SYSTEM +" for username :" + username);
 		}
@@ -341,7 +338,7 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 
 	@Override
 	public UIUserAccount saveOtp(GlobalPasswordReset passwordReset) {
-		Optional<EOUserAccount> findUserAccount = userAccountRepository.findByUsername(passwordReset.getUsername());
+		Optional<EOUserAccount> findUserAccount = userAccountRepository.findByUsername(passwordReset.getUsername(), RecordStatus.ACTIVETED.getStatusIds());
 		if(!findUserAccount.isPresent()) {
 			throw new UserNotFoundException(UserNotFoundException.USER_NOT_EXISTS_IN_SYSTEM +" for username :" + passwordReset.getUsername());
 		}
@@ -358,13 +355,14 @@ public class UserAccountServiceImpl extends CrudServiceImpl<UserDetailResponse, 
 		if (filters != null && !filters.containsKey(RECORD_STATE)) {
 			filters.put(RECORD_STATE, RecordStatus.ACTIVETED.getStatusIds());
 		}
+		
+		filters.put("userRoleName", Authority.USER.getRoleName());
 	}
 
 
 	@Override
 	public Optional<EOUserAccount> find(GlobalLoginRequest authRequest) {
-		return userAccountRepository.findByUsername(authRequest.getUsername());
+		return userAccountRepository.findByUsername(authRequest.getUsername(), RecordStatus.ACTIVETED.getStatusIds());
 	}
-
 
 }

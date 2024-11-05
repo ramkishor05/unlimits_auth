@@ -5,13 +5,13 @@ import java.util.Optional;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.unlimits.rest.crud.beans.Response;
 import org.unlimits.rest.crud.service.CrudService;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
 import com.brijframework.authorization.account.model.UIUserAccount;
 import com.brijframework.authorization.account.model.UIUserProfile;
 import com.brijframework.authorization.account.model.UserDetailResponse;
+import com.brijframework.authorization.account.model.auth.GlobalAuthDataDTO;
 import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
 import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
@@ -19,11 +19,11 @@ import com.brijframework.authorization.device.account.model.DeviceLoginRequest;
 
 public interface UserAccountService extends UserDetailsService, CrudService<UserDetailResponse, EOUserAccount, Long> {
 
-	Response<Object> register(GlobalRegisterRequest registerRequest);
+	GlobalAuthDataDTO register(GlobalRegisterRequest registerRequest);
 	
-	Response<Object> login(GlobalLoginRequest loginRequest);
+	GlobalAuthDataDTO login(GlobalLoginRequest loginRequest);
 	
-	boolean isAlreadyExists(String username);
+	Boolean isAlreadyExists(String username);
 
 	UIUserProfile updateUserProfile(UIUserProfile uiUserProfile);
 	
@@ -56,5 +56,6 @@ public interface UserAccountService extends UserDetailsService, CrudService<User
 
 	Boolean passwordUpdateByToken(EOUserAccount currentAccount, DeviceLoginRequest deviceLoginRequest);
 
-	Response<Object> tryLogin(GlobalRegisterRequest loginRequest);
+	GlobalAuthDataDTO tryLogin(GlobalRegisterRequest loginRequest);
+
 }

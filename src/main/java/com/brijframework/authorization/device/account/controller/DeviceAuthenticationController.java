@@ -40,6 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.unlimits.rest.crud.beans.Response;
 
 import com.brijframework.authorization.account.model.UIUserAccount;
+import com.brijframework.authorization.account.model.auth.GlobalAuthDataDTO;
 import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
 import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
@@ -87,33 +88,56 @@ public class DeviceAuthenticationController {
 	@Autowired
 	private TemplateService templateService;
 	
+	private String fromEmail="noreply@clavis.digital";
+	
+	private String from_subject="Unlimits";
+	
 	@PostMapping("/login")
 	public Response<Object> userLogin(@RequestBody DeviceLoginRequest deviceLoginRequest) {
 		log.debug("User Login start.");
-		GlobalLoginRequest loginRequest=new GlobalLoginRequest();
-		BeanUtils.copyProperties(deviceLoginRequest, loginRequest);
-		Authentication authenticate = 
-				ServiceType.NORMAL.equals(loginRequest.getServiceType())?
-				authenticationManager.authenticate(new BasicAuthentication(
-						loginRequest.getUsername(), loginRequest.getPassword())):
-				authenticationManager.authenticate(new SocialAuthentication(
-				loginRequest.getUsername()));
-		if (authenticate.isAuthenticated()) {
-			Response<Object> authDTO =passwordAuthenticationProvider.userLogin(loginRequest);
-			return authDTO;
-		} else {
-			Response<Object> authDTO =new Response<Object>();
-			authDTO.setSuccess(FAILED);
-			authDTO.setMessage("Login faild, due to invalid creditional.");
-			return authDTO;
+		Response<Object> response=new Response<Object>();
+		try {
+			GlobalLoginRequest loginRequest=new GlobalLoginRequest();
+			BeanUtils.copyProperties(deviceLoginRequest, loginRequest);
+			Authentication authenticate = 
+					ServiceType.NORMAL.equals(loginRequest.getServiceType())?
+					authenticationManager.authenticate(new BasicAuthentication(
+							loginRequest.getUsername(), loginRequest.getPassword())):
+					authenticationManager.authenticate(new SocialAuthentication(
+					loginRequest.getUsername()));
+			if (authenticate.isAuthenticated()) {
+				GlobalAuthDataDTO authDTO =passwordAuthenticationProvider.userLogin(loginRequest);
+				response.setSuccess(SUCCESS);
+				response.setData(authDTO);
+				response.setMessage(SUCCESSFULLY_PROCCEED);
+				return response;
+			} else {
+				response.setSuccess(FAILED);
+				response.setMessage("Login faild, due to invalid creditional.");
+				return response;
+			}
+		}catch (Exception e) {
+			response.setSuccess(FAILED);
+			response.setMessage(e.getMessage());
+			return response;
 		}
 	}
 
 	@PostMapping("/register")
 	public Response<Object> userRegistor(@RequestBody DeviceRegisterRequest deviceRegisterRequest) {
-		GlobalRegisterRequest registerRequest=new GlobalRegisterRequest();
-		BeanUtils.copyProperties(deviceRegisterRequest, registerRequest);
-		return passwordAuthenticationProvider.register(registerRequest);
+		Response<Object> response=new Response<Object>();
+		try {
+			GlobalRegisterRequest registerRequest=new GlobalRegisterRequest();
+			BeanUtils.copyProperties(deviceRegisterRequest, registerRequest);
+			response.setSuccess(SUCCESS);
+			response.setData(passwordAuthenticationProvider.register(registerRequest));
+			response.setMessage(SUCCESSFULLY_PROCCEED);
+			return response;
+		}catch (Exception e) {
+			response.setSuccess(FAILED);
+			response.setMessage(e.getMessage());
+			return response;
+		}
 	}
 	
 	
@@ -127,6 +151,7 @@ public class DeviceAuthenticationController {
 				response.setData( false);
 				response.setSuccess(FAILED);
 			} else {
+				response.setSuccess(SUCCESS);
 				response.setData(tokenService.logout(tokenAuthentication.getToken()));
 				response.setSuccess(SUCCESS);
 			}
@@ -222,7 +247,7 @@ public class DeviceAuthenticationController {
 			e.printStackTrace();
 		}
 		String buildHtml = templateService.buildHtml("mailOtp", hashMap);
-		return mailService.sendMail("Password OTP", uiUserAccount.getRegisteredEmail(),
+		return mailService.sendMail(from_subject, fromEmail,
 				uiUserAccount.getRegisteredEmail(), buildHtml);
 	}
 
@@ -261,7 +286,7 @@ public class DeviceAuthenticationController {
 		hashMap.put("otp", otp + "");
 		hashMap.put("date", Calendar.getInstance().getTime().toString());
 		String buildHtml = templateService.buildHtml("mailOtp", hashMap);
-		return mailService.sendMail("Password OTP", userDetails.getRegisteredEmail(), userDetails.getRegisteredEmail(), buildHtml);
+		return mailService.sendMail(from_subject, fromEmail, userDetails.getRegisteredEmail(), buildHtml);
 	}
 
 	@PostMapping(PASSWORD_RESET_BY_OTP_ENDPOINT)

@@ -21,6 +21,7 @@ import com.brijframework.authorization.account.model.onboarding.UIUserOnBoarding
 import com.brijframework.authorization.account.repository.UserAccountRepository;
 import com.brijframework.authorization.account.repository.UserOnBoardingAnswerRepository;
 import com.brijframework.authorization.account.repository.UserOnBoardingQuestionRepository;
+import com.brijframework.authorization.constant.RecordStatus;
 import com.brijframework.authorization.global.account.mapper.GlobalUserDetailMapper;
 import com.brijframework.authorization.global.account.mapper.GlobalUserOnBoardingQuestionMapper;
 import com.brijframework.authorization.view.repository.ViewOnBoardingQuestionRepository;
@@ -78,7 +79,7 @@ public class UserOnBoardingQuestionServiceImpl extends CrudServiceImpl<UIUserOnB
 
 	@Override
 	public UIUserOnBoardingQuestion saveOnBoardingQuestion(UIUserOnBoardingQuestion userOnBoardingQuestion, String username) {
-		Optional<EOUserAccount> findUserAccount = userAccountRepository.findByUsername(username);
+		Optional<EOUserAccount> findUserAccount = userAccountRepository.findByUsername(username, RecordStatus.ACTIVETED.getStatusIds());
 		if (!findUserAccount.isPresent()) {
 			return null;
 		}

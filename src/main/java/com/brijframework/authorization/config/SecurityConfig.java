@@ -25,7 +25,9 @@ import com.brijframework.authorization.filters.TokenAuthenticationFilter;
 public class SecurityConfig { 
 	String[] patterns = { 
 			"/api/global/authentication/**", 
+			"/api/global/user/detail/**", 
 			"/api/device/authentication/**", 
+			"/api/device/user/detail/**", 
 			"/api/swagger-ui/**", 
 			"/v3/api-docs/**",
 			"/resources/**"

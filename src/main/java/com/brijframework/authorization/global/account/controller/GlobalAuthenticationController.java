@@ -36,8 +36,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.unlimits.rest.crud.beans.Response;
+import org.unlimits.rest.crud.controller.CQRSController;
 
 import com.brijframework.authorization.account.model.UIUserAccount;
+import com.brijframework.authorization.account.model.auth.GlobalAuthDataDTO;
 import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
 import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
@@ -82,42 +84,85 @@ public class GlobalAuthenticationController {
 
 	@Autowired
 	private TemplateService templateService;
+	
+	private String from_email="noreply@clavis.digital";
+	
+	private String from_subject="Unlimits";
 
 	@PostMapping("/login")
 	public Response<Object> userLogin(@RequestBody GlobalLoginRequest globalLoginRequest) {
-		Authentication authenticate = 
-				ServiceType.NORMAL.equals(globalLoginRequest.getServiceType())?
-				authenticationManager.authenticate(new BasicAuthentication(
-						globalLoginRequest.getUsername(), globalLoginRequest.getPassword())):
-				authenticationManager.authenticate(new SocialAuthentication(globalLoginRequest.getUsername()));
-		if (authenticate.isAuthenticated()) {
-			Response<Object> authDTO =basicAuthenticationProvider.userLogin(globalLoginRequest);
-			return authDTO;
-		} else {
-			Response<Object> authDTO =new Response<Object>();
-			authDTO.setSuccess("0");
-			authDTO.setMessage("Login faild, due to invalid creditional.");
-			return authDTO;
+		Response<Object> response =new Response<Object>();
+		try {
+			Authentication authenticate = 
+					ServiceType.NORMAL.equals(globalLoginRequest.getServiceType())?
+					authenticationManager.authenticate(new BasicAuthentication(
+							globalLoginRequest.getUsername(), globalLoginRequest.getPassword())):
+					authenticationManager.authenticate(new SocialAuthentication(globalLoginRequest.getUsername()));
+			if (authenticate.isAuthenticated()) {
+				response.setSuccess(CQRSController.SUCCESS);
+				response.setMessage(CQRSController.SUCCESSFULLY_PROCCEED);
+				GlobalAuthDataDTO authDTO =basicAuthenticationProvider.userLogin(globalLoginRequest);
+				response.setData(authDTO);
+				return response;
+			} else {
+				response.setSuccess(CQRSController.FAILED);
+				response.setMessage("Login faild, due to invalid creditional.");
+				return response;
+			}
+		}catch (Exception e) {
+			response.setSuccess(CQRSController.FAILED);
+			response.setMessage("Register faild, due to invalid creditional.");
+			return response;
 		}
 	}
 
 	@PostMapping("/register")
 	public Response<Object> userRegistor(@RequestBody GlobalRegisterRequest registerRequest) {
-		return basicAuthenticationProvider.register(registerRequest);
+		Response<Object> response =new Response<Object>();
+		try {
+			response.setSuccess(CQRSController.SUCCESS);
+			response.setMessage(CQRSController.SUCCESSFULLY_PROCCEED);
+			response.setData(basicAuthenticationProvider.register(registerRequest));
+			return response;
+		}catch (Exception e) {
+			response.setSuccess(CQRSController.FAILED);
+			response.setMessage("Register faild, due to invalid creditional.");
+			return response;
+		}
 	}
 	
 	
 	@PostMapping("/logout")
-	public String userLogout() {
-		TokenAuthentication tokenAuthentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
-		return tokenService.logout(tokenAuthentication.getToken());
+	public Response<Object> userLogout() {
+		Response<Object> response =new Response<Object>();
+		try {
+			TokenAuthentication tokenAuthentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
+			response.setData(tokenService.logout(tokenAuthentication.getToken()));
+			response.setSuccess(CQRSController.SUCCESS);
+			response.setMessage(CQRSController.SUCCESSFULLY_PROCCEED);
+			return response;
+		}catch (Exception e) {
+			response.setSuccess(CQRSController.FAILED);
+			response.setMessage("Register faild, due to invalid creditional.");
+			return response;
+		}
 	}
 	
 	@PostMapping("/validate")
-	public Boolean userValidate() {
-		log.debug("User Login start.");
-		TokenAuthentication tokenAuthentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
-		return tokenService.validateToken(tokenAuthentication.getToken());
+	public Response<Object> userValidate() {
+		Response<Object> response =new Response<Object>();
+		try {	
+			log.debug("User Login start.");
+			TokenAuthentication tokenAuthentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
+			response.setData( tokenService.validateToken(tokenAuthentication.getToken()));
+			response.setSuccess(CQRSController.SUCCESS);
+			response.setMessage(CQRSController.SUCCESSFULLY_PROCCEED);
+			return response;
+		}catch (Exception e) {
+			response.setSuccess(CQRSController.FAILED);
+			response.setMessage("Validate faild, due to invalid creditional.");
+			return response;
+		}
 	}
 
 	@GetMapping
@@ -156,7 +201,7 @@ public class GlobalAuthenticationController {
 			e.printStackTrace();
 		}
 		String buildHtml = templateService.buildHtml("mailOtp", hashMap);
-		return mailService.sendMail("Password OTP", uiUserAccount.getRegisteredEmail(),
+		return mailService.sendMail(from_subject, from_email,
 				uiUserAccount.getRegisteredEmail(), buildHtml);
 	}
 
@@ -195,7 +240,7 @@ public class GlobalAuthenticationController {
 		hashMap.put("otp", otp + "");
 		hashMap.put("date", Calendar.getInstance().getTime().toString());
 		String buildHtml = templateService.buildHtml("mailOtp", hashMap);
-		return mailService.sendMail("Password OTP", userDetails.getRegisteredEmail(), userDetails.getRegisteredEmail(), buildHtml);
+		return mailService.sendMail(from_subject, from_email, userDetails.getRegisteredEmail(), buildHtml);
 	}
 
 	@PostMapping(PASSWORD_RESET_BY_OTP_ENDPOINT)

@@ -16,6 +16,7 @@ import com.brijframework.authorization.account.entities.EOUserToken;
 import com.brijframework.authorization.account.model.UserDetailResponse;
 import com.brijframework.authorization.account.repository.UserAccountRepository;
 import com.brijframework.authorization.account.repository.UserTokenRepository;
+import com.brijframework.authorization.constant.RecordStatus;
 import com.brijframework.authorization.exceptions.InvalidTokenException;
 import com.brijframework.authorization.global.account.mapper.GlobalUserDetailMapper;
 
@@ -75,7 +76,7 @@ public class UserTokenServiceImpl implements UserTokenService {
 	public String login(String username, Long userId, String role, String serviceType) {
 		String token = generateToken(username, userId, role, serviceType);
 		EOUserToken eoToken = new EOUserToken(token, token, serviceType,
-				userAccountRepository.findByUsername(username).orElse(null));
+				userAccountRepository.findByUsername(username, RecordStatus.ACTIVETED.getStatusIds()).orElse(null));
 		userTokenRepository.save(eoToken);
 		return TOKEN_PREFIX + token;
 	}
@@ -109,7 +110,7 @@ public class UserTokenServiceImpl implements UserTokenService {
 			throw new InvalidTokenException("Invalid token");
 		}
 		String username = this.extractUsername(token);
-		Optional<EOUserAccount> findUserLogin = userAccountRepository.findByUsername(username);
+		Optional<EOUserAccount> findUserLogin = userAccountRepository.findByUsername(username, RecordStatus.ACTIVETED.getStatusIds());
 		EOUserAccount eoUserAccount = findUserLogin.orElseThrow(() -> new RuntimeException("Not found!"));
 		// userOnBoardingService.initOnBoarding(eoUserAccount);
 		return userDetailMapper.mapToDTO(eoUserAccount);

@@ -15,6 +15,7 @@ import com.brijframework.authorization.account.model.UserDetailResponse;
 import com.brijframework.authorization.account.repository.UserAccountRepository;
 import com.brijframework.authorization.account.repository.UserProfileRepository;
 import com.brijframework.authorization.account.repository.UserRoleRepository;
+import com.brijframework.authorization.constant.RecordStatus;
 import com.brijframework.authorization.constant.UserType;
 import com.brijframework.authorization.global.account.mapper.GlobalUserDetailMapper;
 
@@ -44,7 +45,7 @@ public class CustUserDetailServiceImpl implements CustUserDetailService {
 			UIUserProfile uiUserProfile=new UIUserProfile();
 			userDetailRequest.setUserProfile(uiUserProfile);
 		}
-		EOUserAccount eoUserAccount=userAccountRepository.findByUsername(userDetailRequest.getUsername()).orElse(new EOUserAccount());
+		EOUserAccount eoUserAccount=userAccountRepository.findByUsername(userDetailRequest.getUsername(), RecordStatus.ACTIVETED.getStatusIds()).orElse(new EOUserAccount());
 		eoUserAccount.setUsername(userDetailRequest.getUsername());
 		eoUserAccount.setPassword(userDetailRequest.getPassword());
 		eoUserAccount.setType(eoUserRole.getRoleId());
@@ -60,7 +61,7 @@ public class CustUserDetailServiceImpl implements CustUserDetailService {
 	
 	@Override
 	public UserDetailResponse deleteAccount(Long ownerId, String username) {
-		Optional<EOUserAccount> findUserAccount = userAccountRepository.findByUsername(username);
+		Optional<EOUserAccount> findUserAccount = userAccountRepository.findByUsername(username, RecordStatus.ACTIVETED.getStatusIds());
 		if(findUserAccount.isPresent()) {
 			userAccountRepository.delete(findUserAccount.get());
 			return userDetailMapper.mapToDTO(new EOUserAccount());
@@ -69,7 +70,7 @@ public class CustUserDetailServiceImpl implements CustUserDetailService {
 	}
 
 	public boolean isAlreadyExists(String username) {
-		return userAccountRepository.findByUsername(username).isPresent();
+		return userAccountRepository.findByUsername(username, RecordStatus.ACTIVETED.getStatusIds()).isPresent();
 	}
 
 	@Override
@@ -109,7 +110,7 @@ public class CustUserDetailServiceImpl implements CustUserDetailService {
 
 	@Override
 	public List<UserDetailResponse> getCustUsers(Long ownerId) {
-		return userDetailMapper.mapToDTO(userAccountRepository.findAllByOwnerIdAndRoleType(ownerId, UserType.VENDOR.getType()));
+		return userDetailMapper.mapToDTO(userAccountRepository.findAllByOwnerIdAndRoleType(ownerId, UserType.VENDOR.getType(), RecordStatus.ACTIVETED.getStatusIds()));
 	}
 
 }

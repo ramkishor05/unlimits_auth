@@ -12,10 +12,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.unlimits.rest.crud.beans.Response;
 
 import com.brijframework.authorization.account.entities.EOUserAccount;
 import com.brijframework.authorization.account.model.UIUserAccount;
+import com.brijframework.authorization.account.model.auth.GlobalAuthDataDTO;
 import com.brijframework.authorization.account.model.auth.GlobalLoginRequest;
 import com.brijframework.authorization.account.model.auth.GlobalPasswordReset;
 import com.brijframework.authorization.account.model.auth.GlobalRegisterRequest;
@@ -77,7 +77,7 @@ public class SocialAuthenticationProvider extends DaoAuthenticationProvider {
 		return userAccountService;
 	}
 
-	public Response<Object> register(GlobalRegisterRequest registerRequest) {
+	public GlobalAuthDataDTO register(GlobalRegisterRequest registerRequest) {
 		if(registerRequest.getAuthority()==null) {
 			registerRequest.setAuthority(Authority.USER);
 		}
@@ -86,7 +86,7 @@ public class SocialAuthenticationProvider extends DaoAuthenticationProvider {
 		return userDetailsService.register(registerRequest);
 	}
 
-	public Response<Object> userLogin(GlobalLoginRequest authRequest) {
+	public GlobalAuthDataDTO userLogin(GlobalLoginRequest authRequest) {
 		return userAccountService.login(authRequest);
 	}
 
