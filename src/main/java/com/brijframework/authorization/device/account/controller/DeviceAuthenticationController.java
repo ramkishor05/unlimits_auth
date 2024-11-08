@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Random;
 
+import org.brijframework.util.text.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -221,8 +222,11 @@ public class DeviceAuthenticationController {
 	@PostMapping("/password/send/link")
 	public Boolean sendLink(@RequestBody GlobalPasswordReset devicePasswordReset) {
 		log.debug("AuthController::sendOtp() start.");
-		
+		Random resetPassword = new Random();
+		int password = resetPassword.nextInt(99999);
 		GlobalPasswordReset passwordReset=new GlobalPasswordReset();
+		passwordReset.setPassword(password+"");
+		devicePasswordReset.setPassword(password+"");
 		BeanUtils.copyProperties(devicePasswordReset, passwordReset);
 		Random resetToken = new Random();
 		int otp = resetToken.nextInt(9999);
@@ -230,19 +234,21 @@ public class DeviceAuthenticationController {
 		UIUserAccount uiUserAccount = passwordAuthenticationProvider.saveOtp(passwordReset);
 		HashMap<String, Object> hashMap = new HashMap<>();
 		if (uiUserAccount.getAccountName() == null) {
-			hashMap.put("name", "Hey, " + uiUserAccount.getRegisteredEmail());
+			hashMap.put("name", (StringUtil.isNonEmpty(uiUserAccount.getRegisteredEmail())? uiUserAccount.getRegisteredEmail(): uiUserAccount.getUsername()));
 		} else {
-			hashMap.put("name", "Hey " + uiUserAccount.getAccountName());
+			hashMap.put("name", uiUserAccount.getAccountName());
 		}
 		hashMap.put("date", Calendar.getInstance().getTime().toString());
 		hashMap.put("msg1", SEND_LINK_MSG1);
 		hashMap.put("validTime", SEND_LINK_VALID_TIME);
-		hashMap.put("msg2", SEND_LINK_MSG2);
+		hashMap.put("msg2","Your temporary password is <b>"+password+"</b><br><br> Note: "+  SEND_LINK_MSG2);
+		hashMap.put("password", password);
 		Encoder encoder = Base64.getEncoder();
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			String link = encoder.encodeToString(objectMapper.writeValueAsString(passwordReset).getBytes());
 			hashMap.put("link", environmentUtil.getServerUrlPrefi() + API_AUTH+PASSWORD_RESET_BY_LINK_ENDPOINT + link);
+			resetPasswordLink(link);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
