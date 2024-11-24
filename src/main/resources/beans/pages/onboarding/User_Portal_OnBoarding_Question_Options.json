@@ -10,6 +10,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
 				"value": "Under 18",
+				"desciption": "Whose age is under 18 years.",
 				"orderSequence": 1.0
 			}
 		},
@@ -20,6 +21,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
 				"value": "18-25",
+				"desciption": "Whose age is between 18-25 years.",
 				"orderSequence": 2.0
 			}
 		},
@@ -30,6 +32,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
 				"value": "26-35",
+				"desciption": "Whose age is between 26-35 years.",
 				"orderSequence": 3.0
 			}
 		},
@@ -40,6 +43,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
 				"value": "36-45",
+				"desciption": "Whose age is between 36-45 years.",
 				"orderSequence": 4.0
 			}
 		},
@@ -50,6 +54,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
 				"value": "46-60",
+				"desciption": "Whose age is between 46-60 years.",
 				"orderSequence": 5.0
 			}
 		},
@@ -60,6 +65,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_AGE",
 				"value": "60+",
+				"desciption": "Whose age is above 60 years.",
 				"orderSequence": 6.0
 			}
 		},
@@ -70,6 +76,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Gender",
 				"value": "Male",
+				"desciption": "Who is male.",
 				"orderSequence": 1.0
 			}
 		},
@@ -80,6 +87,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Gender",
 				"value": "Female",
+				"desciption": "Who is female.",
 				"orderSequence": 2.0
 			}
 		},
@@ -89,8 +97,8 @@
 			"name": "User_Portal_OnBoarding_Question",
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Gender",
-				"value": "Prefer not to say"
-				,
+				"value": "Prefer not to say",
+				"desciption": "Who is gender undeclared.",
 				"orderSequence": 3.0
 			}
 		},
@@ -101,6 +109,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
 				"value": "I am a student",
+				"desciption": "Who is a student.",
 				"orderSequence": 1.0
 			}
 		},
@@ -111,6 +120,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
 				"value": "I run my own business",
+				"desciption": "Who runs own business.",
 				"orderSequence": 2.0
 			}
 		},
@@ -121,6 +131,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
 				"value": "I am self-employed",
+				"desciption": "Who is self-employed.",
 				"orderSequence": 3.0
 			}
 		},
@@ -131,6 +142,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
 				"value": "I just started my career",
+				"desciption": "Who just started the career.",
 				"orderSequence": 4.0
 			}
 		},
@@ -141,6 +153,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
 				"value": "I am in senior leadership",
+				"desciption": "Who is in senior leadership.",
 				"orderSequence": 5.0
 			}
 		},
@@ -151,6 +164,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
 				"value": "I am a homemaker",
+				"desciption": "Who is a homemaker.",
 				"orderSequence": 6.0
 			}
 		},
@@ -161,6 +175,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
 				"value": "I am an artist",
+				"desciption": "Who is an artist.",
 				"orderSequence": 7.0
 			}
 		},
@@ -171,6 +186,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
 				"value": "I am unemployed",
+				"desciption": "Who is unemployed.",
 				"orderSequence": 8.0
 			}
 		},
@@ -181,6 +197,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Work",
 				"value": "Other",
+				"desciption": "",
 				"orderSequence": 9.0
 			}
 		}
@@ -192,6 +209,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Life",
 				"value": "I want a crazy moonshot",
+				"desciption": "Create a large moonshot vision with big hairy audacious goals.",
 				"orderSequence": 1.0
 			}
 		},
@@ -202,6 +220,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Life",
 				"value": "I want a bold vision",
+				"desciption": "Create a vision that large and inspiring to go the next level.",
 				"orderSequence": 2.0
 			}
 		},
@@ -212,6 +231,7 @@
 			"properties": {
 				"question": "LK@User_Portal_OnBoarding_Question_USER_Life",
 				"value": "I want break my comfort zone",
+				"desciption": "Create a vision that improves and makes changes in smaller ways without too much change in the comfort zone.",
 				"orderSequence": 3.0
 			}
 		}

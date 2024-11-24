@@ -24,6 +24,7 @@ import com.brijframework.authorization.account.repository.UserOnBoardingQuestion
 import com.brijframework.authorization.constant.RecordStatus;
 import com.brijframework.authorization.global.account.mapper.GlobalUserDetailMapper;
 import com.brijframework.authorization.global.account.mapper.GlobalUserOnBoardingQuestionMapper;
+import com.brijframework.authorization.view.model.onboadring.UIViewOnBoardingOptions;
 import com.brijframework.authorization.view.repository.ViewOnBoardingQuestionRepository;
 
 @Service
@@ -132,6 +133,10 @@ public class UserOnBoardingQuestionServiceImpl extends CrudServiceImpl<UIUserOnB
 
 	public void postFetch(EOUserOnBoardingQuestion findObject, UIUserOnBoardingQuestion dtoObject) {
 		dtoObject.getQuestion().getOptions().sort((op1,op2)->op1.getOrderSequence().compareTo(op2.getOrderSequence()));
+		Map<String, String> optionMap = dtoObject.getQuestion().getOptions().stream().collect(Collectors.toMap(UIViewOnBoardingOptions::getValue, UIViewOnBoardingOptions::getDesciption));
+		dtoObject.getAnswers().forEach(answer->{
+			answer.setDesciption(optionMap.get(answer.getValue()));
+		});
 	}
 
 }

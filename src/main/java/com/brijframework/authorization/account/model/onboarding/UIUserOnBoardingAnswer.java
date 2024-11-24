@@ -5,6 +5,7 @@ import com.brijframework.authorization.model.UIModel;
 public class UIUserOnBoardingAnswer extends UIModel {
 	
 	private String value;
+	private String desciption;
 
 	public String getValue() {
 		return value;
@@ -14,4 +15,11 @@ public class UIUserOnBoardingAnswer extends UIModel {
 		this.value = value;
 	}
 
+	public String getDesciption() {
+		return desciption;
+	}
+
+	public void setDesciption(String desciption) {
+		this.desciption = desciption;
+	}
 }

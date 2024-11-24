@@ -5,6 +5,8 @@ import com.brijframework.authorization.model.UIModel;
 public class UIViewOnBoardingOptions extends UIModel {
 
 	private String value;
+	
+	private String desciption;
 
 	public String getValue() {
 		return value;
@@ -14,4 +16,11 @@ public class UIViewOnBoardingOptions extends UIModel {
 		this.value = value;
 	}
 
+	public String getDesciption() {
+		return desciption;
+	}
+
+	public void setDesciption(String desciption) {
+		this.desciption = desciption;
+	}
 }

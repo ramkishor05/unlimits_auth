@@ -30,6 +30,9 @@ public class EOViewOnBoardingOptions extends EOEntityObject {
 	
 	@Column(name = "VALUE")
 	private String value;
+	
+	@Column(name = "DESCIPTION")
+	private String desciption;
 
 	public EOViewOnBoardingQuestion getQuestion() {
 		return question;
@@ -45,6 +48,22 @@ public class EOViewOnBoardingOptions extends EOEntityObject {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public String getIdenNo() {
+		return idenNo;
+	}
+
+	public void setIdenNo(String idenNo) {
+		this.idenNo = idenNo;
+	}
+
+	public String getDesciption() {
+		return desciption;
+	}
+
+	public void setDesciption(String desciption) {
+		this.desciption = desciption;
 	}
 
 	@Override
